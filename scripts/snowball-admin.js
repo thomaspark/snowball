@@ -13,7 +13,12 @@
 
     var block =  $("<div class='snowball-block'>" +
                               "<div class='snowball-gui'>" +
-                                  "<div class='snowball-tinker'><div class='snowball-title'></div></div>" +
+                                  "<div class='snowball-tinker'>" +
+                                    "<div>" +
+                                      "<div class='snowball-title'></div>" +
+                                      "<div class='snowball-delete'>&times;</div>" +
+                                    "</div>" +
+                                  "</div>" +
                                   "<iframe class='snowball-preview'></iframe>" +
                                 "</div>" +
                                 "<div class='snowball-code'>" +
@@ -53,6 +58,11 @@
     renderPreview(block);
   });
 
+  $(".snowball-main").on("click", ".snowball-delete", function() {
+    var block = $(this).parents(".snowball-block");
+    confirmDelete(block);
+  });
+
   $(window).resize(debounce(function() {
     zoomPreview();
   }, 250));
@@ -67,6 +77,13 @@
         $(this).trigger("change");
       }, 250)
     });
+  }
+
+  function confirmDelete(block) {
+    var result = confirm("Are you sure you want to delete this block?");
+    if (result) {
+      block.remove();
+    }
   }
 
   function renderPreview(block) {
@@ -90,7 +107,6 @@
       html = html.replace("{{" + target + "}}", value);
 
     });
-
 
     preview.contents()
       .find("body").html(html);

@@ -32,23 +32,12 @@
   margin-bottom: 0.25em;
 }
 
-.snowball-gui,
-.snowball-code {
-  /*clear: both;*/
-}
-
-.snowball-title {
-  margin-bottom: 1em;
-  font-weight: bold;
-}
-
 .snowball-gui {
   position: relative;
 }
 
 .snowball-code {
   display: none;
-  background-color: purple;
 }
 
 .snowball-tinker,
@@ -56,6 +45,27 @@
   width: 50%;
   min-height: 200px;
   height: 100%;
+}
+
+.snowball-title {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.snowball-title,
+.snowball-delete {
+  display: inline-block;
+}
+
+.snowball-delete {
+  float: right;
+  font-size: 1.5em;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.snowball-delete:hover {
+  opacity: 1;
 }
 
 .snowball-tinker {
