@@ -113,8 +113,7 @@ function snowball_metabox_callback() {
  */
 
 function snowball_template($single_template) {
-  global $post;
-  if ($post->post_type == 'snowball') {
+  if (get_post_type(get_the_id()) == 'snowball') {
     $single_template = dirname( __FILE__ ) . '/snowball-template.php';
   }
   return $single_template;
@@ -128,8 +127,7 @@ add_filter('single_template', 'snowball_template');
  */
 
 function snowball_admin_add_scripts_and_stylesheets() {
-  global $post;
-  if ($post->post_type == 'snowball') {
+  if (get_post_type(get_the_id()) == 'snowball') {
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/snowball-admin.css'));
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'wp-color-picker'), '', true);
