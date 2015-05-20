@@ -130,9 +130,9 @@ add_filter('single_template', 'snowball_template');
 function snowball_admin_add_scripts_and_stylesheets() {
   global $post;
   if ($post->post_type == 'snowball') {
-    wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_style('wp-color-picker');
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/snowball-admin.css'));
-    wp_enqueue_script('nowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'wp-color-picker'), '', true);
+    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'wp-color-picker'), '', true);
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
