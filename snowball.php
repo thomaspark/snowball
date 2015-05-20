@@ -103,7 +103,7 @@ add_action('add_meta_boxes', 'snowball_add_metabox');
 function snowball_metabox_callback() {
   wp_nonce_field(plugin_basename( __FILE__ ), 'snowball_metabox_content_nonce');
   $path = plugin_dir_path( __FILE__ );
-  require('inc/editor.php');
+  require('inc/snowball-editor.php');
 }
 
 
