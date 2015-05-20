@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+@import url(https://fonts.googleapis.com/css?family=Merriweather:400,700);
+
+body {
+  margin: 4em 0;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: 'Merriweather', serif;
+  font-size: 18px;
+  letter-spacing: 0.159999996423721px;
+  line-height: 1.4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.snowball-block {
+  max-width: 600px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.meta {
+  margin-bottom: 4rem;
+  text-align: center;
+}
