@@ -43,7 +43,7 @@
 .snowball-tinker,
 .snowball-preview {
   width: 50%;
-  min-height: 200px;
+  min-height: 250px;
   height: 100%;
 }
 
@@ -102,6 +102,10 @@
 
 .snowball-block input:focus {
   outline-width: 2px;
+}
+
+.snowball-block input[type="text"] {
+  width: 100%;
 }
 
 .wp-picker-clear,
