@@ -131,6 +131,11 @@ function snowball_admin_add_scripts_and_stylesheets() {
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/snowball-admin.css'));
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'wp-color-picker'), '', true);
+
+    // image uploads
+    wp_enqueue_style('thickbox');
+    wp_enqueue_script('media-upload');
+    wp_enqueue_script('thickbox');
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
