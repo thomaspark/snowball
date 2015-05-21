@@ -22,9 +22,13 @@ h1 {
 }
 
 .snowball-block {
-  max-width: 600px;
-  width: 90%;
+  width: 600px;
+  min-width: 600px;
   margin: 0 auto;
+}
+
+.snowball-bleed {
+  width: 100%;
 }
 
 .meta {

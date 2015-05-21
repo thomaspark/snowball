@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+html {
+  overflow-x: hidden;
+  transform-origin: 0 0 0;
+}
+
 .snowball-block-text {
   margin: 1em auto;
 }

@@ -114,9 +114,9 @@
     var zoom = width / 600;
 
     if (block) {
-      block.find(".snowball-preview").contents().find(".snowball-block").css("zoom", zoom);
+      block.find(".snowball-preview").contents().find("html").css("transform", "scale(" + zoom + ")");
     } else {
-      $(".snowball-preview").contents().find(".snowball-block").css("zoom", zoom);
+      $(".snowball-preview").contents().find("html").css("transform", "scale(" + zoom + ")");
     }
   }
 
