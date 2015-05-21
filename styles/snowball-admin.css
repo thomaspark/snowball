@@ -43,7 +43,11 @@
 .snowball-tinker,
 .snowball-preview {
   width: 50%;
+<<<<<<< HEAD
   min-height: 250px;
+=======
+  min-height: 600px;
+>>>>>>> 15025e7a23858017ba637a312cd411441e29d841
   height: 100%;
 }
 

@@ -1,0 +1,49 @@
+<form data-name="Text">
+	<label>Title<br>
+		<input type="text" data-target="title" placeholder="Title" value="Section">
+	</label>
+
+	<label>Google Map URL<br>
+		<input type="text" id="userEnteredMapUrl" data-target="userEnteredMapUrlTarget"  style="width: 300px;" placeholder="Search on Google Maps and Copy URL here">
+	</label>
+	
+	<input type="hidden" id="embedUrl" data-target="embedUrlTarget" value="">
+	
+
+	<script>
+		jQuery(function()
+		{
+			jQuery('#userEnteredMapUrl').on('keyup', function()
+			{
+				var userEnteredMapUrl = jQuery('#userEnteredMapUrl').val();
+				console.log("userEnteredMapUrl" + userEnteredMapUrl);
+				var urlElements = userEnteredMapUrl.split('@')[1].split('/data=')[0].split(',');
+
+				var latitude = urlElements[0];
+				var longitude = urlElements[1];
+
+				var mapType;
+				var zoom;
+
+				var apiKey = 'AIzaSyCIYiEC2rnfnoioDXXwt17q4OnvSZUYga4';
+
+				if (urlElements.indexOf('z')>=0)
+				{
+					mapType = 'roadmap';
+					zoom = urlElements[2].split('z');
+				}
+				else
+				{
+					mapType = 'satellite';
+					zoom = urlElements[2].split('m');
+				}
+
+				var embedUrl = 'https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&center=' + latitude + ',' + longitude + '&zoom=' + zoom + '&maptype=' + mapType;
+
+				jQuery('#embedUrl').val(embedUrl);
+			});
+				
+		});
+	</script>
+
+</form>
