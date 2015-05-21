@@ -88,6 +88,7 @@
 .snowball-block label {
   display: block;
   margin-bottom: 2em;
+  cursor: default;
 }
 
 .snowball-block label:last-child {
@@ -102,10 +103,6 @@
 
 .snowball-block input:focus {
   outline-width: 2px;
-}
-
-.snowball-block input[type="text"] {
-  width: 100%;
 }
 
 .wp-picker-clear,
