@@ -45,6 +45,9 @@
       var block = $(this).parents(".snowball-block");
       confirmDelete(block);
     })
+    .sortable({
+      "cursor": "move"
+    });
 
   $(window).resize(debounce(function() {
     zoomPreview();
