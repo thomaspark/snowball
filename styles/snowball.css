@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 @import url(https://fonts.googleapis.com/css?family=Merriweather:400,700);
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 4em 0;
   -webkit-font-smoothing: antialiased;
