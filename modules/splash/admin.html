@@ -1,13 +1,37 @@
 <form data-name="Splash">
   <label>Content<br>
-    <input data-target="title" value="Splish Splash">
+    <input type="text" data-target="title" value="Splish Splash">
+  </label>
+
+  <label>Text Color<br>
+    <input type="text" class="wp-color-picker" data-target="color" value="#fff" data-default-color="#fff" />
   </label>
 
   <label>Background Color<br>
     <input type="text" class="wp-color-picker" data-target="background-color" value="#bada55" data-default-color="#bada55" />
   </label>
 
-  <label>Text Color<br>
-    <input type="text" class="wp-color-picker" data-target="color" value="#fff" data-default-color="#fff" />
+  <label> Background Image<br>
+    <input type="text" class="upload-image" data-target="background-image" name="upload_image">
+    <button type="button" class="upload-image-button button">Choose Image</button>
   </label>
+  <script>
+
+  (function($) {
+    var index;
+
+    $(".upload-image-button").click(function() {
+      index = $(".upload-image-button").index($(this));
+      tb_show("", "media-upload.php?type=image&TB_iframe=true");
+      return false;
+    });
+
+    window.send_to_editor = function(html) {
+      imgurl = $("img", html).attr("src");
+      $(".upload-image").eq(index).val(imgurl).trigger("change");
+      tb_remove();
+    }
+  })(jQuery);
+
+  </script>
 </form>
