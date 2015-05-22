@@ -46,6 +46,7 @@
       confirmDelete(block);
     })
     .sortable({
+      "containment": ".snowball-main",
       "cursor": "move"
     });
 
