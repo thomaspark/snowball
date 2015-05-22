@@ -65,7 +65,9 @@
 
     block.find(".wp-color-picker").wpColorPicker({
       change: debounce(function (event) {
-        $(this).trigger("change");
+        $(this)
+          .trigger("change")
+          .attr("value", $(this).val());
       }, 250)
     });
   }
