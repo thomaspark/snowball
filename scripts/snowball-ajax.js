@@ -2,22 +2,18 @@ jQuery(document).ready(function($) {
 
 	// We can also pass the url value separately from ajaxurl for front end AJAX implementations
 	$("#publish").click(function() {
-		var blocksRetrieved = retrieveBlocks();
 
-		var data = {
-			'action': 'add_blocks',		// this is needed to know which callback to use
-			'blocks': blocksRetrieved,
-		};
-		$.post(ajax_object.ajax_url, data, function(response) {
-			console.log(response);
-		});
 	});
+
+	// TODO: This needs to be removed and 
+	// done with a public/update button
 	$("#add-text").click(function(){
 		var blocksRetrieved = retrieveBlocks();
 
 		var data = {
 			'action': 'add_blocks',		// this is needed to know which callback to use
 			'blocks': blocksRetrieved,
+			'post_id' : ajax_object.post_id
 		};
 		$.post(ajax_object.ajax_url, data, function(response) {
 			console.log("The response: " + response);

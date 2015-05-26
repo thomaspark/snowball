@@ -178,22 +178,23 @@ add_action('save_post', 'snowball_metabox_save');
 
 add_action( 'admin_enqueue_scripts', 'add_block_ajax_enqueue' );
 function add_block_ajax_enqueue($hook) {
-
+  global $post;
   wp_enqueue_script( 'ajax-script', plugins_url( '/scripts/snowball-ajax.js', __FILE__ ), array('jquery') );
 
   // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
   wp_localize_script( 'ajax-script', 'ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID));
 }
 
 // THE HANDLER FUNCTION for the AJAX call
 add_action( 'wp_ajax_nopriv_add_blocks', 'add_blocks_callback' );
 add_action( 'wp_ajax_add_blocks', 'add_blocks_callback' );
 function add_blocks_callback() {
+  $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
-  snowball_save_block(json_encode($block_data));
-  
-  wp_send_json($block_data);
+  $insert_id = snowball_save_block(json_encode($block_data), $post_id);
+  //echo $_GET['post_id'];
+ // wp_send_json($block_data);
 }
 
 /*
@@ -204,6 +205,7 @@ global $snowball_db_version;
 $snowball_db_version = '1.0';
 
 // This is called only once, when the plugin is installed
+// this creates the table needed for the plugin
 function snowball_install_dbtable() {
   global $wpdb;
   global $snowball_db_version;
@@ -228,18 +230,18 @@ function snowball_install_dbtable() {
 register_activation_hook( __FILE__, 'snowball_install_dbtable' );
 
 
-// ensure the js
-function snowball_save_block($json_block) {
+// if successful return insert_id
+// if fails return -1
+function snowball_save_block($json_block, $post_id) {
   global $wpdb;
-  global $post;
-  
+
   $table_name = $wpdb->prefix . 'snowball_blocks';
   
   $inserted = $wpdb->insert( 
     $table_name, 
     array( 
       'time' => current_time( 'mysql' ), 
-      'post_id' => $post->ID, 
+      'post_id' => $post_id, 
       'blocks_value' => $json_block, 
     ),
     array(
@@ -253,14 +255,25 @@ function snowball_save_block($json_block) {
     $insert_id = $wpdb->insert_id;
   }else{
     //Insert failed
-
+    $insert_id = -1;
   }
+  return $post_id;
 }
 
 function snowball_update_blocks() {
 
 }
 
-register_activation_hook( __FILE__, 'snowball_save_block' );
+function snowball_get_blocks() {
+  // $term = $_GET['activity'];
+   
+  // //Escape any wildcards
+  // $term = like_escape($term);
+   
+  // $sql = $wpdb->prepare("SELECT* FROM $wpdb->snowball_blocks WHERE activity LIKE %s", '%'.$term.'%');
+   
+  // $logs = $wpdb->get_results($sql);
+
+}
 
 ?>
