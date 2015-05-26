@@ -16,21 +16,20 @@
           var userEnteredMapUrl = $(this).val();
 
           if (userEnteredMapUrl.indexOf("@") >= 0) {
+            var apiKey = "AIzaSyCIYiEC2rnfnoioDXXwt17q4OnvSZUYga4";
             var urlElements = userEnteredMapUrl.split("@")[1].split("/data=")[0].split(",");
 
             var latitude = urlElements[0];
             var longitude = urlElements[1];
             var mapType;
             var zoom;
-
-            var apiKey = "AIzaSyCIYiEC2rnfnoioDXXwt17q4OnvSZUYga4";
+            zoom = urlElements[2];
+            zoom = zoom.substring(0, zoom.length - 1);
 
             if (urlElements[2].indexOf("z") >= 0) {
               mapType = "roadmap";
-              zoom = urlElements[2].split("z");
             } else {
               mapType = "satellite";
-              zoom = urlElements[2].split("m");
             }
 
             var embedUrl = "https://www.google.com/maps/embed/v1/view?key=" + apiKey + "&center=" + latitude + "," + longitude + "&zoom=" + zoom + "&maptype=" + mapType;
