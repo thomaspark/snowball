@@ -171,4 +171,92 @@ function snowball_metabox_save($post_id) {
 }
 add_action('save_post', 'snowball_metabox_save');
 
+
+/*
+  Ajax calls
+*/
+
+add_action( 'admin_enqueue_scripts', 'add_block_ajax_enqueue' );
+function add_block_ajax_enqueue($hook) {
+
+  wp_enqueue_script( 'ajax-script', plugins_url( '/js/snowball-ajax.js', __FILE__ ), array('jquery') );
+
+  // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
+  wp_localize_script( 'ajax-script', 'ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
+}
+
+// THE HANDLER FUNCTION for the AJAX call
+add_action( 'wp_ajax_add_blocks', 'add_block_callback' );
+function add_block_callback() {
+  
+  wp_die();
+}
+
+/*
+  Database calls
+*/
+
+global $snowball_db_version;
+$snowball_db_version = '1.0';
+
+// This should be only called once the plugin is installed
+function snowball_install() {
+  global $wpdb;
+  global $snowball_db_version;
+
+  $table_name = $wpdb->prefix . 'snowball_blocks';
+  
+  $charset_collate = $wpdb->get_charset_collate();
+
+  $sql = "CREATE TABLE $table_name (
+    ID mediumint(9) NOT NULL AUTO_INCREMENT,
+    time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    post_id bigint(20) NOT NULL,
+    blocks_value longtext NOT NULL,
+    UNIQUE KEY ID (id)
+  ) $charset_collate;";
+
+  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  dbDelta( $sql );
+
+  add_option( 'snowball_db_version', $snowball_db_version );
+}
+
+// sample database change
+function snowball_install_data() {
+  global $wpdb;
+  global $post;
+  
+  $table_name = $wpdb->prefix . 'snowball_blocks';
+  
+  $inserted = $wpdb->insert( 
+    $table_name, 
+    array( 
+      'time' => current_time( 'mysql' ), 
+      'post_id' => $post->ID, 
+      'blocks_value' => "sample text", 
+    ) ,
+    array(
+      "%s",
+      "%d",
+      "%s",
+    )
+  );
+
+  if( $inserted ){
+    $insert_id = $wpdb->insert_id;
+  }else{
+    //Insert failed
+  }
+
+}
+
+function snowball_update_blocks() {
+
+}
+
+register_activation_hook( __FILE__, 'snowball_install' );
+//register_activation_hook( __FILE__, 'snowball_install_data' );
+
 ?>
