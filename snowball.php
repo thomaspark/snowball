@@ -174,6 +174,7 @@ add_action('save_post', 'snowball_metabox_save');
 
 /*
   Ajax calls
+  TODO: add permissions and error traps
 */
 
 add_action( 'admin_enqueue_scripts', 'add_block_ajax_enqueue' );
@@ -186,26 +187,42 @@ function add_block_ajax_enqueue($hook) {
             array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID));
 }
 
-// THE HANDLER FUNCTION for the AJAX call
+/*
+  Handler function for the add-block 
+*/
 add_action( 'wp_ajax_nopriv_add_blocks', 'add_blocks_callback' );
 add_action( 'wp_ajax_add_blocks', 'add_blocks_callback' );
 function add_blocks_callback() {
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
   $insert_id = snowball_save_block(json_encode($block_data), $post_id);
-  //echo $_GET['post_id'];
- // wp_send_json($block_data);
+  $success = "success";
+  if ($insert_id == -1) {
+    $success = "failed";
+  }
+  echo $success;
+}
+
+/*
+  Returns an array representing all the block objects retrieved from the db.
+*/
+function get_block_json($post_id){
+  $row = snowball_get_blocks($post_id);
+  // retrieves one row from the db with 
+  $block_json = json_decode($row, ARRAY_A);
+  return $block_json;
 }
 
 /*
   Database calls
+  TODO: add permissions and error traps
 */
-
 global $snowball_db_version;
 $snowball_db_version = '1.0';
-
-// This is called only once, when the plugin is installed
-// this creates the table needed for the plugin
+/* 
+  This is called only once, when the plugin is installed
+  this creates the table needed for the plugin
+*/
 function snowball_install_dbtable() {
   global $wpdb;
   global $snowball_db_version;
@@ -232,48 +249,69 @@ register_activation_hook( __FILE__, 'snowball_install_dbtable' );
 
 // if successful return insert_id
 // if fails return -1
+// TODO: error checking beginning and after the function.
 function snowball_save_block($json_block, $post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
-  
-  $inserted = $wpdb->insert( 
-    $table_name, 
+
+  /*
+    insert into database
+    if item exists, update the value
+  */
+  /*  Theoretically this code should work, but it doesn't
+    $prepared_query = $wpdb->prepare('INSERT INTO %s (time, post_id, blocks_value) VALUES(%s, %d, %s) ON 
+      DUPLICATE KEY UPDATE time=%s, blocks_value=%s', 
+      current_time('mysql'), $post_id, $json_block, current_time('mysql'), $json_block);
+    $was_successful = $wpdb->query($prepared_query);
+  */
+  $was_updated = $wpdb->update( $table_name, 
     array( 
       'time' => current_time( 'mysql' ), 
-      'post_id' => $post_id, 
-      'blocks_value' => $json_block, 
-    ),
-    array(
-      "%s",
-      "%d",
-      "%s",
-    )
+      'blocks_value' => $json_block,
+      ),
+    array( "post_id" => $post_id), 
+    array("%s", "%s", ),
+    array("%d")
   );
 
-  if( $inserted ){
-    $insert_id = $wpdb->insert_id;
-  }else{
-    //Insert failed
-    $insert_id = -1;
+  $was_successful = $was_updated;
+  if($was_updated == false){
+    $was_successful = $wpdb->insert( 
+      $table_name, 
+      array( 
+        'time' => current_time( 'mysql' ), 
+        'post_id' => $post_id, 
+        'blocks_value' => $json_block,
+      ),
+      array(
+        "%s",
+        "%d",
+        "%s",
+      )
+    );
   }
-  return $post_id;
+
+  // This isn't the best error checking done
+  if($was_successful == false){
+    //Insert failed
+    return -1;
+  }
+  return $was_successful;
 }
 
-function snowball_update_blocks() {
+/*
+  Retrieves the blocks stored in the database with a post id of $post_id.
+  Returns the data as a string.
+*/
+function snowball_get_blocks($post_id) {
+  global $wpdb;
 
-}
+  $table_name = $wpdb->prefix . 'snowball_blocks';
 
-function snowball_get_blocks() {
-  // $term = $_GET['activity'];
-   
-  // //Escape any wildcards
-  // $term = like_escape($term);
-   
-  // $sql = $wpdb->prepare("SELECT* FROM $wpdb->snowball_blocks WHERE activity LIKE %s", '%'.$term.'%');
-   
-  // $logs = $wpdb->get_results($sql);
+  $row = $wpdb->get_row( $wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id) );
 
+  return $row;
 }
 
 ?>
