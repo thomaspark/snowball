@@ -29,7 +29,9 @@
 
     init(block);
 
-    block.appendTo(".snowball-main");
+    block
+      .appendTo(".snowball-main")
+      .trigger("open");
   });
 
   $(".snowball-main")
@@ -75,7 +77,9 @@
   function confirmDelete(block) {
     var result = confirm("Are you sure you want to delete this block?");
     if (result) {
-      block.remove();
+      block
+        .trigger("close")
+        .remove();
     }
   }
 
