@@ -34,11 +34,11 @@ foreach ($modules as $module) {
 
 </section>
 <script type="text/javascript">
-  jQuery(document).ready(function() {
     var snowball = {};
     snowball.blocks = <?php echo json_encode($blocks); ?>;
     snowball.templates = <?php echo json_encode($templates); ?>;
     snowball.path = <?php echo json_encode(plugins_url("snowball")); ?>;
+  jQuery(document).ready(function() {
     snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo json_encode(get_block_json($post->ID)); ?>;
     
     // iterates through all the json objects and add them to the frontend
@@ -55,8 +55,10 @@ foreach ($modules as $module) {
         snowball.addBlock(type, block);
       }
     }
-
-    populateSavedBlocks();    
+    if(snowball.savedblocks != null && snowball.savedblocks != "")
+    {
+      populateSavedBlocks();
+    }
   });
 </script>
 

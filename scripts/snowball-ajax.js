@@ -1,13 +1,6 @@
 jQuery(document).ready(function($) {
-
 	// We can also pass the url value separately from ajaxurl for front end AJAX implementations
 	$("#publish").click(function() {
-
-	});
-
-	// TODO: This needs to be removed and 
-	// done with a publish/update button
-	$("#add-text").click(function(){
 		var blocksRetrieved = retrieveBlocks();
 
 		var data = {
