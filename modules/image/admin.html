@@ -1,25 +1,6 @@
 <form data-name="Image">
   <label>
-    <input type="text" class="upload-image" data-target="image" name="upload_image" value="https://placehold.it/600x300.png">
+    <input type="text" class="upload-image regular-text" data-target="image" value="https://placehold.it/600x300.png">
     <button type="button" class="upload-image-button button">Choose Image</button>
   </label>
-  <script>
-
-  (function($) {
-    var index;
-
-    $(".upload-image-button").click(function() {
-      index = $(".upload-image-button").index($(this));
-      tb_show("", "media-upload.php?type=image&TB_iframe=true");
-      return false;
-    });
-
-    window.send_to_editor = function(html) {
-      imgurl = $("img", html).attr("src");
-      $(".upload-image").eq(index).val(imgurl).trigger("change");
-      tb_remove();
-    }
-  })(jQuery);
-
-  </script>
 </form>
