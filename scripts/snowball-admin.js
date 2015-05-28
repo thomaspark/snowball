@@ -56,6 +56,9 @@
   });
 
   $(".snowball-main")
+    .on("render", ".snowball-block", function() {
+      renderPreview($(this));
+    })
     .on("keyup", "input, textarea", debounce(function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
