@@ -18,6 +18,11 @@ foreach ($modules as $module) {
     $templates[$type] = file_get_contents($module . '/template.html');
 
     echo '<a id="add-' . $type . '" class="button button-secondary" data-type="' . $type .'">' . $type . '</a> ';
+
+    if (file_exists($module . '/admin.js')) {
+      $plugins_path = plugins_url('snowball/modules/' . $type . '/admin.js');
+      echo '<script defer src="' . $plugins_path . '"></script>';
+    }
   }
 }
 
