@@ -1,7 +1,6 @@
 (function($) {
 
-  $(".snowball-toolbar").on("click", ".button", function() {
-    var type = $(this).data("type");
+  snowball.addBlock = function(type, data) {
     var blockCode = snowball.blocks[type];
     var name = $(blockCode).data("name");
 
@@ -27,11 +26,33 @@
       .find(".snowball-title").text(name).end()
       .find(".snowball-tinker").append(blockCode).end();
 
-    init(block);
+    if (data) {
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var selector = "[data-target='" + key + "']";
+          block.find(selector).val(data[key]);
+        }
+      }
+    }
 
     block
+      .find(".snowball-preview").load(function() {
+        renderPreview(block);
+      }).end()
+      .find(".wp-color-picker").wpColorPicker({
+        change: debounce(function (event) {
+          $(this)
+            .trigger("change")
+            .attr("value", $(this).val());
+        }, 250)
+      }).end()
       .appendTo(".snowball-main")
       .trigger("open");
+  };
+
+  $(".snowball-toolbar").on("click", ".button", function() {
+    var type = $(this).data("type");
+    snowball.addBlock(type);
   });
 
   $(".snowball-main")
@@ -59,20 +80,6 @@
   $("#collapse-menu").click(debounce(function() {
     zoomPreview();
   }, 250));
-
-  function init(block) {
-    block.find(".snowball-preview").load(function() {
-      renderPreview(block);
-    });
-
-    block.find(".wp-color-picker").wpColorPicker({
-      change: debounce(function (event) {
-        $(this)
-          .trigger("change")
-          .attr("value", $(this).val());
-      }, 250)
-    });
-  }
 
   function confirmDelete(block) {
     var result = confirm("Are you sure you want to delete this block?");
