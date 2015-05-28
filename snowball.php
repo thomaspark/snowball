@@ -201,6 +201,7 @@ function add_blocks_callback() {
     $success = "failed";
   }
   echo $success;
+  wp_die();
 }
 
 /*
@@ -209,7 +210,7 @@ function add_blocks_callback() {
 function get_block_json($post_id){
   $row = snowball_get_blocks($post_id);
   // retrieves one row from the db with 
-  $block_json = json_decode($row, ARRAY_A);
+  $block_json = json_decode($row->blocks_value, ARRAY_A);
   return $block_json;
 }
 
