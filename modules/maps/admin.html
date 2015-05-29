@@ -23,13 +23,13 @@
             var longitude = urlElements[1];
             var mapType;
             var zoom;
-            
+            zoom = urlElements[2];
+            zoom = zoom.substring(0, zoom.length - 1);
+
             if (urlElements[2].indexOf("z") >= 0) {
               mapType = "roadmap";
-              zoom = urlElements[2].split("z")[0];
             } else {
               mapType = "satellite";
-              zoom = urlElements[2].split("m")[0];
             }
 
             var embedUrl = "https://www.google.com/maps/embed/v1/view?key=" + apiKey + "&center=" + latitude + "," + longitude + "&zoom=" + zoom + "&maptype=" + mapType;
