@@ -38,28 +38,30 @@ foreach ($modules as $module) {
     snowball.blocks = <?php echo json_encode($blocks); ?>;
     snowball.templates = <?php echo json_encode($templates); ?>;
     snowball.path = <?php echo json_encode(plugins_url("snowball")); ?>;
-  jQuery(document).ready(function() {
-    snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo json_encode(get_block_json($post->ID)); ?>;
-    
-    // iterates through all the json objects and add them to the frontend
-    function populateSavedBlocks(){
-      var savedBlocks = snowball.savedblocks;
-      for(var b in savedBlocks){
-        var block = savedBlocks[b];
-        var type = block["blockType"].toLowerCase();
 
-        // need to delete so snowball.addBlock works properly
-        delete block["blockType"];
-        delete block["orderNumber"];
+    jQuery(document).ready(function() {
+      snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo json_encode(get_block_json($post->ID)); ?>;
+      
+      // iterates through all the json objects and add them to the frontend
+      function populateSavedBlocks() {
+        var savedBlocks = snowball.savedblocks;
 
-        snowball.addBlock(type, block);
+        for(var b in savedBlocks) {
+          var block = savedBlocks[b];
+          var type = block["blockType"].toLowerCase();
+
+          // need to delete so snowball.addBlock works properly
+          delete block["blockType"];
+          delete block["orderNumber"];
+
+          snowball.addBlock(type, block);
+        }
       }
-    }
-    if(snowball.savedblocks != null && snowball.savedblocks != "")
-    {
-      populateSavedBlocks();
-    }
-  });
+
+      if(snowball.savedblocks != null && snowball.savedblocks != "") {
+        populateSavedBlocks();
+      }
+    });
 </script>
 
 

@@ -141,12 +141,12 @@ function snowball_admin_add_scripts_and_stylesheets() {
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
 
 function snowball_add_stylesheets() {
-    echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/snowball.css') . '">';
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/snowball.css') . '">';
 }
 add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
-    echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
 
@@ -173,41 +173,47 @@ add_action('save_post', 'snowball_metabox_save');
 
 
 /*
-  Ajax calls
-  TODO: add permissions and error traps
-*/
+ * Ajax calls
+ * TODO: add permissions and error traps
+ */
 
-add_action( 'admin_enqueue_scripts', 'add_block_ajax_enqueue' );
 function add_block_ajax_enqueue($hook) {
   global $post;
-  wp_enqueue_script( 'ajax-script', plugins_url( '/scripts/snowball-ajax.js', __FILE__ ), array('jquery') );
+  wp_enqueue_script('ajax-script', plugins_url( '/scripts/snowball-ajax.js', __FILE__ ), array('jquery'));
 
   // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
-  wp_localize_script( 'ajax-script', 'ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'post_id' => $post->ID));
+  wp_localize_script('ajax-script', 'ajax_object',
+            array('ajax_url' => admin_url( 'admin-ajax.php'), 'post_id' => $post->ID));
 }
+add_action('admin_enqueue_scripts', 'add_block_ajax_enqueue');
+
 
 /*
-  Handler function for the add-block 
-*/
-add_action( 'wp_ajax_nopriv_add_blocks', 'add_blocks_callback' );
-add_action( 'wp_ajax_add_blocks', 'add_blocks_callback' );
+ * Handler function for the add-block 
+ */
+
 function add_blocks_callback() {
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
   $insert_id = snowball_save_block(json_encode($block_data), $post_id);
-  $success = "success";
+  $success = 'success';
+
   if ($insert_id == -1) {
-    $success = "failed";
+    $success = 'failed';
   }
+
   echo $success;
   wp_die();
 }
+add_action('wp_ajax_nopriv_add_blocks', 'add_blocks_callback');
+add_action('wp_ajax_add_blocks', 'add_blocks_callback');
+
 
 /*
-  Returns an array representing all the block objects retrieved from the db.
-*/
-function get_block_json($post_id){
+ * Returns an array representing all the block objects retrieved from the db.
+ */
+
+function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
   $block_json = '';
   if($row != null){
@@ -217,10 +223,11 @@ function get_block_json($post_id){
   return $block_json;
 }
 
+
 /*
-  Database calls
-  TODO: add permissions and error traps
-*/
+ * Database calls
+ * TODO: add permissions and error traps
+ */
 global $snowball_db_version;
 $snowball_db_version = '1.0';
 /* 
@@ -243,12 +250,12 @@ function snowball_install_dbtable() {
     UNIQUE KEY ID (id)
   ) $charset_collate;";
 
-  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-  dbDelta( $sql );
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+  dbDelta($sql);
 
-  add_option( 'snowball_db_version', $snowball_db_version );
+  add_option('snowball_db_version', $snowball_db_version);
 }
-register_activation_hook( __FILE__, 'snowball_install_dbtable' );
+register_activation_hook(__FILE__, 'snowball_install_dbtable');
 
 
 // if successful return insert_id
@@ -269,29 +276,30 @@ function snowball_save_block($json_block, $post_id) {
       current_time('mysql'), $post_id, $json_block, current_time('mysql'), $json_block);
     $was_successful = $wpdb->query($prepared_query);
   */
-  $was_updated = $wpdb->update( $table_name, 
+  $was_updated = $wpdb->update(
+    $table_name, 
     array( 
-      'time' => current_time( 'mysql' ), 
+      'time' => current_time('mysql'), 
       'blocks_value' => $json_block,
       ),
-    array( "post_id" => $post_id), 
-    array("%s", "%s", ),
-    array("%d")
+    array('post_id' => $post_id), 
+    array('%s', '%s', ),
+    array('%d')
   );
 
   $was_successful = $was_updated;
-  if($was_updated == false){
+  if ($was_updated == false) {
     $was_successful = $wpdb->insert( 
       $table_name, 
       array( 
-        'time' => current_time( 'mysql' ), 
+        'time' => current_time('mysql'), 
         'post_id' => $post_id, 
         'blocks_value' => $json_block,
       ),
       array(
-        "%s",
-        "%d",
-        "%s",
+        '%s',
+        '%d',
+        '%s',
       )
     );
   }
@@ -305,15 +313,16 @@ function snowball_save_block($json_block, $post_id) {
 }
 
 /*
-  Retrieves the blocks stored in the database with a post id of $post_id.
-  Returns the data as a string.
-*/
+ * Retrieves the blocks stored in the database with a post id of $post_id.
+ * Returns the data as a string.
+ */
+
 function snowball_get_blocks($post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
 
-  $row = $wpdb->get_row( $wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id) );
+  $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE post_id = %d', $post_id));
 
   return $row;
 }
