@@ -66,6 +66,12 @@
     .on("render", ".snowball-block", function() {
       renderPreview($(this));
     })
+    .on("mousedown", ".snowball-block", function(e) {
+      $(".snowball-main").height($(".snowball-main").height());
+    })
+    .on("mouseup", ".snowball-block", function(e) {
+      $(".snowball-main").height("auto");
+    })
     .on("keyup", "input, textarea", debounce(function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
@@ -79,6 +85,7 @@
       confirmDelete(block);
     })
     .sortable({
+      "axis": "y",
       "containment": ".snowball-main",
       "cursor": "move"
     });
