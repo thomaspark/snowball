@@ -157,10 +157,10 @@ add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
  */
 
 function snowball_metabox_save($post_id) {
-  if (defined( 'DOING_AUTOSAVE') && DOING_AUTOSAVE) 
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) 
   return;
 
-  if (!wp_verify_nonce($_POST['snowball_metabox_content_nonce'], plugin_basename( __FILE__ )))
+  if (isset($_POST['snowball_metabox_content_nonce']) && !wp_verify_nonce($_POST['snowball_metabox_content_nonce'], plugin_basename(__FILE__)))
   return;
 
   if (!current_user_can('edit_page', $post_id))
@@ -169,7 +169,7 @@ function snowball_metabox_save($post_id) {
   // $product_price = $_POST['product_price'];
   // update_post_meta($post_id, 'product_price', $product_price);
 }
-add_action('save_post', 'snowball_metabox_save');
+// add_action('save_post', 'snowball_metabox_save');
 
 
 /*
