@@ -30,7 +30,14 @@
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
           var selector = "[data-target='" + key + "']";
-          block.find(selector).val(data[key]);
+          var input = block.find(selector);
+          var value = data[key];
+
+          if (input.is(":radio") || input.is(":checkbox")) {
+            input.filter("[value='" +  value + "']").prop("checked", true);
+          } else {
+            input.val(value);
+          }
         }
       }
     }
@@ -95,7 +102,8 @@
 
   function renderPreview(block) {
     var type = block.data("type");
-    var fields = block.find("input[data-target], textarea[data-target]");
+    var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
+    var fields = block.find(selector);
     var preview = block.find(".snowball-preview");
     var html = snowball.templates[type];
 

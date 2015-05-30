@@ -30,7 +30,8 @@ jQuery(document).ready(function($) {
     */
     function parseBlock(orderNumber, blockForm) {
       var type = $(blockForm).attr("data-name");
-      var inputs = $(blockForm).find("[data-target]");
+      var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
+      var inputs = $(blockForm).find(selector);
 
       var block = {
         blockType: type,
