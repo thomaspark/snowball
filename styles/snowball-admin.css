@@ -26,10 +26,11 @@
 .snowball-block {
   margin: 1em 0;
   background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 -3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .snowball-block:last-child {
-  margin-bottom: 0.25em;
+  margin-bottom: 0;
 }
 
 .snowball-gui {
@@ -85,13 +86,14 @@
   height: 100%;
 }
 
-.snowball-block label {
+.snowball-block form > label,
+.snowball-block form > div {
   display: block;
   margin-bottom: 2em;
   cursor: default;
 }
 
-.snowball-block label:last-child {
+.snowball-block form > label:last-child {
   margin-bottom: 0;
 }
 
