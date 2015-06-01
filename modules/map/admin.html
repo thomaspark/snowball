@@ -1,0 +1,138 @@
+<form data-name="Map">
+	<label>Google Maps URL<br>
+		<input type="text" class="userEnteredMapUrl" data-target="map-user" value="https://www.google.com/maps/place/Drexel+University/@39.9581888,-75.1887621,16z/data=!3m1!4b1!4m2!3m1!1s0x89c6c64e4847c029:0xef32de4043c30f0">
+		<input type="hidden" class="embedUrl" data-target="map-embed" value="https://maps.googleapis.com/maps/api/staticmap?center=39.9581888,-75.1887621&zoom=16&size=600x400&maptype=satellite&output=embed">
+	</label>
+
+	<label>Caption<br>
+		<input type="text" data-target="caption" placeholder="Caption" value="Caption">
+	</label>
+	
+	<label class="mapTypeForm">Type<br>
+		<input type="radio" name="mapTypeChoice" value="roadmap">Roadmap
+		<input type="radio" name="mapTypeChoice" value="satellite">Satellite
+		<input type="radio" name="mapTypeChoice" value="hybrid">Hybrid	
+	</label>
+	
+	<label>Zoom<br>
+		<input type="range" class="zoomLevel" name="zoomLevel" min="1" max="22" step="1" value="">
+		<input type="text" class="small-text zoomLevelOutput" name="zoomLevelOutput" value="">
+	</label>	
+	
+	<script>
+		(function($) {
+			
+			loadDefaults();
+
+			/*Calculates log of val using base as 2*/
+			function ln(val) {
+				return Math.log(val) / Math.log(2);
+			}
+
+			/*Converting a Satellite Image zoom value to a Roadmap Image Zoom value; i.e., .........m -> ..z */
+			function convertZoom(currentZoomValue) {
+				var unitValue = 56819712;							//If this was zoom on sat img, the zoom on roadmap would be 1z
+				var userValue = parseInt(currentZoomValue, 10);		//Converting string to int
+				var raisedValue = unitValue/userValue;
+				var loggedValue = ln(raisedValue);					//Calcualting natural log
+				var zValue = 1 + loggedValue;
+				zValue = Math.round(zValue);
+
+				return zValue;
+			}
+
+			function loadDefaults() {
+				var imgURL = $(".embedUrl").val();	 //https://maps.googleapis.com/maps/api/staticmap?center=39.9581888,-75.1887621&zoom=16&size=600x400&maptype=roadmap&output=embed
+				var parts = imgURL.split("?center=");// https://maps.googleapis.com/maps/api/staticmap		39.9581888,-75.1887621&zoom=16&size=600x400&maptype=roadmap&output=embed
+				parts = parts[1].split("&");		 //39.9581888,-75.1887621	zoom=16    size=600x400		maptype=roadmap    output=embed
+				var defaultZoom = parts[1].split("=")[1];
+				var defaultMapType = parts[3].split("=")[1];
+
+				$(".mapTypeForm input").each(function(index, el) {
+					if($(this).val() == defaultMapType) {
+						$(this).prop({
+							"checked": true,
+						})
+					}
+				});
+
+				$(".zoomLevel").val(defaultZoom);			//loading default value to slider
+				$(".zoomLevelOutput").val(defaultZoom);		//loading default value to field beside slider
+			}
+
+			$(".userEnteredMapUrl").each(function(index) {
+				console.log("page loaded");
+				var newlySetMapType = "";
+				var newlySetZoom = 0;
+				var newlySetSize = "";
+				var outerThis = this;
+				var defaultFallbackUrl = $(this).val();			//Url block falls back on when no URL is present in the field
+
+				console.log("defaultFallbackUrl: "+ defaultFallbackUrl)
+
+				/*Getting Map Type set by user*/
+				$(outerThis).parent().siblings(".mapTypeForm").find("input").on("click", function() {
+					console.log("Registered key up in TYPE");
+					newlySetMapType = $(this).val();
+					$(outerThis).trigger("keyup")
+				});
+
+				/*Getting Zoom Level set by user*/
+				$(outerThis).parent().siblings("label").find(".zoomLevel").on("mouseup keyup", function() {
+					newlySetZoom = $(this).val();
+					$(".zoomLevelOutput").val(newlySetZoom);
+					console.log("slider value: "+ newlySetZoom);
+					console.log("userEnteredMapUrl right now: " + $(".userEnteredMapUrl").val());
+					$(outerThis).trigger("keyup");
+				});
+
+				$(this).on("keyup", function() {
+					var userEnteredMapUrl = $(this).val();
+					
+					if (userEnteredMapUrl == "") {
+						userEnteredMapUrl = defaultFallbackUrl;
+					}
+
+					console.log("urlEntered: "+ userEnteredMapUrl);
+					if (userEnteredMapUrl.indexOf("@") >= 0) {
+						var urlElements = userEnteredMapUrl.split("@")[1].split("/data=")[0].split(",");
+
+						var latitude = urlElements[0];
+						var longitude = urlElements[1];
+						var mapType;
+						var mapSize="600x400";
+						var zoom;
+
+						var apiKey = "AIzaSyCIYiEC2rnfnoioDXXwt17q4OnvSZUYga4";
+
+						if (urlElements[2].indexOf("z") >= 0) {
+							mapType = "roadmap";
+							zoom = urlElements[2].split("z")[0];
+						} else {
+							mapType = "satellite";
+							var tempZoom = urlElements[2].split("m")[0];
+							zoom = convertZoom(tempZoom);
+							//console.log("Final zoom: "+zoom);
+						}
+
+						/*Checking if any Map TYPE was set using radio buttons*/
+						if(newlySetMapType != "") {
+							mapType = newlySetMapType;
+							//newlySetMapType = "";
+						}
+
+						/*Checking if a Zoom Level was set using Slider*/
+						if(newlySetZoom != 0) {
+							zoom = newlySetZoom;
+							//newlySetZoom = 0;
+						}
+
+						var embedUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=" + zoom + "&size=" + mapSize+ "&maptype=" + mapType + "&output=embed";
+						$(this).siblings(".embedUrl").val(embedUrl);
+					}
+				});
+			});
+		})(jQuery);
+	</script>
+
+</form>
