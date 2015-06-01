@@ -1,21 +1,23 @@
 <form data-name="Map">
-	<label>Google Maps URL<br>
-		<input type="text" class="user-entered-map-url large-text" data-target="map-user" value="https://www.google.com/maps/place/Drexel+University/@39.9581888,-75.1887621,3491m/data=!3m1!4b1!4m2!3m1!1s0x89c6c64e4847c029:0xef32de4043c30f0">
-		<input type="hidden" class="embedUrl" data-target="map-embed" value="https://maps.googleapis.com/maps/api/staticmap?center=39.9581888,-75.1887621&zoom=16&size=600x400&maptype=satellite&output=embed">
-	</label>
+  <label>Google Maps URL<br>
+    <input type="text" class="map-user large-text" data-target="map-user" value="https://www.google.com/maps/place/Drexel+University/@39.9581888,-75.1887621,3491m/">
+    <input type="hidden" data-target="lat" value="39.9581888">
+    <input type="hidden" data-target="lon" value="-75.1887621">
+    <input type="hidden" data-target="size" value="600x400">
+  </label>
+  
+  <div>Type<br>
+    <label><input type="radio" name="maptype" data-target="maptype" value="roadmap" checked>Roadmap</label>
+    <label><input type="radio" name="maptype" data-target="maptype" value="satellite">Satellite</label>
+    <label><input type="radio" name="maptype" data-target="maptype" value="hybrid">Hybrid</label>
+  </div>
+  
+  <label>Zoom<br>
+    <input type="range" class="zoom" data-target="zoom" min="1" max="22" step="1" value="11">
+    <small class="small-text zoom-output" style="vertical-align: 9px;">11</small>
+  </label>
 
-	<label>Caption<br>
-		<input type="text" data-target="caption" placeholder="Caption" value="">
-	</label>
-	
-	<label class="mapTypeForm">Type<br>
-		<input type="radio" name="mapTypeChoice" value="roadmap">Roadmap
-		<input type="radio" name="mapTypeChoice" value="satellite">Satellite
-		<input type="radio" name="mapTypeChoice" value="hybrid">Hybrid	
-	</label>
-	
-	<label class="map-zoom-form">Zoom<br>
-		<input type="range" class="zoomLevel" name="zoomLevel" min="1" max="22" step="1" value="">
-		<span class="small-text zoomLevelOutput" name="zoomLevelOutput" style="vertical-align: 9px;"></span>
-	</label>	
+  <label>Caption<br>
+    <input type="text" class="regular-text" data-target="caption" placeholder="Caption" value="">
+  </label>
 </form>
