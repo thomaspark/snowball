@@ -29,7 +29,11 @@ $author_id=$post->post_author;
       <div><?php echo get_the_date() ?></div>
     </div>
 
-    <section>Hallo world</section>
+    <?php 
+      global $post;
+      $post_id = $post->ID;
+      echo snowball_get_article($post_id);
+    ?>
 
   </article>
 

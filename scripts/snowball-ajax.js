@@ -2,15 +2,29 @@ jQuery(document).ready(function($) {
   // We can also pass the url value separately from ajaxurl for front end AJAX implementations
   $("#publish").click(function() {
     var blocksRetrieved = retrieveBlocks();
-
-    var data = {
+    var articleRetrieved = retrieveRenderedPage();
+    
+    var blocks_data = {
       "action": "add_blocks",   // this is needed to know which callback to use
       "blocks": blocksRetrieved,
       "post_id": ajax_object.post_id
     };
 
-    $.post(ajax_object.ajax_url, data, function(response) {
-      console.log("The response from clicking the text button: " + response);
+    var article_data = {
+      "action": "add_article",
+      "article": articleRetrieved,
+      "post_id": ajax_object.post_id
+    };
+
+    // adding article to db
+    $.post(ajax_object.ajax_url, article_data, function(response) {
+      console.log("The article save button was clicked: " + response);
+    });
+
+    // adding blocks data to db
+    $.post(ajax_object.ajax_url, blocks_data, function(response) {
+      //TODO what should be done with the response
+      // the page automatically reloads the webpage
     });
   });
 
@@ -47,5 +61,18 @@ jQuery(document).ready(function($) {
     }
   
     return blocks;
+  }
+
+
+  // retrieves the html of the blocks in the preview of the blocks
+  // and save the html to the article table
+  // this function returns the html
+  function retrieveRenderedPage(){
+    var html = '';
+    jQuery(".snowball-preview").each(function(index, element){
+      html = html + "\n" + jQuery(element).contents().find("body").html();
+    });
+
+    return html;
   }
 });
