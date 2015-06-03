@@ -5,7 +5,7 @@
     $(this).find(".zoom-output").text(zoom);
   });
 
-  $(".snowball-main").on("change, keyup", ".snowball-block-map .map-user", function() {
+  $(".snowball-main").on("change keyup", ".snowball-block-map .map-user", function() {
     var block = $(this).parents(".snowball-block-map");
     var url = $(this).val();
     var props = mapParse(url);
@@ -13,6 +13,7 @@
     block.find("[data-target='lat']").val(props.lat);
     block.find("[data-target='lon']").val(props.lon);
     block.find("[data-target='zoom']").val(props.zoom);
+    block.find(".zoom-output").text(props.zoom);
     block.find("[data-target='maptype'][value='" + props.maptype +  "']").prop("checked", true);
 
     block.trigger("render");
@@ -53,7 +54,7 @@
 
   function mToZ(m) {
     var c = 56819712;
-    var z = c / m;
+    var z = c / parseInt(m, 10);
 
     z = Math.round(1 + (Math.log(z) / Math.LN2));
 
