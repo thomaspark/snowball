@@ -34,7 +34,7 @@ h1 {
 .snowball-block {
   width: 600px;
   min-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto 4em;
 }
 
 .full-width {
@@ -44,4 +44,11 @@ h1 {
 .meta {
   margin-bottom: 4rem;
   text-align: center;
+}
+
+.caption {
+  text-align: center;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
 }
