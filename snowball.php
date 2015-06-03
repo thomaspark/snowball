@@ -27,12 +27,12 @@ function snowball_create_post_type() {
         'add_new' => __('Add New'),
         'edit_item' => __('Edit Article'),
         'view_item' => __('View Article')
-      ),
+     ),
       'menu_icon' => 'dashicons-marker',
       'public' => true,
       'has_archive' => true
-    )
-  );
+   )
+ );
 }
 add_action('init', 'snowball_create_post_type');
 
@@ -57,7 +57,7 @@ add_action('init', 'snowball_create_post_type');
 //   $columns['snowball'] = 1;
 //   return $columns;
 // }
-// add_filter( 'screen_layout_columns', 'snowball_screen_layout_columns' );
+// add_filter('screen_layout_columns', 'snowball_screen_layout_columns');
 
 function snowball_screen_layout_post() {
   return 1;
@@ -101,8 +101,8 @@ function snowball_add_metabox() {
 add_action('add_meta_boxes', 'snowball_add_metabox');
 
 function snowball_metabox_callback() {
-  wp_nonce_field(plugin_basename( __FILE__ ), 'snowball_metabox_content_nonce');
-  $path = plugin_dir_path( __FILE__ );
+  wp_nonce_field(plugin_basename(__FILE__), 'snowball_metabox_content_nonce');
+  $path = plugin_dir_path(__FILE__);
   require('inc/snowball-editor.php');
 }
 
@@ -114,7 +114,7 @@ function snowball_metabox_callback() {
 
 function snowball_template($single_template) {
   if (get_post_type(get_the_id()) == 'snowball') {
-    $single_template = dirname( __FILE__ ) . '/snowball-template.php';
+    $single_template = dirname(__FILE__) . '/snowball-template.php';
   }
   return $single_template;
 }
@@ -179,24 +179,26 @@ function snowball_metabox_save($post_id) {
 
 function add_ajax_enqueue($hook) {
   global $post;
-  wp_enqueue_script('ajax-script', plugins_url( '/scripts/snowball-ajax.js', __FILE__ ), array('jquery'));
+  wp_enqueue_script('ajax-script', plugins_url('/scripts/snowball-ajax.js', __FILE__), array('jquery'));
 
   // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
   wp_localize_script('ajax-script', 'ajax_object',
-            array('ajax_url' => admin_url( 'admin-ajax.php'), 'post_id' => $post->ID));
+            array('ajax_url' => admin_url('admin-ajax.php'), 'post_id' => $post->ID));
 }
 add_action('admin_enqueue_scripts', 'add_ajax_enqueue');
 
 
 /*
  * Handler function for the add-block 
+ TODO: look into magic_quotes_gpc for the slash striping
+ TODO: Is there a way to prevent XSS attacks, 
+ also json_encode and stripslashes might be iffy
  */
-add_action('wp_ajax_nopriv_add_blocks', 'add_blocks_callback');
-add_action('wp_ajax_add_blocks', 'add_blocks_callback');
 function add_blocks_callback() {
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
-  $insert_id = snowball_save_block(json_encode($block_data), $post_id);
+  $block_data = json_encode($block_data);
+  $insert_id = snowball_save_block(stripslashes($block_data), $post_id);
   $success = 'success';
 
   if ($insert_id == -1) {
@@ -206,12 +208,12 @@ function add_blocks_callback() {
   echo $success;
   wp_die();
 }
+add_action('wp_ajax_nopriv_add_blocks', 'add_blocks_callback');
+add_action('wp_ajax_add_blocks', 'add_blocks_callback');
 
 /*
  * Handler function for add-article
 */
-add_action( 'wp_ajax_nopriv_add_article', 'add_article_callback' );
-add_action( 'wp_ajax_add_article', 'add_article_callback' );
 function add_article_callback() {
   $post_id = $_POST['post_id'];
   // removes the \ from the quotes before saving
@@ -224,18 +226,23 @@ function add_article_callback() {
   echo $success;
   wp_die();
 }
+add_action('wp_ajax_nopriv_add_article', 'add_article_callback');
+add_action('wp_ajax_add_article', 'add_article_callback');
 
 
 /*
- * Returns an array representing all the block objects retrieved from the db.
+ * Returns a string representing the json.
+ *  TODO: Does this prevent XSS attacks.
  */
-
 function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
-  $block_json = '';
-  if($row != null){
-    // retrieves one row from the db with 
-    $block_json = json_decode($row->blocks_value, ARRAY_A);
+  $block_json = '[]';
+
+  if(isset($row)){
+    $block_json = $row->blocks_value;
+    if(!isset($block_json)){
+      $block_json = '[]';
+    }
   }
   return $block_json;
 }
@@ -266,7 +273,7 @@ function snowball_install_dbtable() {
     post_id bigint(20) NOT NULL,
     blocks_value longtext NOT NULL,
     UNIQUE KEY ID (id)
-  ) $charset_collate;";
+ ) $charset_collate;";
 
   $snowball_articles_table = "CREATE TABLE $table_name_articles (
     ID mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -274,15 +281,15 @@ function snowball_install_dbtable() {
     post_id bigint(20) NOT NULL,
     article_html longtext NOT NULL,
     UNIQUE KEY ID (id)
-  ) $charset_collate;";
+ ) $charset_collate;";
 
-  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
   dbDelta($snowball_blocks_table);
   dbDelta($snowball_articles_table);
 
-  add_option( 'snowball_db_version', $snowball_db_version );
+  add_option('snowball_db_version', $snowball_db_version);
 }
-register_activation_hook( __FILE__, 'snowball_install_dbtable' );
+register_activation_hook(__FILE__, 'snowball_install_dbtable');
 
 
 // if successful return insert_id
@@ -293,54 +300,32 @@ function snowball_save_block($json_block, $post_id) {
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
 
-  /*
-    insert into database
-    if item exists, update the value
-  */
-  /*  Theoretically this code should work, but it doesn't
-    $prepared_query = $wpdb->prepare('INSERT INTO %s (time, post_id, blocks_value) VALUES(%s, %d, %s) ON 
-      DUPLICATE KEY UPDATE time=%s, blocks_value=%s', 
-      current_time('mysql'), $post_id, $json_block, current_time('mysql'), $json_block);
-    $was_successful = $wpdb->query($prepared_query);
-  */
-  
-/*  $was_successful = $wpdb->replace(
-    $table_name, 
-    array(
-      'post_id' => $post_id, 
-      'time' => current_time('mysql'), 
-      'blocks_value' => $json_block,
-      ),
-    array('%s', '%d', '%s')
-  );
-*/  
   $was_updated = $wpdb->update(
     $table_name, 
-    array( 
+    array(
       'time' => current_time('mysql'), 
       'blocks_value' => $json_block,
-      ),
+     ),
     array('post_id' => $post_id), 
-    array('%s', '%s', ),
+    array('%s', '%s',),
     array('%d')
-  );
+ );
 
   $was_successful = true;
-  //$was_successful = $was_updated;
   if ($was_updated === 0) {
-    $was_successful = $wpdb->insert( 
+    $was_successful = $wpdb->insert(
       $table_name, 
-      array( 
+      array(
         'time' => current_time('mysql'), 
         'post_id' => $post_id, 
         'blocks_value' => $json_block,
-      ),
+     ),
       array(
         '%s',
         '%d',
         '%s',
-      )
-    );
+     )
+   );
   }
 
   // This isn't the best error checking done
@@ -358,45 +343,34 @@ function snowball_save_article($article, $post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
-  
 
-/*  $was_successful = $wpdb->replace(
-    $table_name, 
-    array( 
-      'post_id' => $post_id, 
-      'time' => current_time('mysql'),
-      'article_html' => $article,
-      ),
-    array('%s', '%d', '%s', )
-  );
-*/
   $was_updated = $wpdb->update(
     $table_name, 
-    array( 
+    array(
       'time' => current_time('mysql'), 
       'article_html' => $article,
-      ),
+     ),
     array('post_id' => $post_id), 
-    array('%s', '%s', ),
+    array('%s', '%s',),
     array('%d')
-  );
+ );
 
   $was_successful = true;
   //$was_successful = $was_updated;
   if ($was_updated === 0 || $was_updated == false) {
-    $was_successful = $wpdb->insert( 
+    $was_successful = $wpdb->insert(
       $table_name, 
-      array( 
+      array(
         'time' => current_time('mysql'), 
         'post_id' => $post_id, 
         'article_html' => $article,
-      ),
+     ),
       array(
         '%s',
         '%d',
         '%s',
-      )
-    );
+     )
+   );
   }
   // This isn't the best error checking done
   if($was_successful == false){
@@ -409,6 +383,7 @@ function snowball_save_article($article, $post_id) {
 /*
  * Retrieves the blocks stored in the database with a post id of $post_id.
  * Returns the data as a string.
+ * Just takes care of retrieving the data, not the formatting of it.
  */
 
 function snowball_get_blocks($post_id) {
@@ -432,7 +407,7 @@ function snowball_get_article($post_id) {
 
   $table_name = $wpdb->prefix . 'snowball_articles';
 
-  $row = $wpdb->get_row( $wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id) );
+  $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id));
   if($row) {
     $article = $row->article_html;
     if($article != NULL){
