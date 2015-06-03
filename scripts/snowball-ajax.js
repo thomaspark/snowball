@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
     */
     function parseBlock(orderNumber, blockForm) {
       var type = $(blockForm).attr("data-name");
-      var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
+      var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target]";
       var inputs = $(blockForm).find(selector);
 
       var block = {
@@ -55,8 +55,14 @@ jQuery(document).ready(function($) {
       inputs.each(function(index, element) {
         var dataTarget = $(element).attr("data-target");
         var inputValue = $(element).val();
+
+        if ($(element).attr("type") == "checkbox") {
+          inputValue = $(element).is(":checked") ? true : false;
+        }
+
         block[dataTarget] = inputValue;
       });
+
       blocks.push(block);
     }
   

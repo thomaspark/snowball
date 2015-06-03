@@ -33,8 +33,14 @@
           var input = block.find(selector);
           var value = data[key];
 
-          if (input.is(":radio") || input.is(":checkbox")) {
+          if (input.is(":radio")) {
             input.filter("[value='" +  value + "']").prop("checked", true);
+          } else if (input.is(":checkbox")) {
+            if (value == "true") {
+              input.prop("checked", true);
+            } else {
+              input.prop("checked", false);
+            }
           } else {
             input.val(value);
           }
