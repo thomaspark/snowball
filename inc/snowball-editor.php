@@ -40,7 +40,7 @@ foreach ($modules as $module) {
     snowball.path = <?php echo json_encode(plugins_url("snowball")); ?>;
 
     jQuery(document).ready(function() {
-      snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo json_encode(get_block_json($post->ID)); ?>;
+      snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo get_block_json($post->ID); ?>;
       
       // iterates through all the json objects and add them to the frontend
       function populateSavedBlocks() {
