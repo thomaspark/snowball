@@ -47,6 +47,8 @@ h1 {
 }
 
 .caption {
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
   font-size: 14px;
   font-style: italic;
