@@ -141,8 +141,11 @@
     });
 
     html = html.replace("[author]", snowball.author)
-               .replace("[title]", snowball.title)
                .replace("[date]", snowball.date);
+
+    if (snowball.title) {
+      html = html.replace("[title]", snowball.title);
+    }
 
     if (preview.find("head").is(":empty")) {
       preview.find("head").append(stylesheet, stylesheetPreview, script).end();
