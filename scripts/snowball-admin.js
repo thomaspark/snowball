@@ -133,8 +133,8 @@
       var value = $(this).val();
 
       if ($(this).is("textarea")) {
-        // For textareas, replace \n with <br> and \n\n with <p>
-        value = value.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br />').replace(/^(.+?)$/,'<p>$1</p>');
+        // For textareas, replace \n\n with <p>
+        value = value.replace(/(.+?)\n{2,}/g,'<p>$1</p>');
       }
 
       html = html.replace("{{" + target + "}}", value);
