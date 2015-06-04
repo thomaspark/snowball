@@ -1,20 +1,33 @@
-<section class="snowball-block snowball-block-splash {{full-width}}" style="background-color:{{background-color}}; color:{{color}};">
+<section class="snowball-block snowball-block-splash {{full-width}}">
+  <div class="snowball-block-splash-bg"></div>
   <div class="snowball-block-splash-inner">
     {{content}}
   </div>
   <style scoped>
     .snowball-block-splash {
-      display: table;
+      position: relative;
       height: 100%;
       min-height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: {{color}};
+    }
+
+    .snowball-block-splash-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
       background-image: url('{{background-image}}');
+      background-color: {{background-color}};
       background-size: cover;
     }
 
     .snowball-block-splash-inner {
-      display: table-cell;
       text-align: center;
-      vertical-align: middle;
     }
 
   </style>
