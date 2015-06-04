@@ -7,6 +7,10 @@ html {
   transform-origin: 0 0 0;
 }
 
+.snowball-block {
+  margin: 0;
+}
+
 .snowball-block-text {
   padding: 1em;
 }
