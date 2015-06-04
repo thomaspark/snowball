@@ -117,7 +117,7 @@
     var type = block.data("type");
     var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
     var fields = block.find(selector);
-    var preview = block.find(".snowball-preview");
+    var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
 
     var path = snowball.path;
@@ -140,12 +140,15 @@
       html = html.replace("{{" + target + "}}", value);
     });
 
-    preview.contents()
-      .find("head").append(stylesheet, stylesheetPreview, script).end()
-      .find("body").html(html);
     html = html.replace("[author]", snowball.author)
                .replace("[title]", snowball.title)
                .replace("[date]", snowball.date);
+
+    if (preview.find("head").is(":empty")) {
+      preview.find("head").append(stylesheet, stylesheetPreview, script).end()
+    }
+
+    preview.find("body").html(html);
 
     zoomPreview(block);
   }
