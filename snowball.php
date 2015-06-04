@@ -30,7 +30,8 @@ function snowball_create_post_type() {
      ),
       'menu_icon' => 'dashicons-marker',
       'public' => true,
-      'has_archive' => true
+      'has_archive' => true,
+      'supports' => array('title', 'author', 'comments')
    )
  );
 }
@@ -417,4 +418,15 @@ function snowball_get_article($post_id) {
 
   return "<section></section>";
 }
+
+/*
+ * Define shortcodes
+ *
+ */
+add_shortcode('title', 'get_the_title');
+add_shortcode('date', 'get_the_date');
+add_shortcode('author', 'get_the_author');
+
+
+
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 global $post;
-$author_id=$post->post_author;
+setup_postdata($post); 
 
 ?>
 
@@ -23,16 +23,10 @@ $author_id=$post->post_author;
 
   <article>
 
-    <h1><?php the_title() ?></h1>
-    <div class="meta">
-      <div><?php the_author_meta('display_name', $author_id) ?></div>
-      <div><?php echo get_the_date() ?></div>
-    </div>
-
     <?php 
       global $post;
       $post_id = $post->ID;
-      echo snowball_get_article($post_id);
+      echo do_shortcode(snowball_get_article($post_id));
     ?>
 
   </article>
