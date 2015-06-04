@@ -145,7 +145,7 @@
                .replace("[date]", snowball.date);
 
     if (preview.find("head").is(":empty")) {
-      preview.find("head").append(stylesheet, stylesheetPreview, script).end()
+      preview.find("head").append(stylesheet, stylesheetPreview, script).end();
     }
 
     preview.find("body").html(html);
