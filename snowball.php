@@ -199,7 +199,9 @@ function add_blocks_callback() {
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
   $block_data = json_encode($block_data);
-  $insert_id = snowball_save_block(stripslashes($block_data), $post_id);
+  $block_data = wp_slash($block_data);
+  $block_data = stripslashes($block_data);
+  $insert_id = snowball_save_block($block_data, $post_id);
   $success = 'success';
 
   if ($insert_id == -1) {
@@ -218,7 +220,8 @@ add_action('wp_ajax_add_blocks', 'add_blocks_callback');
 function add_article_callback() {
   $post_id = $_POST['post_id'];
   // removes the \ from the quotes before saving
-  $article_data = stripslashes($_POST['article']);
+  $article_data = $_POST['article'];
+  $article_data = stripslashes($article_data);
   $insert_id = snowball_save_article($article_data, $post_id);
   $success = "success";
   if ($insert_id == -1) {
@@ -241,6 +244,7 @@ function get_block_json($post_id) {
 
   if(isset($row)){
     $block_json = $row->blocks_value;
+    $block_json = stripslashes($block_json);
     if(!isset($block_json)){
       $block_json = '[]';
     }
@@ -300,6 +304,7 @@ function snowball_save_block($json_block, $post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
+  $json_block = mysql_real_escape_string($json_block);
 
   $was_updated = $wpdb->update(
     $table_name, 
