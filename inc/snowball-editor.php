@@ -7,6 +7,9 @@
 
 <?php
 
+global $post;
+setup_postdata($post);
+
 $modules = array_filter(glob($path . 'modules/*'), 'is_dir');
 $blocks = array();
 $templates = array();
@@ -34,13 +37,17 @@ foreach ($modules as $module) {
 
 </section>
 <script type="text/javascript">
-    var snowball = {};
-    snowball.blocks = <?php echo json_encode($blocks); ?>;
-    snowball.templates = <?php echo json_encode($templates); ?>;
-    snowball.path = <?php echo json_encode(plugins_url("snowball")); ?>;
+    var snowball = {
+      blocks: <?php echo json_encode($blocks); ?>,
+      templates: <?php echo json_encode($templates); ?>,
+      path: <?php echo json_encode(plugins_url("snowball")); ?>,
+      author: <?php echo json_encode(get_the_author()); ?>,
+      date: <?php echo json_encode(get_the_date()); ?>,
+      title: <?php echo json_encode(get_the_title()); ?>
+    };
 
     jQuery(document).ready(function() {
-      snowball.savedblocks = <?php global $post; $postid=(string)$post->ID; echo get_block_json($post->ID); ?>;
+      snowball.savedblocks = <?php $postid=(string)$post->ID; echo get_block_json($post->ID); ?>;
       
       // iterates through all the json objects and add them to the frontend
       function populateSavedBlocks() {

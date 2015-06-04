@@ -1,7 +1,7 @@
 <?php
 
 global $post;
-setup_postdata($post); 
+setup_postdata($post);
 
 ?>
 
@@ -22,11 +22,9 @@ setup_postdata($post);
 </head>
 
 <body <?php body_class(); ?>>
-
   <article>
 
     <?php 
-      global $post;
       $post_id = $post->ID;
       echo do_shortcode(snowball_get_article($post_id));
     ?>

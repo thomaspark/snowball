@@ -143,6 +143,9 @@
     preview.contents()
       .find("head").append(stylesheet, stylesheetPreview, script).end()
       .find("body").html(html);
+    html = html.replace("[author]", snowball.author)
+               .replace("[title]", snowball.title)
+               .replace("[date]", snowball.date);
 
     zoomPreview(block);
   }
