@@ -140,6 +140,8 @@
       html = html.replace("{{" + target + "}}", value);
     });
 
+    html = html.replace(/\\{\\{.+\\}\\}/g, "");
+
     html = html.replace("[author]", snowball.author)
                .replace("[date]", snowball.date);
 
