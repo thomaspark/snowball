@@ -13,6 +13,7 @@ body {
   font-size: 18px;
   letter-spacing: 0.159999996423721px;
   line-height: 1.4;
+  word-wrap: break-word;
 }
 
 h1, h2, h3, h4, h5, h6 {
