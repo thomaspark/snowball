@@ -1,3 +1,15 @@
 <section class="snowball-block snowball-block-video {{full-width}}">
-  <iframe style="{{custom-style}}" width="560" height="315" src="https://www.youtube.com/embed/{{video-id}}?autoplay=0&showinfo=0&controls=0&rel=0&iv_load_policy=3&disablekb=0" frameborder="0"></iframe>
+  <iframe src="https://www.youtube.com/embed/{{video-id}}?autoplay=0&rel=0&iv_load_policy=3&disablekb=0{{show-info}}{{show-controls}}" frameborder="0"></iframe>
+
+  <style scoped>
+  .snowball-block-video iframe {
+    width: 560px;
+    height: 315px;
+  }
+
+  .snowball-block-video.full-width iframe {
+    width: 100%;
+    height: 55.6vw;
+  }
+  </style>
 </section>
