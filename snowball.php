@@ -199,8 +199,9 @@ function add_blocks_callback() {
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
   $block_data = json_encode($block_data);
-  $block_data = str_replace('\n', '\\\n', $block_data);
-  $block_data = wp_unslash($block_data);
+  $block_data = str_replace('\\\\"', '"', $block_data);
+  $block_data = str_replace('\\\\\'', '\'', $block_data);
+  $block_data = str_replace('\\\\', '\\', $block_data);
   $insert_id = snowball_save_block($block_data, $post_id);
   $success = 'success';
 
