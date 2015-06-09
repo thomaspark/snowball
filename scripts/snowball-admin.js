@@ -159,13 +159,14 @@
   }
 
   function zoomPreview(block) {
-    var width = $(".snowball-preview").first().width();
+    var width = $(".snowball-main").width() / 2;
     var zoom = width / 600;
+    var scale = "scale(" + zoom + ")";
 
     if (block) {
-      block.find(".snowball-preview").contents().find("html").css("transform", "scale(" + zoom + ")");
+      block.find(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
     } else {
-      $(".snowball-preview").contents().find("html").css("transform", "scale(" + zoom + ")");
+      $(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
     }
   }
 
