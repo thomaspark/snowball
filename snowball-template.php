@@ -14,8 +14,6 @@ setup_postdata($post);
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <?php do_action("snowball_enqueue_stylesheets"); ?>
-  <script src="<?php echo includes_url('js/jquery/jquery.js'); ?>"></script>
-  <?php do_action("snowball_enqueue_scripts"); ?>
   <!--[if lt IE 9]>
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
   <![endif]-->
@@ -30,5 +28,8 @@ setup_postdata($post);
     ?>
 
   </article>
+  
+  <script src="<?php echo includes_url('js/jquery/jquery.js'); ?>"></script>
+  <?php do_action("snowball_enqueue_scripts"); ?>
 </body>
 </html>
