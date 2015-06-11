@@ -1,0 +1,116 @@
+<section class="snowball-block snowball-block-quote {{quotetype}} {{offset}}">
+	<div>
+		<blockquote>
+			<p>{{text}}</p>
+			<cite>{{source}}</cite>
+		</blockquote>
+	</div>
+
+	<style scoped>
+		.snowball-block-quote.offset-left,
+		.snowball-block-quote.offset-right {
+			width: 500px;
+			min-width: 0;
+			margin-bottom: 0;
+		}
+
+		.snowball-block-quote.offset-left {
+			float: left;
+			margin-left: calc((100% - 600px)/2 - 225px);
+		}
+
+		.snowball-block-quote.offset-right {
+			float: right;
+			margin-right: calc((100% - 600px)/2 - 225px);
+		}
+
+		@media (max-width: 1200px) {
+			.snowball-block-quote.offset-left,
+			.snowball-block-quote.offset-right {
+				float: none;
+				width: 600px;
+				margin: 0 auto 3em;
+			}
+		}
+
+		blockquote {
+			font-size: 1.5rem;
+			font-style: italic;
+		}
+
+		.quote-marks blockquote {
+			quotes: "\201C""\201D""\2018""\2019";
+		}
+
+		.quote-marks blockquote p:before,
+		.quote-marks blockquote p:after {
+			line-height: 0.1em;
+			vertical-align: -0.4em;
+			color: #C6C6C6;
+			font-family: Georgia, serif;
+			font-size: 5rem;
+			font-weight: bold;
+
+		}
+
+		.quote-marks blockquote p:before {
+			content: open-quote;
+			margin-right: 0.15em;
+		}
+
+		.quote-marks blockquote p:after {
+			content: close-quote;
+		}
+
+		.quote-bar blockquote {
+			border-left-style: solid;
+			border-left-width: 0.4rem;
+			border-left-color: #C6C6C6;
+			margin: 0;
+			padding: 10px 0 10px 1.5rem;
+			font-size: inherit;
+			font-style: inherit;
+		}
+
+		.quote-bar blockquote p {
+			margin: 0;
+		}
+
+		.speech-bubble blockquote {
+			border-radius: 10px;
+			margin-bottom: 40px;
+			padding: 15px 25px;
+			position: relative;
+			text-shadow: 0 1px 1px hsla(0, 0%, 100%, .5);
+			background-color: #E4E4E4;
+			background-image: -webkit-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
+			background-image:    -moz-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
+			background-image:     -ms-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
+			background-image:      -o-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
+			background-image:         linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
+			border-radius: 10px;
+			box-shadow: inset 0 1px 1px hsla(0, 0%, 100%, .5), 3px 3px 0 hsla(0, 0%, 0%, .1);
+			color: #333;
+			display: inline-block;
+			font: 16px/25px verdana;
+		}
+
+		.speech-bubble blockquote:after,
+		.speech-bubble blockquote:before {
+				border-bottom: 50px solid transparent;
+				border-left: 50px solid #E4E4E4;
+				bottom: -50px;
+				content: '';
+				position: absolute;
+				right:65%;
+		}
+		.speech-bubble blockquote:before {
+				border-left: 50px solid hsla(0, 0%, 0%, .1);
+				right: 64.5%;
+		}
+
+		cite {
+			display: block;
+		}
+	</style>
+</section>
