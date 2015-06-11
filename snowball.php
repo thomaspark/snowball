@@ -127,8 +127,8 @@ add_filter('single_template', 'snowball_template');
  * Add scripts and stylesheets
  */
 
-function snowball_admin_add_scripts_and_stylesheets() {
-  if (get_post_type(get_the_id()) == 'snowball') {
+function snowball_admin_add_scripts_and_stylesheets($hook) {
+  if (($hook == 'post.php') && (get_post_type(get_the_id()) == 'snowball')) {
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/snowball-admin.css'));
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
@@ -179,12 +179,14 @@ function snowball_metabox_save($post_id) {
  */
 
 function add_ajax_enqueue($hook) {
-  global $post;
-  wp_enqueue_script('ajax-script', plugins_url('/scripts/snowball-ajax.js', __FILE__), array('jquery'));
+  if (($hook == 'post.php') && (get_post_type(get_the_id()) == 'snowball')) {
+    global $post;
+    wp_enqueue_script('ajax-script', plugins_url('/scripts/snowball-ajax.js', __FILE__), array('jquery'));
 
-  // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
-  wp_localize_script('ajax-script', 'ajax_object',
-            array('ajax_url' => admin_url('admin-ajax.php'), 'post_id' => $post->ID));
+    // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
+    wp_localize_script('ajax-script', 'ajax_object',
+              array('ajax_url' => admin_url('admin-ajax.php'), 'post_id' => $post->ID));
+  }
 }
 add_action('admin_enqueue_scripts', 'add_ajax_enqueue');
 
