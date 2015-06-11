@@ -76,7 +76,6 @@
 
   };
 
-  // retrieves the textbox needed $('.CodeMirror').siblings(".snowball-editor-box");
   $(".snowball-toolbar").on("click", ".button", function() {
     var type = $(this).data("type");
     snowball.addBlock(type);
@@ -85,8 +84,7 @@
   $(".snowball-main")
     .on("open", ".snowball-block", function(){
       // render the editor with code whenever a block is created
-      var doms = $(this).find(".snowball-editor-box").get();
-      setupEditors(doms);
+      setupEditors($(this));
     })
     .on("render", ".snowball-block", function() {
       renderPreview($(this));
@@ -106,7 +104,10 @@
     .on("change", "input, textarea", function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
+//      refreshDataOnEditor(block);
       renderBlockWithEditor(block);
+
+      alert("color change");
     })
     .on("click", ".snowball-delete", function() {
       var block = $(this).parents(".snowball-block");
@@ -121,7 +122,12 @@
 
     .on("click", ".snowball-editor-toggle", function(){
       var block = $(this).parents(".snowball-block");
-      block.find(".snowball-code").slideToggle("slow");
+      // toggle the code view
+      var snowballCode = block.find(".snowball-code").slideToggle("slow");
+
+      $(block).find(".CodeMirror").each(function(i, e){
+        e.CodeMirror.refresh();
+      });
     })
     .sortable({
       "axis": "y",
@@ -212,10 +218,6 @@
     };
   }
 
-    /*
-    TODO try using data-mode 
-    and have one common class to represent the syntax highlighting
-  */
   function initEditor(dom, modeType){
     var isReadonly = (modeType === "xml");
     var editor = CodeMirror.fromTextArea(dom, {
@@ -234,67 +236,100 @@
     Renders the code onto the text editor based on
     what code mode is used.
   */
-  function renderEditor(dom, modeType, editor){
+  function renderEditor(previewSection, modeType, editor){
+    // removes the tag and all the code in it.
+    function removeTagFromHtml(code, tagname){
+      var startIndex = code.indexOf("<" + tagname + ">");
+      var endIndex = code.indexOf("</" + tagname + ">");
+
+      var END_STYLE_TAG_LENGTH = code.length + 3;
+      var tag = code.substring(startIndex, endIndex + END_STYLE_TAG_LENGTH);
+      if(startIndex != -1){
+        code = code.replace(tag, "");
+      }
+      return code;
+    }
+
     var code = "";
-    var previewSection = $(dom).closest(".snowball-block").find(".snowball-preview").contents().find("body");
     var length = 0;
     if(modeType == "css"){
-      code = previewSection.find("style").html();
-      length = code.split(/\r\n|\r|\n/).length;
+      code = $(previewSection).find("style").html();
+      if(code){
+        code = code.replace(/^\s+|\s+$/g, '');
+        // add extra 
+        code = code + "\n";
+        length = code.split(/\r\n|\r|\n/).length;
+      }
     }
     // html doesnt work now so xml syntax is used
     else if(modeType == "xml"){
-      code = previewSection.html().toString();
+      code = previewSection;
       // removing the style and script tag from html
       // I forget why I did it this way -Brian Lee
-      var startIndex = code.indexOf("<style");
-      var endIndex = code.indexOf("</style>");
+      removeTagFromHtml(code, "style");
+      removeTagFromHtml(code, "script");
 
-      var END_STYLE_TAG_LENGTH = 8;
-      var styleTag = code.substring(startIndex, endIndex + END_STYLE_TAG_LENGTH);
-      code = code.replace(styleTag, "");
       length = code.split(/\r\n|\r|\n/).length;
     }
     else if(modeType == "javascript"){
-      code = previewSection.find("script").html();
-      length = code ? code.split(/\r\n|\r|\n/).length : 0;
+      code = $(previewSection).find("script").html();
+      if(code){
+        length = code ? code.split(/\r\n|\r|\n/).length : 0;
+      }
     }
 
     if(!code){
       code = "";
     }
-
     editor.setValue(code);
     var startLine = {line: 0, ch:0};
     var endLine = {line: length+1, ch:0};
-    var options = {readOnly:true};
+    var options = {readOnly:true, inclusiveLeft:true};
     editor.markText(startLine, endLine, options);
-    return editor;
   }
 
-  /*
-    TODO: Refactor this code so it looks nicer and easier to reuse.
-  */
-  function renderBlockWithEditor(block){
-    var cm = $(block).find('.CodeMirror');
+  function retrieveNonReadOnlyText(editor){
+    //there should only be one marked text object
+    var readOnlyMark = editor.getAllMarks();
+    var code = editor.getValue();
+    if(readOnlyMark.length){
+      var mark = readOnlyMark[0];
+//      var firstReadOnlyLine = mark.doc.first;
+      var lastReadOnlyLine = mark.lines.length;// + firstReadOnlyLine;
+      if(lastReadOnlyLine < 2){
+        code = editor.getValue();
+      }else{
+        var fromLine = {line:lastReadOnlyLine, ch:0};
+        var toLine = {line:editor.lastLine(), ch:0};
+        code = editor.getRange(fromLine, toLine);
+      }
+    }
+    return code;
+  }
 
+  function renderBlockWithEditor(block){
+    var previewCode = $(block).find(".snowball-preview").contents().find("section");
+    function insertIntoTag(tagname, editor){
+      var insertTag = previewCode.find(tagname);
+      if(editor){
+        if(insertTag.length){
+          insertTag.append(retrieveNonReadOnlyText(editor));
+        }else{
+          var code = "<" + tagname + ">" + retrieveNonReadOnlyText(editor) + "</" + tagname + ">";
+          previewCode.append(code);
+        }
+      }
+    }
+
+    var cm = $(block).find('.CodeMirror');
+    // this checks if all 3 code mirror textareas exist in the block 
+    // and then grabs all 3 of them
     if(cm && cm.length > 2){
-      var htmlEditor = cm[0].CodeMirror;
       var cssEditor = cm[1].CodeMirror;
       var jsEditor = cm[2].CodeMirror;
-      var htmlCode = $(htmlEditor.getValue());
 
-      if(cssEditor){
-        var styleCode = "<style>"+ cssEditor.getValue() + "</style>";
-        htmlCode.append(styleCode);
-      }
-      if(jsEditor){
-        var scriptCode = "<script>"+ jsEditor.getValue() + "</script>";
-        htmlCode.append(scriptCode);
-      }
-
-      var previewCode = $(block).find(".snowball-preview").contents().find("body");
-      previewCode.html(htmlCode);
+      insertIntoTag("style", cssEditor);
+      insertIntoTag("script", jsEditor);
     }else{
       console.log("No text editors were detected.");
     }
@@ -302,22 +337,32 @@
 
   /*
   NOTE: domList must be a list of dom's not jquery objects!!!!!
-  sample code that works as an argumet:
-  var domList = document.getElementsByClassName("snowball-editor-box");
-  */
-  function setupEditors(domList){
+ */
+  function setupEditors(block){
+    var domList = $(block).find(".snowball-editor-box").get();
+    var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
     var listLength = domList.length;
-    var editorList = [];
-    // TODO: make the code more modular
-    // TODO: We don't need a editor list anymore
     // NOTE: both jQuery objects and dom objects are being used
     // CodeMirror must take in dom objects in order to work
     for(var i = 0; i < listLength; i++){
       var dom = domList[i];
       var modeType = dom.getAttribute("data-mode");
       var editor = initEditor(dom, modeType);
-      editor = renderEditor(dom, modeType, editor);
+      renderEditor(previewCode, modeType, editor);
     }
+  }
+
+/* 
+  Would this need a flag in order to know if it needs to be used.
+*/
+  function refreshDataOnEditor(block){
+    var cm = $(block).find('.CodeMirror');
+    var cssEditor = cm[1].CodeMirror;
+    var jsEditor = cm[2].CodeMirror;
+    var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
+
+    renderEditor(previewCode, "css", cssEditor);
+    renderEditor(previewCode, "javascript", jsEditor);
   }
 
 })(jQuery);

@@ -143,7 +143,6 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('codemirror-active-line-js', plugins_url('snowball/libraries/codemirror/addon/selection/active-line.js'));
     wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
     
-    //wp_enqueue_script('codemirror-mode-htmlmixed', plugins_url('snowball/libraries/codemirror/mode/htmlmixed.js'));
     wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/libraries/codemirror/mode/javascript.js'));
     wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/libraries/codemirror/mode/css.js'));
     wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/libraries/codemirror/mode/xml.js'));
