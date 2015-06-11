@@ -15,3 +15,7 @@ html {
 .snowball-block-text {
   padding: 1em;
 }
+
+.snowball-block-splash .snowball-block-splash-bg.parallax {
+  background-attachment: scroll;
+}

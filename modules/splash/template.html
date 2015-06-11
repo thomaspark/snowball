@@ -1,5 +1,5 @@
 <section class="snowball-block snowball-block-splash {{full-width}}">
-  <div class="snowball-block-splash-bg"></div>
+  <div class="snowball-block-splash-bg {{parallax}}"></div>
   <div class="snowball-block-splash-inner">
     {{content}}
   </div>
@@ -30,6 +30,10 @@
       background-image: url('{{background-image}}');
       background-color: {{background-color}};
       background-size: cover;
+    }
+
+    .snowball-block-splash-bg.parallax {
+      background-attachment: fixed;
     }
 
     .snowball-block-splash-inner {
