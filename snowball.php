@@ -260,9 +260,9 @@ function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
   $block_json = '[]';
 
-  if(isset($row)){
+  if (isset($row)) {
     $block_json = $row->blocks_value;
-    if(!isset($block_json)){
+    if (!isset($block_json)) {
       $block_json = '[]';
     }
   }
@@ -351,7 +351,7 @@ function snowball_save_block($json_block, $post_id) {
   }
 
   // This isn't the best error checking done
-  if($was_successful == false){
+  if ($was_successful == false) {
     //Insert failed
     return -1;
   }
@@ -395,7 +395,7 @@ function snowball_save_article($article, $post_id) {
    );
   }
   // This isn't the best error checking done
-  if($was_successful == false){
+  if ($was_successful == false) {
     //Insert failed
     return -1;
   }
@@ -430,9 +430,9 @@ function snowball_get_article($post_id) {
   $table_name = $wpdb->prefix . 'snowball_articles';
 
   $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id));
-  if($row) {
+  if ($row) {
     $article = $row->article_html;
-    if($article != NULL){
+    if ($article != NULL) {
       return $article;
     }
   }

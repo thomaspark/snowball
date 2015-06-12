@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
     This function will traverse through all the html in all the blocks
     and retrieve all the data about the block the user added.
   */
-  function retrieveBlocks(){
+  function retrieveBlocks() {
     var blocks = [];
     // element is a form that represents a block
     // parseBlock is a function
@@ -42,7 +42,7 @@ jQuery(document).ready(function($) {
       var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target]";
       var inputs = $(blockForm).find(selector);
 
-      if(inputs){
+      if (inputs) {
         var block = {
           blockType: type,
           orderNumber: orderNumber
@@ -73,9 +73,9 @@ jQuery(document).ready(function($) {
   // retrieves the html of the blocks in the preview of the blocks
   // and save the html to the article table
   // this function returns the html
-  function retrieveRenderedPage(){
+  function retrieveRenderedPage() {
     var html = '';
-    jQuery(".snowball-preview").each(function(index, element){
+    jQuery(".snowball-preview").each(function(index, element) {
       html = html + "\n" + jQuery(element).contents().find("body").html();
     });
 
@@ -84,17 +84,17 @@ jQuery(document).ready(function($) {
 
   // this is the same function on
   // retrieveNonReadOnlyText except it has block as an argument.
-  function retrieveCustomCss(block){
+  function retrieveCustomCss(block) {
     //the css code editor
     var editor = $(block).find('.CodeMirror')[1].CodeMirror;
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
-    if(readOnlyMark.length){
+    if (readOnlyMark.length) {
       var mark = readOnlyMark[0];
       var lastReadOnlyLine = mark.lines.length;
-      if(lastReadOnlyLine < 2){
+      if (lastReadOnlyLine < 2) {
         code = editor.getValue();
-      }else{
+      } else {
         var fromLine = {line:lastReadOnlyLine-1, ch:0};
         var toLine = {line:editor.lastLine()+1, ch:0};
         code = editor.getRange(fromLine, toLine);

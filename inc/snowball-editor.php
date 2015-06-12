@@ -62,7 +62,7 @@ foreach ($modules as $module) {
       function populateSavedBlocks() {
         var savedBlocks = snowball.savedblocks;
 
-        for(var b in savedBlocks) {
+        for (var b in savedBlocks) {
           var block = savedBlocks[b];
           var type = block["blockType"].toLowerCase();
 
@@ -74,7 +74,7 @@ foreach ($modules as $module) {
         }
       }
 
-      if(snowball.savedblocks != null && snowball.savedblocks != "") {
+      if (snowball.savedblocks != null && snowball.savedblocks != "") {
         populateSavedBlocks();
       }
     });
