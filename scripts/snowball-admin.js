@@ -5,11 +5,12 @@
     var name = snowball.names[type];
 
     var block =  $("<div class='snowball-block'>" +
-                  "<div class='snowball-gui'>" +
+                    "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
                         "<div>" +
                           "<div class='snowball-title'></div>" +
-                          "<div class='snowball-delete'>&times;</div>" +
+                          "<div class='snowball-title-button snowball-delete'>&times;</div>" +
+                          "<div class='snowball-title-button snowball-editor-toggle'>&lt;/&gt;</div>" +
                         "</div>" +
                       "</div>" +
                       "<iframe class='snowball-preview'></iframe>" +
@@ -117,6 +118,10 @@
           
           this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
           e.preventDefault();
+
+    .on("click", ".snowball-editor-toggle", function(){
+      var block = $(this).parents(".snowball-block");
+      block.find(".snowball-code").slideToggle("slow");
     })
     .sortable({
       "axis": "y",
