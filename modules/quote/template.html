@@ -15,11 +15,13 @@
 		}
 
 		.snowball-block-quote.offset-left {
+			margin-right: 1em; /*added*/
 			float: left;
 			margin-left: calc((100% - 600px)/2 - 225px);
 		}
 
 		.snowball-block-quote.offset-right {
+			margin-left: 1em; /*added*/
 			float: right;
 			margin-right: calc((100% - 600px)/2 - 225px);
 		}
@@ -34,6 +36,7 @@
 		}
 
 		blockquote {
+			margin: 0; /*added*/
 			font-size: 1.5rem;
 			font-style: italic;
 		}
@@ -54,12 +57,14 @@
 		}
 
 		.quote-marks blockquote p:before {
+			margin-left: -0.67em; /*added*/
 			content: open-quote;
 			margin-right: 0.15em;
 		}
 
 		.quote-marks blockquote p:after {
 			content: close-quote;
+			margin-right: -0.67em; /*added*/
 		}
 
 		.quote-bar blockquote {
@@ -81,32 +86,23 @@
 			margin-bottom: 40px;
 			padding: 15px 25px;
 			position: relative;
-			text-shadow: 0 1px 1px hsla(0, 0%, 100%, .5);
 			background-color: #E4E4E4;
-			background-image: -webkit-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
-			background-image:    -moz-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
-			background-image:     -ms-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
-			background-image:      -o-linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
-			background-image:         linear-gradient(top, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, 0));
 			border-radius: 10px;
-			box-shadow: inset 0 1px 1px hsla(0, 0%, 100%, .5), 3px 3px 0 hsla(0, 0%, 0%, .1);
 			color: #333;
-			display: inline-block;
-			font: 16px/25px verdana;
 		}
 
-		.speech-bubble blockquote:after,
-		.speech-bubble blockquote:before {
+		.speech-bubble blockquote:after {
 				border-bottom: 50px solid transparent;
 				border-left: 50px solid #E4E4E4;
+				left:15%;
 				bottom: -50px;
 				content: '';
 				position: absolute;
-				right:65%;
 		}
-		.speech-bubble blockquote:before {
-				border-left: 50px solid hsla(0, 0%, 0%, .1);
-				right: 64.5%;
+
+		.snowball-block-quote.speech-bubble.offset-left,
+		.snowball-block-quote.speech-bubble.offset-right {
+			margin-bottom: 4em;
 		}
 
 		cite {
