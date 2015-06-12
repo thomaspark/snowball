@@ -122,11 +122,9 @@
 
     var path = snowball.path;
     var css = path + "/styles/snowball.css";
-    var js = path + "/scripts/snowball.js";
     var cssPreview = path + "/styles/snowball-preview.css";
     var stylesheet = $("<link/>").attr({"rel": "stylesheet", "href": css});
     var stylesheetPreview = $("<link/>").attr({"rel": "stylesheet", "href": cssPreview});
-    var script = $("<script/>").attr("src", js);
 
     fields.each(function(index, element) {
       var target = $(this).data("target");
@@ -150,7 +148,7 @@
     }
 
     if (preview.find("head").is(":empty")) {
-      preview.find("head").append(stylesheet, stylesheetPreview, script).end();
+      preview.find("head").append(stylesheet, stylesheetPreview).end();
     }
 
     preview.find("body").html(html);
