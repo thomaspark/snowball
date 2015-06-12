@@ -1,0 +1,22 @@
+<form data-name="Quote">
+	<label>Quote<br>
+		<textarea data-target="text" style="width: 100%; max-width: 100%; min-height: 150px;">Text</textarea>
+	</label>
+
+	<label>Source<br>
+		<input class="medium-text" type="text" data-target="source" placeholder="Source">
+	</label>
+
+	<div>Quote Type<br>
+		<label><input type="radio" class="quotetype" name="quotetype" data-target="quotetype" value="" checked>Plain</label>
+		<label><input type="radio" class="quotetype" name="quotetype" data-target="quotetype" value="quote-bar">Quote Bar</label>
+		<label><input type="radio" class="quotetype" name="quotetype" data-target="quotetype" value="quote-marks">Quote Marks</label>
+		<label><input type="radio" class="quotetype" name="quotetype" data-target="quotetype" value="speech-bubble">Speech Bubble</label>
+	</div>
+
+	<div>Offset<br>
+		<label><input type="radio" name="offset" data-target="offset" value="" checked>None</label>
+		<label><input type="radio" name="offset" data-target="offset" value="offset-left">Left</label>
+		<label><input type="radio" name="offset" data-target="offset" value="offset-right">Right</label>
+	</div>
+</form>
