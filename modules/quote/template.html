@@ -5,7 +5,6 @@
       <cite>{{source}}</cite>
     </blockquote>
   </div>
-
   <style scoped>
     .snowball-block-quote.offset-left,
     .snowball-block-quote.offset-right {
@@ -35,14 +34,20 @@
       }
     }
 
-    blockquote {
+    .snowball-block-quote blockquote {
       margin: 0;
       font-size: 1.5rem;
       font-style: italic;
     }
 
+    .snowball-block-quote cite {
+      display: block;
+    }
+
     .quote-marks blockquote {
       quotes: "\201C""\201D""\2018""\2019";
+      padding-left: 2em;
+      padding-right: 2em;
     }
 
     .quote-marks blockquote p:before,
@@ -67,45 +72,29 @@
     }
 
     .quote-bar blockquote {
-      border-left-style: solid;
-      border-left-width: 0.4rem;
-      border-left-color: #C6C6C6;
-      margin: 0;
       padding: 10px 0 10px 1.5rem;
+      border-left: 0.4rem solid #C6C6C6;
+      margin: 0;
       font-size: inherit;
       font-style: inherit;
     }
 
-    .quote-bar blockquote p {
-      margin: 0;
-    }
-
     .speech-bubble blockquote {
-      border-radius: 10px;
-      margin-bottom: 40px;
-      padding: 15px 25px;
       position: relative;
+      padding: 0.25em 1.5em 1em;
+      border-radius: 0.5em;
+      margin-bottom: 2em;
       background-color: #E4E4E4;
-      border-radius: 10px;
       color: #333;
     }
 
     .speech-bubble blockquote:after {
-      border-bottom: 50px solid transparent;
-      border-left: 50px solid #E4E4E4;
-      position: absolute;
-      left:15%;
-      bottom: -50px;
       content: '';
-    }
-
-    .snowball-block-quote.speech-bubble.offset-left,
-    .snowball-block-quote.speech-bubble.offset-right {
-      margin-bottom: 4em;
-    }
-
-    cite {
-      display: block;
+      position: absolute;
+      left: 15%;
+      bottom: -2em;
+      border-bottom: 2em solid transparent;
+      border-left: 2em solid #E4E4E4;
     }
   </style>
 </section>
