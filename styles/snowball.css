@@ -36,6 +36,24 @@ h1 {
   width: 100%;
 }
 
+.offset-left,
+.offset-right {
+  width: 500px;
+  margin-bottom: 0;
+}
+
+.offset-left {
+  float: left;
+  margin-left: calc((100% - 600px)/2 - 225px);
+  margin-right: 1em;
+}
+
+.offset-right {
+  float: right;
+  margin-right: calc((100% - 600px)/2 - 225px);
+  margin-left: 1em;
+}
+
 .meta {
   margin-bottom: 4rem;
   text-align: center;
@@ -48,4 +66,13 @@ h1 {
   font-size: 14px;
   font-style: italic;
   color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1200px) {
+  .offset-left,
+  .offset-right {
+    float: none;
+    width: 600px;
+    margin: 0 auto 4em;
+  }
 }
