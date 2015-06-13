@@ -147,7 +147,6 @@ function snowball_add_stylesheets() {
 add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
-  echo '<script src="' . plugins_url('snowball/scripts/lib/jquery.scoped.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
