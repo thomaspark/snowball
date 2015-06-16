@@ -137,6 +137,10 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('thickbox');
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
+
+    // tables
+    wp_enqueue_style('handsontable-css', plugins_url('snowball/styles/lib/handsontable.full.min.css'));
+    wp_enqueue_script('handsontable-js', plugins_url('snowball/scripts/lib/handsontable.full.min.js'), array(), '', true);
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
