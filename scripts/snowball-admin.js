@@ -1,5 +1,4 @@
 (function($) {
-  snowball.editors = [];
   snowball.addBlock = function(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
@@ -24,10 +23,10 @@
                         "<div class='snowball-code-title'>CSS Editor</div>" +
                         "<textarea class='snowball-editor-box' data-mode='css'></textarea>" +
                       "</div>" +
-                      "<div class='snowball-js snowball-editor'>" +
+                      /*"<div class='snowball-js snowball-editor'>" +
                         "<div class='snowball-code-title'>Javascript Editor</div>" +
                         "<textarea class='snowball-editor-box' data-mode='javascript'></textarea>" +
-                      "</div>" +
+                      "</div>" +*/
                     "</div>" +
                     "<div class='snowball-bottom-bar'></div>" +
                   "</div>");
@@ -84,11 +83,12 @@
   $(".snowball-main")
     .on("open", ".snowball-block", function(){
       // render the editor with code whenever a block is created
-      setupEditors($(this));
+      //setupEditors($(this));
     })
     .on("render", ".snowball-block", function() {
       renderPreview($(this));
-      renderBlockWithEditor($(this));
+      //renderBlockWithEditor($(this));
+      //refreshDataOnEditor($(this));
     })
     .on("mousedown", ".snowball-block", function(e) {
       $(".snowball-main").height($(".snowball-main").height());
@@ -99,15 +99,14 @@
     .on("keyup", "input, textarea", debounce(function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
-      renderBlockWithEditor(block);
+      //renderBlockWithEditor(block);
+      //refreshDataOnEditor(block);
     }, 250))
     .on("change", "input, textarea", function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
-//      refreshDataOnEditor(block);
-      renderBlockWithEditor(block);
-
-      alert("color change");
+      //renderBlockWithEditor(block);
+      //refreshDataOnEditor(block);
     })
     .on("click", ".snowball-delete", function() {
       var block = $(this).parents(".snowball-block");
@@ -164,7 +163,6 @@
     var cssPreview = path + "/styles/snowball-preview.css";
     var stylesheet = $("<link/>").attr({"rel": "stylesheet", "href": css});
     var stylesheetPreview = $("<link/>").attr({"rel": "stylesheet", "href": cssPreview});
-
     fields.each(function(index, element) {
       var target = $(this).data("target");
       var value = $(this).val();
@@ -235,14 +233,14 @@
   /*
     Renders the code onto the text editor based on
     what code mode is used.
+    TODO: needs more refactoring
   */
   function renderEditor(previewSection, modeType, editor){
     // removes the tag and all the code in it.
     function removeTagFromHtml(code, tagname){
-      var startIndex = code.indexOf("<" + tagname + ">");
+      var startIndex = code.indexOf("<" + tagname);
       var endIndex = code.indexOf("</" + tagname + ">");
-
-      var END_STYLE_TAG_LENGTH = code.length + 3;
+      var END_STYLE_TAG_LENGTH = tagname.length + 3;
       var tag = code.substring(startIndex, endIndex + END_STYLE_TAG_LENGTH);
       if(startIndex != -1){
         code = code.replace(tag, "");
@@ -253,12 +251,16 @@
     var code = "";
     var length = 0;
     if(modeType == "css"){
-      code = $(previewSection).find("style").html();
+      code = $(previewSection).find("style:not([data-type='custom'])").html();
+      console.log($(previewSection).find("style:not([data-type='custom'])"));
       if(code){
         code = code.replace(/^\s+|\s+$/g, '');
         // add extra 
         code = code + "\n";
         length = code.split(/\r\n|\r|\n/).length;
+        code = code + "\n";
+      }else{
+        code="";
       }
     }
     // html doesnt work now so xml syntax is used
@@ -266,9 +268,9 @@
       code = previewSection;
       // removing the style and script tag from html
       // I forget why I did it this way -Brian Lee
-      removeTagFromHtml(code, "style");
-      removeTagFromHtml(code, "script");
-
+      code = removeTagFromHtml(code, "style");
+      // just in case there are two style tags
+      code = removeTagFromHtml(code, "style");
       length = code.split(/\r\n|\r|\n/).length;
     }
     else if(modeType == "javascript"){
@@ -281,11 +283,24 @@
     if(!code){
       code = "";
     }
+    var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
+    if(nonReadOnlyCode){
+      code = code + nonReadOnlyCode;
+    }
+    var scrollPos = {
+      line: editor.getCursor().line,
+      ch: editor.getCursor().ch
+    };
+
     editor.setValue(code);
-    var startLine = {line: 0, ch:0};
-    var endLine = {line: length+1, ch:0};
+
+    var startLine = {line: 0, ch: 0};
+    var endLine = {line: length, ch: 0};
     var options = {readOnly:true, inclusiveLeft:true};
     editor.markText(startLine, endLine, options);
+
+    //editor.setValue() will scroll to top, so scroll back to your last cursor position.
+    editor.setCursor(scrollPos);
   }
 
   function retrieveNonReadOnlyText(editor){
@@ -299,8 +314,8 @@
       if(lastReadOnlyLine < 2){
         code = editor.getValue();
       }else{
-        var fromLine = {line:lastReadOnlyLine, ch:0};
-        var toLine = {line:editor.lastLine(), ch:0};
+        var fromLine = {line:lastReadOnlyLine-1, ch:0};
+        var toLine = {line:editor.lastLine()+1, ch:0};
         code = editor.getRange(fromLine, toLine);
       }
     }
@@ -309,13 +324,14 @@
 
   function renderBlockWithEditor(block){
     var previewCode = $(block).find(".snowball-preview").contents().find("section");
-    function insertIntoTag(tagname, editor){
-      var insertTag = previewCode.find(tagname);
+    function updateStyleTag(editor){
+      var insertTag = previewCode.find("style[data-type=\"custom\"]");
       if(editor){
+        var code = "<style data-type=\"custom\">" + retrieveNonReadOnlyText(editor) + "</style>";
         if(insertTag.length){
-          insertTag.append(retrieveNonReadOnlyText(editor));
+          insertTag.html(code);
+          alert("insert into existing style tag");
         }else{
-          var code = "<" + tagname + ">" + retrieveNonReadOnlyText(editor) + "</" + tagname + ">";
           previewCode.append(code);
         }
       }
@@ -324,12 +340,9 @@
     var cm = $(block).find('.CodeMirror');
     // this checks if all 3 code mirror textareas exist in the block 
     // and then grabs all 3 of them
-    if(cm && cm.length > 2){
+    if(cm && cm.length > 1){
       var cssEditor = cm[1].CodeMirror;
-      var jsEditor = cm[2].CodeMirror;
-
-      insertIntoTag("style", cssEditor);
-      insertIntoTag("script", jsEditor);
+      updateStyleTag(cssEditor);
     }else{
       console.log("No text editors were detected.");
     }
@@ -358,11 +371,9 @@
   function refreshDataOnEditor(block){
     var cm = $(block).find('.CodeMirror');
     var cssEditor = cm[1].CodeMirror;
-    var jsEditor = cm[2].CodeMirror;
     var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
 
     renderEditor(previewCode, "css", cssEditor);
-    renderEditor(previewCode, "javascript", jsEditor);
   }
 
 })(jQuery);
