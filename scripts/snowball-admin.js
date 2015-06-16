@@ -2,7 +2,7 @@
 
   snowball.addBlock = function(type, data) {
     var blockCode = snowball.blocks[type];
-    var name = $(blockCode).data("name");
+    var name = snowball.names[type];
 
     var block =  $("<div class='snowball-block'>" +
                       "<div class='snowball-gui'>" +
@@ -22,7 +22,9 @@
                       "</div>");
 
     block
-      .addClass("snowball-block-" + type).data("type", type)
+      .addClass("snowball-block-" + type)
+      .attr("data-type", type)
+      .attr("data-name", name)
       .find(".snowball-title").text(name).end()
       .find(".snowball-tinker").append(blockCode).end();
 

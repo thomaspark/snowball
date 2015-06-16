@@ -20,7 +20,18 @@
 }
 
 .snowball-toolbar .button {
+  height: auto;
+  width: 75px;
+  padding: 0.8em 1.5em 0.3em;
   border: none;
+  margin-right: 4px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.7em;
+}
+
+.snowball-toolbar .button .fa {
+  font-size: 24px;
 }
 
 .snowball-block {
