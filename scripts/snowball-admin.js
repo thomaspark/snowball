@@ -90,6 +90,13 @@
       var block = $(this).parents(".snowball-block");
       confirmDelete(block);
     })
+    .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
+      var event = e.originalEvent,
+              d = event.wheelDelta || -event.detail;
+          
+          this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
+          e.preventDefault();
+    })
     .sortable({
       "axis": "y",
       "containment": ".snowball-main",
