@@ -97,15 +97,16 @@
   height: 100%;
 }
 
-.snowball-block form > label,
-.snowball-block form > div {
-  display: block;
+.snowball-block form > p {
   margin-bottom: 2em;
-  cursor: default;
 }
 
-.snowball-block form > label:last-child {
-  margin-bottom: 0;
+.snowball-block label + label {
+  margin-left: 1em;
+}
+
+.snowball-block form > p:last-child {
+  margin-bottom: 1em;
 }
 
 .snowball-block input {
