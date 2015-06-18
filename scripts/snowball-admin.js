@@ -10,22 +10,21 @@
                         "<div>" +
                           "<div class='snowball-title'></div>" +
                           "<div class='snowball-title-button snowball-delete'>&times;</div>" +
-                          "<div class='snowball-title-button snowball-editor-toggle'>&lt;/&gt;</div>" +
+                          "<div class='snowball-title-button snowball-editor-toggle'><i class='fa fa-code'></i></div>" +
                         "</div>" +
                       "</div>" +
                       "<iframe class='snowball-preview'></iframe>" +
                     "</div>" +
                     "<div class='snowball-code'>" +
-                      "<div class='snowball-html snowball-editor'>" + 
-                        "<div class='snowball-code-title'>HTML Editor</div>" +
+                      "<div class='snowball-html snowball-editor'>" +
+                        "<div class='snowball-code-title'>HTML</div>" +
                         "<textarea class='snowball-editor-box' data-mode='xml'></textarea>" +
                       "</div>" +
                       "<div class='snowball-css snowball-editor'>" +
-                        "<div class='snowball-code-title'>CSS Editor</div>" +
+                        "<div class='snowball-code-title'>CSS</div>" +
                         "<textarea class='snowball-editor-box' data-mode='css'></textarea>" +
                       "</div>" +
                     "</div>" +
-                    "<div class='snowball-bottom-bar'></div>" +
                   "</div>");
     block
       .addClass("snowball-block-" + type)

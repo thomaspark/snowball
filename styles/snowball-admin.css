@@ -149,9 +149,14 @@ div.wp-picker-holder {
 }
 
 .snowball-code-title {
-  margin: 1em 0;
+  margin: 0 0 0.25em;
   font-weight: bold;
   resize: none;
+}
+
+.snowball-editor-toggle {
+  margin-top: -1px;
+  margin-right: 1em;
 }
 
 .snowball-editor {
@@ -161,8 +166,11 @@ div.wp-picker-holder {
   height: 100%;
   min-height: 200px;
   background-color: #f8f8f8;
-  border: 1px solid #ddd;
   padding: 1em;
+}
+
+.snowball-html {
+  border-right: 1px solid #ddd;;
 }
 
 .snowball-editor-box {
