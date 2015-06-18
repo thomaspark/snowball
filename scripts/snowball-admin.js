@@ -1,8 +1,8 @@
 (function($) {
+  var blockNumber = 0;
   snowball.addBlock = function(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
-
     var block =  $("<div class='snowball-block'>" +
                     "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
@@ -23,10 +23,6 @@
                         "<div class='snowball-code-title'>CSS Editor</div>" +
                         "<textarea class='snowball-editor-box' data-mode='css'></textarea>" +
                       "</div>" +
-                      /*"<div class='snowball-js snowball-editor'>" +
-                        "<div class='snowball-code-title'>Javascript Editor</div>" +
-                        "<textarea class='snowball-editor-box' data-mode='javascript'></textarea>" +
-                      "</div>" +*/
                     "</div>" +
                     "<div class='snowball-bottom-bar'></div>" +
                   "</div>");
@@ -43,20 +39,27 @@
           var selector = "[data-target='" + key + "']";
           var input = block.find(selector);
           var value = data[key];
-
-          if (input.is(":radio")) {
-            input.filter("[value='" +  value + "']").prop("checked", true);
-          } else if (input.is(":checkbox")) {
-            if (value == "true") {
-              input.prop("checked", true);
+          if(input){
+            if (input.is(":radio")) {
+              input.filter("[value='" +  value + "']").prop("checked", true);
+            } else if (input.is(":checkbox")) {
+              if (value == "true") {
+                input.prop("checked", true);
+              } else {
+                input.prop("checked", false);
+              }
             } else {
-              input.prop("checked", false);
+              input.val(value);
             }
-          } else {
-            input.val(value);
           }
         }
       }
+    } else{
+        var dataBlock = {
+          orderNumber: snowball.savedblocks.length,
+          blockType: type
+        };
+        snowball.savedblocks.push(dataBlock);
     }
 
     block
@@ -83,12 +86,14 @@
   $(".snowball-main")
     .on("open", ".snowball-block", function(){
       // render the editor with code whenever a block is created
-      //setupEditors($(this));
+      setupEditors($(this), blockNumber);
+      blockNumber = blockNumber + 1;
+      renderBlockWithEditor($(this));
     })
     .on("render", ".snowball-block", function() {
       renderPreview($(this));
-      //renderBlockWithEditor($(this));
-      //refreshDataOnEditor($(this));
+      renderBlockWithEditor($(this));
+      refreshDataOnEditor($(this));
     })
     .on("mousedown", ".snowball-block", function(e) {
       $(".snowball-main").height($(".snowball-main").height());
@@ -98,15 +103,16 @@
     })
     .on("keyup", "input, textarea", debounce(function() {
       var block = $(this).parents(".snowball-block");
+      // TODO: should this be made into a function, since this is repeated 3 times?
       renderPreview(block);
-      //renderBlockWithEditor(block);
-      //refreshDataOnEditor(block);
+      renderBlockWithEditor(block);
+      refreshDataOnEditor(block);
     }, 250))
     .on("change", "input, textarea", function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
-      //renderBlockWithEditor(block);
-      //refreshDataOnEditor(block);
+      renderBlockWithEditor(block);
+      refreshDataOnEditor(block);
     })
     .on("click", ".snowball-delete", function() {
       var block = $(this).parents(".snowball-block");
@@ -235,7 +241,7 @@
     what code mode is used.
     TODO: needs more refactoring
   */
-  function renderEditor(previewSection, modeType, editor){
+  function renderEditor(previewSection, modeType, editor, blockNum){
     // removes the tag and all the code in it.
     function removeTagFromHtml(code, tagname){
       var startIndex = code.indexOf("<" + tagname);
@@ -247,12 +253,12 @@
       }
       return code;
     }
-
+    // search for the index snowball block that is the same as 
+    // the block that contains the code below.
     var code = "";
     var length = 0;
     if(modeType == "css"){
       code = $(previewSection).find("style:not([data-type='custom'])").html();
-      console.log($(previewSection).find("style:not([data-type='custom'])"));
       if(code){
         code = code.replace(/^\s+|\s+$/g, '');
         // add extra 
@@ -260,24 +266,24 @@
         length = code.split(/\r\n|\r|\n/).length;
         code = code + "\n";
       }else{
-        code="";
+        code = "";
+      }
+
+      // ensures the code will populate the correct custom css code that was saved.
+      if((typeof blockNum) !== 'undefined'){
+        var customCSS = snowball.savedblocks[blockNum].customCss;
+        if(customCSS){
+          code = code + customCSS;
+        }
       }
     }
     // html doesnt work now so xml syntax is used
     else if(modeType == "xml"){
       code = previewSection;
-      // removing the style and script tag from html
-      // I forget why I did it this way -Brian Lee
       code = removeTagFromHtml(code, "style");
       // just in case there are two style tags
       code = removeTagFromHtml(code, "style");
       length = code.split(/\r\n|\r|\n/).length;
-    }
-    else if(modeType == "javascript"){
-      code = $(previewSection).find("script").html();
-      if(code){
-        length = code ? code.split(/\r\n|\r|\n/).length : 0;
-      }
     }
 
     if(!code){
@@ -330,7 +336,7 @@
         var code = "<style data-type=\"custom\">" + retrieveNonReadOnlyText(editor) + "</style>";
         if(insertTag.length){
           insertTag.html(code);
-          alert("insert into existing style tag");
+          alert("insert into existing style tag(this may not work correctly)");
         }else{
           previewCode.append(code);
         }
@@ -349,9 +355,9 @@
   }
 
   /*
-  NOTE: domList must be a list of dom's not jquery objects!!!!!
- */
-  function setupEditors(block){
+    NOTE: domList must be a list of dom's not jquery objects!
+  */
+  function setupEditors(block, blockNum){
     var domList = $(block).find(".snowball-editor-box").get();
     var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
     var listLength = domList.length;
@@ -361,7 +367,7 @@
       var dom = domList[i];
       var modeType = dom.getAttribute("data-mode");
       var editor = initEditor(dom, modeType);
-      renderEditor(previewCode, modeType, editor);
+      renderEditor(previewCode, modeType, editor, blockNum);
     }
   }
 
