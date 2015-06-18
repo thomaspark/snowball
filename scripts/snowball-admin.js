@@ -228,6 +228,14 @@
 
   function initEditor(dom, modeType) {
     var isReadonly = (modeType === "xml");
+
+    if (modeType === "xml") {
+      modeType = {
+        name: modeType,
+        htmlMode: true
+      };
+    }
+
     var editor = CodeMirror.fromTextArea(dom, {
         mode: modeType,
         readOnly: isReadonly,
