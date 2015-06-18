@@ -134,11 +134,23 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/snowball-admin.css'));
     wp_enqueue_style('handsontable-css', plugins_url('snowball/lib/handsontable/handsontable.full.min.css'));
     wp_enqueue_style('fontawesome-css', plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css'));
+    /* dependencies for using code mirror*/
+    wp_enqueue_style('codemirror-css', plugins_url('snowball/libraries/codemirror/lib/codemirror.css'));
+    wp_enqueue_style('codemirror-theme-monokai', plugins_url('snowball/libraries/codemirror/theme/monokai.css'));
 
+    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
+    wp_enqueue_script('codemirror-js', plugins_url('snowball/libraries/codemirror/lib/codemirror.js'));
+    wp_enqueue_script('codemirror-active-line-js', plugins_url('snowball/libraries/codemirror/addon/selection/active-line.js'));
+    wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
+    
+    wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/libraries/codemirror/mode/javascript.js'));
+    wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/libraries/codemirror/mode/css.js'));
+    wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/libraries/codemirror/mode/xml.js'));
+    
+    // image uploads
+    wp_enqueue_style('thickbox');
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
-    wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
-    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
@@ -208,6 +220,7 @@ function add_blocks_callback() {
   $block_data = str_replace('\\\\\'', '\'', $block_data);
   $block_data = str_replace('\\\\', '\\', $block_data);
   $insert_id = snowball_save_block($block_data, $post_id);
+
   $success = 'success';
 
   if ($insert_id == -1) {
@@ -226,8 +239,7 @@ add_action('wp_ajax_add_blocks', 'add_blocks_callback');
 function add_article_callback() {
   $post_id = $_POST['post_id'];
   // removes the \ from the quotes before saving
-  $article_data = $_POST['article'];
-  $article_data = stripslashes($article_data);
+  $article_data = stripslashes($_POST['article']);
   $insert_id = snowball_save_article($article_data, $post_id);
   $success = "success";
   if ($insert_id == -1) {
@@ -250,7 +262,6 @@ function get_block_json($post_id) {
 
   if(isset($row)){
     $block_json = $row->blocks_value;
-    $block_json = stripslashes($block_json);
     if(!isset($block_json)){
       $block_json = '[]';
     }
@@ -310,7 +321,6 @@ function snowball_save_block($json_block, $post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
-  $json_block = mysql_real_escape_string($json_block);
 
   $was_updated = $wpdb->update(
     $table_name, 

@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
   $("#publish").click(function() {
     var blocksRetrieved = retrieveBlocks();
     var articleRetrieved = retrieveRenderedPage();
-    
+
     var blocks_data = {
       "action": "add_blocks",   // this is needed to know which callback to use
       "blocks": blocksRetrieved,
@@ -17,15 +17,10 @@ jQuery(document).ready(function($) {
     };
 
     // adding article to db
-    $.post(ajax_object.ajax_url, article_data, function(response) {
-      console.log("The article save button was clicked: " + response);
-    });
+    $.post(ajax_object.ajax_url, article_data);
 
     // adding blocks data to db
-    $.post(ajax_object.ajax_url, blocks_data, function(response) {
-      //TODO what should be done with the response
-      // the page automatically reloads the webpage
-    });
+    $.post(ajax_object.ajax_url, blocks_data);
   });
 
   /* 
@@ -47,25 +42,30 @@ jQuery(document).ready(function($) {
       var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target]";
       var inputs = $(blockForm).find(selector);
 
-      var block = {
-        blockType: type,
-        orderNumber: orderNumber
-      };
-      // element is a tag with an attribute called data-target
-      inputs.each(function(index, element) {
-        var dataTarget = $(element).attr("data-target");
-        var inputValue = $(element).val();
+      if(inputs){
+        var block = {
+          blockType: type,
+          orderNumber: orderNumber
+        };
+        // element is a tag with an attribute called data-target
+        inputs.each(function(index, element) {
+          var dataTarget = $(element).attr("data-target");
+          var inputValue = $(element).val();
 
-        if ($(element).attr("type") == "checkbox") {
-          inputValue = $(element).is(":checked") ? true : false;
-        }
+          if ($(element).attr("type") == "checkbox") {
+            inputValue = $(element).is(":checked") ? true : false;
+          }
 
-        block[dataTarget] = inputValue;
-      });
+          block[dataTarget] = inputValue;
+        });
 
-      blocks.push(block);
+        // save the css
+        var snowballBlock = $(blockForm).closest('.snowball-block');
+        block.customCss = retrieveCustomCss(snowballBlock);
+        blocks.push(block);
+      }
     }
-  
+
     return blocks;
   }
 
@@ -80,5 +80,26 @@ jQuery(document).ready(function($) {
     });
 
     return html;
+  }
+
+  // this is the same function on
+  // retrieveNonReadOnlyText except it has block as an argument.
+  function retrieveCustomCss(block){
+    //the css code editor
+    var editor = $(block).find('.CodeMirror')[1].CodeMirror;
+    var readOnlyMark = editor.getAllMarks();
+    var code = editor.getValue();
+    if(readOnlyMark.length){
+      var mark = readOnlyMark[0];
+      var lastReadOnlyLine = mark.lines.length;
+      if(lastReadOnlyLine < 2){
+        code = editor.getValue();
+      }else{
+        var fromLine = {line:lastReadOnlyLine-1, ch:0};
+        var toLine = {line:editor.lastLine()+1, ch:0};
+        code = editor.getRange(fromLine, toLine);
+      }
+    }
+    return code;
   }
 });
