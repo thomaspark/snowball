@@ -124,7 +124,7 @@
           
           this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
           e.preventDefault();
-
+    })
     .on("click", ".snowball-editor-toggle", function(){
       var block = $(this).parents(".snowball-block");
       // toggle the code view

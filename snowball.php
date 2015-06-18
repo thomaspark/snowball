@@ -148,7 +148,7 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/libraries/codemirror/mode/xml.js'));
     
     // image uploads
-    wp_enqueue_style('thickbox');.
+    wp_enqueue_style('thickbox');
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
   }
