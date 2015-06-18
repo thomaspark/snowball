@@ -130,12 +130,15 @@
   outline-width: 2px;
 }
 
+.snowball-block .quicktags-toolbar {
+  background: none;
+}
+
 .wp-picker-clear,
 div.wp-picker-holder {
   z-index: 999;
   position: absolute;
 }
-
 
 .snowball-code {
   position: relative;
