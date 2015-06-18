@@ -135,17 +135,17 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('handsontable-css', plugins_url('snowball/lib/handsontable/handsontable.full.min.css'));
     wp_enqueue_style('fontawesome-css', plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css'));
     /* dependencies for using code mirror*/
-    wp_enqueue_style('codemirror-css', plugins_url('snowball/libraries/codemirror/lib/codemirror.css'));
-    wp_enqueue_style('codemirror-theme-monokai', plugins_url('snowball/libraries/codemirror/theme/monokai.css'));
+    wp_enqueue_style('codemirror-css', plugins_url('snowball/lib/codemirror/lib/codemirror.css'));
+    wp_enqueue_style('codemirror-theme-monokai', plugins_url('snowball/lib/codemirror/theme/monokai.css'));
 
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/snowball-admin.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
-    wp_enqueue_script('codemirror-js', plugins_url('snowball/libraries/codemirror/lib/codemirror.js'));
-    wp_enqueue_script('codemirror-active-line-js', plugins_url('snowball/libraries/codemirror/addon/selection/active-line.js'));
+    wp_enqueue_script('codemirror-js', plugins_url('snowball/lib/codemirror/lib/codemirror.js'));
+    wp_enqueue_script('codemirror-active-line-js', plugins_url('snowball/lib/codemirror/addon/selection/active-line.js'));
     wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
     
-    wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/libraries/codemirror/mode/javascript.js'));
-    wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/libraries/codemirror/mode/css.js'));
-    wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/libraries/codemirror/mode/xml.js'));
+    wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/lib/codemirror/mode/javascript.js'));
+    wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/lib/codemirror/mode/css.js'));
+    wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/lib/codemirror/mode/xml.js'));
     
     // image uploads
     wp_enqueue_style('thickbox');
