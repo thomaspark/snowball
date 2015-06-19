@@ -60,7 +60,11 @@
           blockType: type
         };
         snowball.savedblocks.push(dataBlock);
+  jQuery(document).ready(function() {
+    if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
+      populateSavedBlocks();
     }
+  });
 
     block
       .find(".snowball-preview").load(function() {
@@ -159,6 +163,18 @@
       block
         .trigger("close")
         .remove();
+  function populateSavedBlocks() {
+    var savedBlocks = snowball.savedblocks;
+
+    for (var b in savedBlocks) {
+      var block = savedBlocks[b];
+      var type = block["blockType"].toLowerCase();
+
+      // need to delete so snowball.addBlock works properly
+      delete block["blockType"];
+      delete block["orderNumber"];
+
+      addBlock(type, block);
     }
   }
 
