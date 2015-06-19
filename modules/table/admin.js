@@ -37,8 +37,6 @@
           refreshOnChange(block, data);
         }
       });
-
-      $(this).trigger("render");
     });
 
     function refreshOnChange(block, data) {
@@ -52,32 +50,32 @@
     }
 
     function createTable(JSON) {
-      var HTML = "<table>";
+      var HTML = "<table>\n";
       var numRows = JSON.length;
 
       for (var i = 0; i < numRows; i++) {
         if (i === 0) {
-          HTML = HTML + "<thead>";
+          HTML = HTML + "  <thead>\n";
         } else if (i === 1) {
-          HTML = HTML + "</thead><tbody>";
+          HTML = HTML + "  </thead>\n  <tbody>\n";
         }
-        HTML = HTML + "<tr>";
+        HTML = HTML + "    <tr>\n";
         for (var j = 0; j < JSON[i].length; j++) {
           if (JSON[i][j] === null) {
             JSON[i][j] = "";
           }
 
           if (i === 0) {
-            HTML = HTML + "<th>" + JSON[i][j] + "</th>";
+            HTML = HTML + "      <th>" + JSON[i][j] + "</th>\n";
           } else {
-            HTML = HTML + "<td>" + JSON[i][j] + "</td>";
+            HTML = HTML + "      <td>" + JSON[i][j] + "</td>\n";
           }
         }
 
-        HTML = HTML + "</tr>";
+        HTML = HTML + "    </tr>\n";
       }
 
-      HTML = HTML + "</tbody></table>";
+      HTML = HTML + "  </tbody>\n</table>";
 
       return HTML;
     }
