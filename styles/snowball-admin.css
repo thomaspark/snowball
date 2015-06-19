@@ -48,11 +48,6 @@
   position: relative;
 }
 
-.snowball-bottom-bar{
-   background-color: #f8f8f8;
-   min-height:  25px; 
-}
-
 .snowball-tinker,
 .snowball-preview {
   width: 50%;

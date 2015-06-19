@@ -1,6 +1,11 @@
 (function($) {
   var blockNumber = 0;
   var changesMade = false;
+  var ENUM_MODE = {
+    CSS: "css",
+    HTML: "xml",
+    JS: "javascript"
+  }
   snowball.addBlock = function(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
@@ -16,13 +21,13 @@
                       "<iframe class='snowball-preview'></iframe>" +
                     "</div>" +
                     "<div class='snowball-code'>" +
-                      "<div class='snowball-html snowball-editor'>" +
-                        "<div class='snowball-code-title'>HTML</div>" +
-                        "<textarea class='snowball-editor-box' data-mode='xml'></textarea>" +
+                      "<div class='snowball-html snowball-editor'>" + 
+                        "<div class='snowball-code-title'>HTML Editor</div>" +
+                        "<textarea class='snowball-editor-box' data-mode='" + ENUM_MODE.HTML + "'></textarea>" +
                       "</div>" +
                       "<div class='snowball-css snowball-editor'>" +
-                        "<div class='snowball-code-title'>CSS</div>" +
-                        "<textarea class='snowball-editor-box' data-mode='css'></textarea>" +
+                        "<div class='snowball-code-title'>CSS Editor</div>" +
+                        "<textarea class='snowball-editor-box' data-mode='" + ENUM_MODE.CSS + "'></textarea>" +
                       "</div>" +
                     "</div>" +
                   "</div>");
@@ -84,18 +89,22 @@
     changesMade = true;
   });
 
+  function renderBlock(block) {
+    renderPreview(block);
+    renderPreviewWithEditor(block);
+    refreshDataOnEditor(block);
+    chanesMade = true;
+  }
+
   $(".snowball-main")
     .on("open", ".snowball-block", function() {
       var block = $(this);
       setupEditors(block, blockNumber);
       blockNumber = blockNumber + 1;
-      renderBlockWithEditor(block);
+      renderPreviewWithEditor(block);
     })
     .on("render", ".snowball-block", function() {
-      var block = $(this);
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
+      renderBlock($(this));
     })
     .on("mousedown", ".snowball-block", function(e) {
       $(".snowball-main").height($(".snowball-main").height());
@@ -105,18 +114,11 @@
     })
     .on("keyup", "input, textarea", debounce(function() {
       var block = $(this).parents(".snowball-block");
-      // TODO: should this be made into a function, since this is repeated 3 times?
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-      changesMade = true;
+      renderBlock(block);
     }, 250))
     .on("change", "input, textarea", function() {
       var block = $(this).parents(".snowball-block");
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-      changesMade = true;
+      renderBlock(block);
     })
     .on("click", ".snowball-delete", function() {
       var block = $(this).parents(".snowball-block");
@@ -227,45 +229,62 @@
     };
   }
 
-  function setupEditors(block, blockNum) {
-    var preview = block.find(".snowball-preview").contents().find("body");
-    var editors = block.find(".snowball-editor-box");
+ function setupEditors(block, blockNum) {
+    var domList = $(block).find(".snowball-editor-box").get();
+    var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
+    var listLength = domList.length;
+    // NOTE: both jQuery objects and dom objects are being used
+    // CodeMirror must take in dom objects in order to work
+    for(var i = 0; i < listLength; i++) {
+      var dom = domList[i];
+      var modeType = dom.getAttribute("data-mode");
+      var editor = initEditor(dom, modeType);
+      renderEditor(previewCode, modeType, editor, blockNum);
+    }
+  }
 
-    editors.each(function(index, elem) {
-      var modeType = $(this).attr("data-mode");
-      var isReadOnly = (modeType === "xml") ? true : false;
-
-      var editor = CodeMirror.fromTextArea(elem, {
-          mode: {name: modeType, htmlMode: true},
-          readOnly: isReadOnly,
-          lineNumbers: true,
-          lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true
-      });
-
-      renderEditor(preview, modeType, editor, blockNum);
+  function initEditor(dom, modeType) {
+    var isReadonly = (modeType === "xml");
+    var editor = CodeMirror.fromTextArea(dom, {
+        mode: modeType,
+        readOnly: isReadonly,
+        lineNumbers: true,
+        lineWrapping: true,
+        theme: "monokai",
+        styleActiveLine: true
     });
+
+    return editor;
   }
 
   /*
-    Renders the code onto the text editor based on
-    what code mode is used.
-    TODO: needs more refactoring
+    Renders the code onto the text editor based on what code mode is used.
   */
-  function renderEditor(preview, modeType, editor, blockNum) {
+  function renderEditor(previewSection, modeType, editor, blockNum) {
+    // removes the tag and all the code in it.
+    function removeTagFromHtml(code, tagname) {
+      var startIndex = code.indexOf("<" + tagname);
+      var endIndex = code.indexOf("</" + tagname + ">");
+      var END_STYLE_TAG_LENGTH = tagname.length + 3;
+      var tag = code.substring(startIndex, endIndex + END_STYLE_TAG_LENGTH);
+      if (startIndex != -1) {
+        code = code.replace(tag, "");
+      }
+      return code;
+    }
+
     // search for the index snowball block that is the same as 
     // the block that contains the code below.
     var code = "";
     var length = 0;
-
-    if (modeType == "css") {
-      code = preview.find("style:not([data-type='custom'])").html();
-
+    if (modeType == ENUM_MODE.CSS) {
+      code = $(previewSection).find("style:not([data-type='custom'])").html();
       if (code) {
-        code = code.replace(/^\n+|\n+$/g, '');
-        code = code + "\n\n";
-        length = code.split(/\r\n|\r|\n/).length - 1;
+        code = code.replace(/^\s+|\s+$/g, '');
+        // add extra 
+        code = code + "\n";
+        length = code.split(/\r\n|\r|\n/).length;
+        code = code + "\n";
       } else {
         code = "";
       }
@@ -278,17 +297,27 @@
         }
       }
 
+      // this adds non readonly code from the text editor back onto
+      // the text editor.
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
       if (nonReadOnlyCode) {
         code = code + nonReadOnlyCode;
       }
-    } else if (modeType === "xml") {
-      var clone = preview.clone();
-      clone.find("style").remove();
-      code = clone.html().replace("\n\n</section>", "\n</section>");
+    }
+    else if (modeType == ENUM_MODE.HTML) {
+      code = previewSection;
+      code = removeTagFromHtml(code, "style");
+      // just in case there are two style tags
+      code = removeTagFromHtml(code, "style");
       length = code.split(/\r\n|\r|\n/).length;
     }
 
+    if (!code) {
+      code = "";
+    }
+
+    // TODO: refactor this part of the code to separate each
+    // concern in a different function possibly.
     var scrollPos = {
       line: editor.getCursor().line,
       ch: editor.getCursor().ch
@@ -301,7 +330,7 @@
     var options = {readOnly:true, inclusiveLeft:true};
     editor.markText(startLine, endLine, options);
 
-    //editor.setValue() will scroll to top, so scroll back to your last cursor position.
+    // will scroll to top, so scroll back to your last cursor position.
     editor.setCursor(scrollPos);
   }
 
@@ -312,8 +341,7 @@
 
     if (readOnlyMark.length) {
       var mark = readOnlyMark[0];
-//      var firstReadOnlyLine = mark.doc.first;
-      var lastReadOnlyLine = mark.lines.length;// + firstReadOnlyLine;
+      var lastReadOnlyLine = mark.lines.length;
 
       if (lastReadOnlyLine < 2) {
         code = editor.getValue();
@@ -327,31 +355,37 @@
     return code;
   }
 
-  function renderBlockWithEditor(block) {
-    var preview = block.find(".snowball-preview").contents().find("section");
-    var cm = block.find('.CodeMirror');
-    var cssEditor = cm[1].CodeMirror;
-
-    var customStyle = preview.find("style[data-type='custom']");
-
-    if (customStyle.length === 0) {
-      customStyle = $("<style></style>").attr("data-type", "custom").appendTo(preview);
+  function renderPreviewWithEditor(block) {
+    var previewCode = $(block).find(".snowball-preview").contents().find("section");
+    function updateStyleTag(editor) {
+      var insertTag = previewCode.find("style[data-type=\"custom\"]");
+      if (editor) {
+        var code = "<style data-type=\"custom\">" + retrieveNonReadOnlyText(editor) + "</style>";
+        if (insertTag.length) {
+          insertTag.html(code);
+          console.log("insert into existing style tag(this may not work correctly)");
+        } else {
+          previewCode.append(code);
+        }
+      }
     }
-
-    customStyle.html(retrieveNonReadOnlyText(cssEditor));
+    // so far this is only needed for css
+    var cm = $(block).find('.CodeMirror');
+    if (cm && cm.length > 1) {
+      var cssEditor = cm[1].CodeMirror;
+      updateStyleTag(cssEditor);
+    } else {
+      console.log("No text editors were detected.");
+    }
   }
 
-/* 
-  Would this need a flag in order to know if it needs to be used.
-*/
-  function refreshEditors(block) {
-    var cm = block.find('.CodeMirror');
+  function refreshDataOnEditor(block) {
+    var cm = $(block).find('.CodeMirror');
     var htmlEditor = cm[0].CodeMirror;
     var cssEditor = cm[1].CodeMirror;
-    var preview = block.find(".snowball-preview").contents().find("body");
-
-    renderEditor(preview, "xml", htmlEditor, blockNumber);
-    renderEditor(preview, "css", cssEditor, blockNumber);
+    var preview = block.find(".snowball-preview").contents().find("body").html();
+    renderEditor(preview, ENUM_MODE.HTML, htmlEditor);
+    renderEditor(preview, ENUM_MODE.CSS, cssEditor);
   }
 
   window.onbeforeunload = function(e) {
