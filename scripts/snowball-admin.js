@@ -126,7 +126,7 @@
     .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
       var event = e.originalEvent,
               d = event.wheelDelta || -event.detail;
-          
+
           this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
           e.preventDefault();
     })
@@ -142,6 +142,7 @@
     .sortable({
       "axis": "y",
       "containment": ".snowball-main",
+      "cancel": ".snowball-code",
       "cursor": "move"
     });
 
@@ -254,7 +255,7 @@
     TODO: needs more refactoring
   */
   function renderEditor(preview, modeType, editor, blockNum) {
-    // search for the index snowball block that is the same as 
+    // search for the index snowball block that is the same as
     // the block that contains the code below.
     var code = "";
     var length = 0;
@@ -341,7 +342,7 @@
     customStyle.html(retrieveNonReadOnlyText(cssEditor));
   }
 
-/* 
+/*
   Would this need a flag in order to know if it needs to be used.
 */
   function refreshEditors(block) {
