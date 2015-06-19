@@ -1,4 +1,9 @@
 (function($) {
+  $(".snowball-main").on("open", ".snowball-block-image", function() {
+    var borderradius = $(this).find(".img-border-radius").val() + "%";
+    $(this).find(".img-border-radius-output").text(borderradius);
+  });
+
   $(document).ready(function() {
     var index;
 
@@ -17,6 +22,14 @@
       };
 
       return false;
+    });
+
+    $(".snowball-main").on("input change", ".snowball-block-image .img-border-radius", function() {
+      var block = $(this).parents(".snowball-block-image");
+      var borderradius = $(this).val() + "%";
+
+      block.find(".img-border-radius-output").text(borderradius);
+      block.trigger("render");
     });
   });
 
