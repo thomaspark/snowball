@@ -1,5 +1,4 @@
 (function($) {
-  var blockNumber = 0;
   var changesMade = false;
 
   jQuery(document).ready(function() {
@@ -19,12 +18,6 @@
   });
 
   $(".snowball-main")
-    .on("open", ".snowball-block", function() {
-      var block = $(this);
-      setupEditors(block, blockNumber);
-      blockNumber = blockNumber + 1;
-      renderBlockWithEditor(block);
-    })
     .on("render", ".snowball-block", function() {
       var block = $(this);
       renderPreview(block);
@@ -84,7 +77,6 @@
       zoomPreview();
     }, 250))
     .on("beforeunload", function(e) {
-      console.log(e.target);
       if (changesMade) {
         return "You may have unsaved changes.";
       }
@@ -95,10 +87,8 @@
   }, 250));
 
   function populateSavedBlocks() {
-    var savedBlocks = snowball.savedblocks;
-
-    for (var b in savedBlocks) {
-      var block = savedBlocks[b];
+    for (var b in snowball.savedblocks) {
+      var block = snowball.savedblocks[b];
       var type = block["blockType"].toLowerCase();
 
       // need to delete so snowball.addBlock works properly
@@ -163,11 +153,12 @@
         }
       }
     } else {
-        var dataBlock = {
-          orderNumber: snowball.savedblocks.length,
-          blockType: type
-        };
-        snowball.savedblocks.push(dataBlock);
+      var dataBlock = {
+        orderNumber: snowball.savedblocks.length,
+        blockType: type
+      };
+
+      snowball.savedblocks.push(dataBlock);
     }
 
     block
@@ -183,6 +174,27 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
+      
+      var preview = block.find(".snowball-preview").contents().find("body");
+      var editors = block.find(".snowball-editor-box");
+
+      editors.each(function(index, elem) {
+        var modeType = $(this).attr("data-mode");
+        var isReadOnly = (modeType === "xml") ? true : false;
+
+        var editor = CodeMirror.fromTextArea(elem, {
+            mode: {name: modeType, htmlMode: true},
+            readOnly: isReadOnly,
+            lineNumbers: true,
+            lineWrapping: true,
+            theme: "monokai",
+            styleActiveLine: true
+        });
+
+        renderEditor(preview, modeType, editor, data.customCss);
+      });
+
+      renderBlockWithEditor(block);
   }
 
   function renderPreview(block) {
@@ -197,6 +209,7 @@
     var cssPreview = path + "/styles/snowball-preview.css";
     var stylesheet = $("<link/>").attr({"rel": "stylesheet", "href": css});
     var stylesheetPreview = $("<link/>").attr({"rel": "stylesheet", "href": cssPreview});
+
     fields.each(function(index, element) {
       var target = $(this).data("target");
       var value = $(this).val();
@@ -239,7 +252,7 @@
     }
   }
 
-  function setupEditors(block, blockNum) {
+  function setupEditors(block) {
     var preview = block.find(".snowball-preview").contents().find("body");
     var editors = block.find(".snowball-editor-box");
 
@@ -256,7 +269,7 @@
           styleActiveLine: true
       });
 
-      renderEditor(preview, modeType, editor, blockNum);
+      renderEditor(preview, modeType, editor);
     });
   }
 
@@ -265,7 +278,7 @@
     what code mode is used.
     TODO: needs more refactoring
   */
-  function renderEditor(preview, modeType, editor, blockNum) {
+  function renderEditor(preview, modeType, editor, customCss) {
     // search for the index snowball block that is the same as
     // the block that contains the code below.
     var code = "";
@@ -282,12 +295,8 @@
         code = "";
       }
 
-      // ensures the code will populate the correct custom css code that was saved.
-      if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
-        var customCSS = snowball.savedblocks[blockNum].customCss;
-        if (customCSS) {
-          code = code + customCSS;
-        }
+      if (customCss) {
+        code = code + customCss;
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -362,8 +371,8 @@
     var cssEditor = cm[1].CodeMirror;
     var preview = block.find(".snowball-preview").contents().find("body");
 
-    renderEditor(preview, "xml", htmlEditor, blockNumber);
-    renderEditor(preview, "css", cssEditor, blockNumber);
+    renderEditor(preview, "xml", htmlEditor);
+    renderEditor(preview, "css", cssEditor);
   }
 
   function confirmDelete(block) {
