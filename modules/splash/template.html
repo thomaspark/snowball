@@ -3,42 +3,41 @@
   <div class="snowball-block-splash-inner">
     {{content}}
   </div>
-  <style scoped>
-    .snowball-block-splash {
-      position: relative;
-      height: 100vh;
-      min-height: 100%;
-      display: -webkit-flex;
-      display: -ms-flex;
-      display: flex;
-      -webkit-justify-content: center;
-      -ms-justify-content: center;
-      justify-content: center;
-      -webkit-align-items: center;
-      -ms-align-items: center;
-      align-items: center;
-      color: {{color}};
-    }
+<style scoped>
+.snowball-block-splash {
+  position: relative;
+  height: 100vh;
+  min-height: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  color: {{color}};
+}
 
-    .snowball-block-splash-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-image: url('{{background-image}}');
-      background-color: {{background-color}};
-      background-size: cover;
-    }
+.snowball-block-splash-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('{{background-image}}');
+  background-color: {{background-color}};
+  background-size: cover;
+}
 
-    .snowball-block-splash-bg.parallax {
-      background-attachment: fixed;
-    }
+.snowball-block-splash-bg.parallax {
+  background-attachment: fixed;
+}
 
-    .snowball-block-splash-inner {
-      text-align: center;
-    }
-
-  </style>
+.snowball-block-splash-inner {
+  text-align: center;
+}
+</style>
 </section>

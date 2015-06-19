@@ -272,7 +272,7 @@
     if (modeType == "css") {
       code = $(previewSection).find("style:not([data-type='custom'])").html();
       if (code) {
-        code = code.replace(/^\s+|\s+$/g, '');
+        code = code.replace(/^\n+|\n+$/g, '');
         // add extra 
         code = code + "\n";
         length = code.split(/\r\n|\r|\n/).length;
