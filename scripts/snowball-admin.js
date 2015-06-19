@@ -86,15 +86,16 @@
 
   $(".snowball-main")
     .on("open", ".snowball-block", function() {
-      // render the editor with code whenever a block is created
-      setupEditors($(this), blockNumber);
+      var block = $(this);
+      setupEditors(block, blockNumber);
       blockNumber = blockNumber + 1;
-      renderBlockWithEditor($(this));
+      renderBlockWithEditor(block);
     })
     .on("render", ".snowball-block", function() {
-      renderPreview($(this));
-      renderBlockWithEditor($(this));
-      refreshDataOnEditor($(this));
+      var block = $(this);
+      renderPreview(block);
+      renderBlockWithEditor(block);
+      refreshDataOnEditor(block);
     })
     .on("mousedown", ".snowball-block", function(e) {
       $(".snowball-main").height($(".snowball-main").height());
@@ -226,26 +227,25 @@
     };
   }
 
-  function initEditor(dom, modeType) {
-    var isReadonly = (modeType === "xml");
+  function setupEditors(block, blockNum) {
+    var preview = block.find(".snowball-preview").contents().find("body");
+    var editors = block.find(".snowball-editor-box");
 
-    if (modeType === "xml") {
-      modeType = {
-        name: modeType,
-        htmlMode: true
-      };
-    }
+    editors.each(function(index, elem) {
+      var modeType = $(this).attr("data-mode");
+      var isReadOnly = (modeType === "xml") ? true : false;
 
-    var editor = CodeMirror.fromTextArea(dom, {
-        mode: modeType,
-        readOnly: isReadonly,
-        lineNumbers: true,
-        lineWrapping: true,
-        theme: "monokai",
-        styleActiveLine: true
+      var editor = CodeMirror.fromTextArea(elem, {
+          mode: {name: modeType, htmlMode: true},
+          readOnly: isReadOnly,
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: "monokai",
+          styleActiveLine: true
+      });
+
+      renderEditor(preview, modeType, editor, blockNum);
     });
-
-    return editor;
   }
 
   /*
@@ -253,30 +253,19 @@
     what code mode is used.
     TODO: needs more refactoring
   */
-  function renderEditor(previewSection, modeType, editor, blockNum) {
-    // removes the tag and all the code in it.
-    function removeTagFromHtml(code, tagname) {
-      var startIndex = code.indexOf("<" + tagname);
-      var endIndex = code.indexOf("</" + tagname + ">");
-      var END_STYLE_TAG_LENGTH = tagname.length + 3;
-      var tag = code.substring(startIndex, endIndex + END_STYLE_TAG_LENGTH);
-      if (startIndex != -1) {
-        code = code.replace(tag, "");
-      }
-      return code;
-    }
+  function renderEditor(preview, modeType, editor, blockNum) {
     // search for the index snowball block that is the same as 
     // the block that contains the code below.
     var code = "";
     var length = 0;
+
     if (modeType == "css") {
-      code = $(previewSection).find("style:not([data-type='custom'])").html();
+      code = preview.find("style:not([data-type='custom'])").html();
+
       if (code) {
         code = code.replace(/^\n+|\n+$/g, '');
-        // add extra 
-        code = code + "\n";
-        length = code.split(/\r\n|\r|\n/).length;
-        code = code + "\n";
+        code = code + "\n\n";
+        length = code.split(/\r\n|\r|\n/).length - 1;
       } else {
         code = "";
       }
@@ -288,13 +277,10 @@
           code = code + customCSS;
         }
       }
-    }
-    // html doesnt work now so xml syntax is used
-    else if (modeType == "xml") {
-      code = previewSection;
-      code = removeTagFromHtml(code, "style");
-      // just in case there are two style tags
-      code = removeTagFromHtml(code, "style");
+    } else if (modeType === "xml") {
+      var clone = preview.clone();
+      clone.find("style").remove();
+      code = clone.html().replace("\n\n</section>", "\n</section>");
       length = code.split(/\r\n|\r|\n/).length;
     }
 
@@ -325,10 +311,12 @@
     //there should only be one marked text object
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
+
     if (readOnlyMark.length) {
       var mark = readOnlyMark[0];
 //      var firstReadOnlyLine = mark.doc.first;
       var lastReadOnlyLine = mark.lines.length;// + firstReadOnlyLine;
+
       if (lastReadOnlyLine < 2) {
         code = editor.getValue();
       } else {
@@ -337,69 +325,40 @@
         code = editor.getRange(fromLine, toLine);
       }
     }
+
     return code;
   }
 
   function renderBlockWithEditor(block) {
-    var previewCode = $(block).find(".snowball-preview").contents().find("section");
-    function updateStyleTag(editor) {
-      var insertTag = previewCode.find("style[data-type=\"custom\"]");
-      if (editor) {
-        var code = "<style data-type=\"custom\">" + retrieveNonReadOnlyText(editor) + "</style>";
-        if (insertTag.length) {
-          insertTag.html(code);
-          alert("insert into existing style tag(this may not work correctly)");
-        } else {
-          previewCode.append(code);
-        }
-      }
+    var preview = block.find(".snowball-preview").contents().find("section");
+    var cm = block.find('.CodeMirror');
+    var cssEditor = cm[1].CodeMirror;
+
+    var customStyle = preview.find("style[data-type='custom']");
+
+    if (customStyle.length === 0) {
+      customStyle = $("<style></style>").attr("data-type", "custom").appendTo(preview);
     }
 
-    var cm = $(block).find('.CodeMirror');
-    // this checks if all 3 code mirror textareas exist in the block 
-    // and then grabs all 3 of them
-    if (cm && cm.length > 1) {
-      var cssEditor = cm[1].CodeMirror;
-      updateStyleTag(cssEditor);
-    } else {
-      console.log("No text editors were detected.");
-    }
-  }
-
-  /*
-    NOTE: domList must be a list of dom's not jquery objects!
-  */
-  function setupEditors(block, blockNum) {
-    var domList = $(block).find(".snowball-editor-box").get();
-    var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
-    var listLength = domList.length;
-    // NOTE: both jQuery objects and dom objects are being used
-    // CodeMirror must take in dom objects in order to work
-    for (var i = 0; i < listLength; i++) {
-      var dom = domList[i];
-      var modeType = dom.getAttribute("data-mode");
-      var editor = initEditor(dom, modeType);
-      renderEditor(previewCode, modeType, editor, blockNum);
-    }
+    customStyle.html(retrieveNonReadOnlyText(cssEditor));
   }
 
 /* 
   Would this need a flag in order to know if it needs to be used.
 */
   function refreshDataOnEditor(block) {
-    var cm = $(block).find('.CodeMirror');
+    var cm = block.find('.CodeMirror');
     var cssEditor = cm[1].CodeMirror;
-    var previewCode = $(block).find(".snowball-preview").contents().find("body").html();
+    var preview = block.find(".snowball-preview").contents().find("body");
 
-    renderEditor(previewCode, "css", cssEditor);
+    renderEditor(preview, "css", cssEditor);
   }
 
   window.onbeforeunload = function(e) {
     e = e || window.event;
     if (changesMade && e.srcElement.activeElement.id != "publish") {
       var message = 'Some blocks may have not been saved. Are you sure you want to leave?';
-      if (e) 
-      {
+      if (e) {
           e.returnValue = message;
       }
       // For Chrome, Safari, IE8+ and Opera 12+
