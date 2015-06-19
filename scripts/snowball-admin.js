@@ -1,8 +1,10 @@
 (function($) {
+  var blockNumber = 0;
   var changesMade = false;
+  
+  setHandlers();
 
   jQuery(document).ready(function() {
-    setHandlers();
 
     if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
       populateSavedBlocks();
@@ -21,6 +23,12 @@
     });
 
     $(".snowball-main")
+      .on("open", ".snowball-block", function() {
+        var block = $(this);
+        setupEditors(block, blockNumber);
+        blockNumber = blockNumber + 1;
+        renderBlockWithEditor(block);
+      })
       .on("render", ".snowball-block", function() {
         var block = $(this);
         renderPreview(block);
@@ -106,7 +114,6 @@
   function addBlock(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
-    var customCss = "";
     var block =  $("<div class='snowball-block'>" +
                     "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
@@ -137,10 +144,6 @@
       .find(".snowball-tinker").append(blockCode).end();
 
     if (data) {
-      if (data.customCss) {
-        customCss = data.customCss;
-      }
-
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
           var selector = "[data-target='" + key + "']";
@@ -162,12 +165,11 @@
         }
       }
     } else {
-      var dataBlock = {
-        orderNumber: snowball.savedblocks.length,
-        blockType: type
-      };
-
-      snowball.savedblocks.push(dataBlock);
+        var dataBlock = {
+          orderNumber: snowball.savedblocks.length,
+          blockType: type
+        };
+        snowball.savedblocks.push(dataBlock);
     }
 
     block
@@ -183,27 +185,6 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
-      
-    var preview = block.find(".snowball-preview").contents().find("body");
-    var editors = block.find(".snowball-editor-box");
-
-    editors.each(function(index, elem) {
-      var modeType = $(this).attr("data-mode");
-      var isReadOnly = (modeType === "xml") ? true : false;
-
-      var editor = CodeMirror.fromTextArea(elem, {
-          mode: {name: modeType, htmlMode: true},
-          readOnly: isReadOnly,
-          lineNumbers: true,
-          lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true
-      });
-
-      renderEditor(preview, modeType, editor, customCss);
-    });
-
-    renderBlockWithEditor(block);
   }
 
   function renderPreview(block) {
@@ -261,7 +242,7 @@
     }
   }
 
-  function setupEditors(block) {
+  function setupEditors(block, blockNum) {
     var preview = block.find(".snowball-preview").contents().find("body");
     var editors = block.find(".snowball-editor-box");
 
@@ -278,7 +259,7 @@
           styleActiveLine: true
       });
 
-      renderEditor(preview, modeType, editor);
+      renderEditor(preview, modeType, editor, blockNum);
     });
   }
 
@@ -287,7 +268,7 @@
     what code mode is used.
     TODO: needs more refactoring
   */
-  function renderEditor(preview, modeType, editor, customCss) {
+  function renderEditor(preview, modeType, editor, blockNum) {
     // search for the index snowball block that is the same as
     // the block that contains the code below.
     var code = "";
@@ -304,8 +285,12 @@
         code = "";
       }
 
-      if (customCss) {
-        code = code + customCss;
+      // ensures the code will populate the correct custom css code that was saved.
+      if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
+        var customCSS = snowball.savedblocks[blockNum].customCss;
+        if (customCSS) {
+          code = code + customCSS;
+        }
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -380,8 +365,8 @@
     var cssEditor = cm[1].CodeMirror;
     var preview = block.find(".snowball-preview").contents().find("body");
 
-    renderEditor(preview, "xml", htmlEditor);
-    renderEditor(preview, "css", cssEditor);
+    renderEditor(preview, "xml", htmlEditor, blockNumber);
+    renderEditor(preview, "css", cssEditor, blockNumber);
   }
 
   function confirmDelete(block) {
