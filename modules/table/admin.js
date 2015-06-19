@@ -50,32 +50,32 @@
     }
 
     function createTable(JSON) {
-      var HTML = "<table>\n";
+      var HTML = "  <table>\n";
       var numRows = JSON.length;
 
       for (var i = 0; i < numRows; i++) {
         if (i === 0) {
-          HTML = HTML + "  <thead>\n";
+          HTML = HTML + "    <thead>\n";
         } else if (i === 1) {
-          HTML = HTML + "  </thead>\n  <tbody>\n";
+          HTML = HTML + "    </thead>\n    <tbody>\n";
         }
-        HTML = HTML + "    <tr>\n";
+        HTML = HTML + "      <tr>\n";
         for (var j = 0; j < JSON[i].length; j++) {
           if (JSON[i][j] === null) {
             JSON[i][j] = "";
           }
 
           if (i === 0) {
-            HTML = HTML + "      <th>" + JSON[i][j] + "</th>\n";
+            HTML = HTML + "        <th>" + JSON[i][j] + "</th>\n";
           } else {
-            HTML = HTML + "      <td>" + JSON[i][j] + "</td>\n";
+            HTML = HTML + "        <td>" + JSON[i][j] + "</td>\n";
           }
         }
 
-        HTML = HTML + "    </tr>\n";
+        HTML = HTML + "      </tr>\n";
       }
 
-      HTML = HTML + "  </tbody>\n</table>";
+      HTML = HTML + "    </tbody>\n  </table>";
 
       return HTML;
     }
