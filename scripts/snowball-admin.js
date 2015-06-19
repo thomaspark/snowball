@@ -106,6 +106,7 @@
   function addBlock(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
+    var customCss = "";
     var block =  $("<div class='snowball-block'>" +
                     "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
@@ -136,6 +137,10 @@
       .find(".snowball-tinker").append(blockCode).end();
 
     if (data) {
+      if (data.customCss) {
+        customCss = data.customCss;
+      }
+
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
           var selector = "[data-target='" + key + "']";
@@ -195,7 +200,7 @@
           styleActiveLine: true
       });
 
-      renderEditor(preview, modeType, editor, data.customCss);
+      renderEditor(preview, modeType, editor, customCss);
     });
 
     renderBlockWithEditor(block);
