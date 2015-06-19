@@ -149,9 +149,16 @@
       "cursor": "move"
     });
 
-  $(window).resize(debounce(function() {
-    zoomPreview();
-  }, 250));
+  $(window)
+    .resize(debounce(function() {
+      zoomPreview();
+    }, 250))
+    .on("beforeunload", function(e) {
+      console.log(e.target);
+      if (changesMade) {
+        return "You may have unsaved changes.";
+      }
+    });
 
   $("#collapse-menu").click(debounce(function() {
     zoomPreview();
@@ -370,15 +377,6 @@
     renderEditor(preview, "css", cssEditor, blockNumber);
   }
 
-  window.onbeforeunload = function(e) {
-    e = e || window.event;
-    if (changesMade && e.srcElement.activeElement.id != "publish") {
-      var message = 'Some blocks may have not been saved. Are you sure you want to leave?';
-      if (e) {
-          e.returnValue = message;
-      }
-      // For Chrome, Safari, IE8+ and Opera 12+
-      return message;
     }
   };
 })(jQuery);
