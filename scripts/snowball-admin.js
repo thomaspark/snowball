@@ -95,7 +95,7 @@
       var block = $(this);
       renderPreview(block);
       renderBlockWithEditor(block);
-      refreshDataOnEditor(block);
+      refreshEditors(block);
     })
     .on("mousedown", ".snowball-block", function(e) {
       $(".snowball-main").height($(".snowball-main").height());
@@ -108,14 +108,14 @@
       // TODO: should this be made into a function, since this is repeated 3 times?
       renderPreview(block);
       renderBlockWithEditor(block);
-      refreshDataOnEditor(block);
+      refreshEditors(block);
       changesMade = true;
     }, 250))
     .on("change", "input, textarea", function() {
       var block = $(this).parents(".snowball-block");
       renderPreview(block);
       renderBlockWithEditor(block);
-      refreshDataOnEditor(block);
+      refreshEditors(block);
       changesMade = true;
     })
     .on("click", ".snowball-delete", function() {
@@ -271,11 +271,16 @@
       }
 
       // ensures the code will populate the correct custom css code that was saved.
-      if ((typeof blockNum) !== 'undefined') {
+      if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
         var customCSS = snowball.savedblocks[blockNum].customCss;
         if (customCSS) {
           code = code + customCSS;
         }
+      }
+
+      var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
+      if (nonReadOnlyCode) {
+        code = code + nonReadOnlyCode;
       }
     } else if (modeType === "xml") {
       var clone = preview.clone();
@@ -284,13 +289,6 @@
       length = code.split(/\r\n|\r|\n/).length;
     }
 
-    if (!code) {
-      code = "";
-    }
-    var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
-    if (nonReadOnlyCode) {
-      code = code + nonReadOnlyCode;
-    }
     var scrollPos = {
       line: editor.getCursor().line,
       ch: editor.getCursor().ch
@@ -346,12 +344,14 @@
 /* 
   Would this need a flag in order to know if it needs to be used.
 */
-  function refreshDataOnEditor(block) {
+  function refreshEditors(block) {
     var cm = block.find('.CodeMirror');
+    var htmlEditor = cm[0].CodeMirror;
     var cssEditor = cm[1].CodeMirror;
     var preview = block.find(".snowball-preview").contents().find("body");
 
-    renderEditor(preview, "css", cssEditor);
+    renderEditor(preview, "xml", htmlEditor, blockNumber);
+    renderEditor(preview, "css", cssEditor, blockNumber);
   }
 
   window.onbeforeunload = function(e) {
