@@ -2,89 +2,93 @@
   var changesMade = false;
 
   jQuery(document).ready(function() {
+    setHandlers();
+
     if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
       populateSavedBlocks();
     }
   });
 
-  $("#publish").on("click", function() {
-    changesMade = false;
-  });
+  function setHandlers() {
+    $("#publish").on("click", function() {
+      changesMade = false;
+    });
 
-  $(".snowball-toolbar").on("click", ".button", function() {
-    var type = $(this).data("type");
-    addBlock(type);
-    changesMade = true;
-  });
-
-  $(".snowball-main")
-    .on("render", ".snowball-block", function() {
-      var block = $(this);
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-    })
-    .on("mousedown", ".snowball-block", function(e) {
-      $(".snowball-main").height($(".snowball-main").height());
-    })
-    .on("mouseup", ".snowball-block", function(e) {
-      $(".snowball-main").height("auto");
-    })
-    .on("keyup", "input, textarea", debounce(function() {
-      var block = $(this).parents(".snowball-block");
-      // TODO: should this be made into a function, since this is repeated 3 times?
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
+    $(".snowball-toolbar").on("click", ".button", function() {
+      var type = $(this).data("type");
+      addBlock(type);
       changesMade = true;
-    }, 250))
-    .on("change", "input, textarea", function() {
-      var block = $(this).parents(".snowball-block");
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-      changesMade = true;
-    })
-    .on("click", ".snowball-delete", function() {
-      var block = $(this).parents(".snowball-block");
-      confirmDelete(block);
-      changesMade = true;
-    })
-    .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
-      var event = e.originalEvent,
-              d = event.wheelDelta || -event.detail;
+    });
 
-          this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
-          e.preventDefault();
-    })
-    .on("click", ".snowball-editor-toggle", function() {
-      var block = $(this).parents(".snowball-block");
-      // toggle the code view
-      var snowballCode = block.find(".snowball-code").slideToggle("slow");
+    $(".snowball-main")
+      .on("render", ".snowball-block", function() {
+        var block = $(this);
+        renderPreview(block);
+        renderBlockWithEditor(block);
+        refreshEditors(block);
+      })
+      .on("mousedown", ".snowball-block", function(e) {
+        $(".snowball-main").height($(".snowball-main").height());
+      })
+      .on("mouseup", ".snowball-block", function(e) {
+        $(".snowball-main").height("auto");
+      })
+      .on("keyup", "input, textarea", debounce(function() {
+        var block = $(this).parents(".snowball-block");
+        // TODO: should this be made into a function, since this is repeated 3 times?
+        renderPreview(block);
+        renderBlockWithEditor(block);
+        refreshEditors(block);
+        changesMade = true;
+      }, 250))
+      .on("change", "input, textarea", function() {
+        var block = $(this).parents(".snowball-block");
+        renderPreview(block);
+        renderBlockWithEditor(block);
+        refreshEditors(block);
+        changesMade = true;
+      })
+      .on("click", ".snowball-delete", function() {
+        var block = $(this).parents(".snowball-block");
+        confirmDelete(block);
+        changesMade = true;
+      })
+      .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
+        var event = e.originalEvent,
+                d = event.wheelDelta || -event.detail;
 
-      $(block).find(".CodeMirror").each(function(i, e) {
-        e.CodeMirror.refresh();
+            this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
+            e.preventDefault();
+      })
+      .on("click", ".snowball-editor-toggle", function() {
+        var block = $(this).parents(".snowball-block");
+        // toggle the code view
+        var snowballCode = block.find(".snowball-code").slideToggle("slow");
+
+        $(block).find(".CodeMirror").each(function(i, e) {
+          e.CodeMirror.refresh();
+        });
+      })
+      .sortable({
+        "axis": "y",
+        "containment": ".snowball-main",
+        "cursor": "move"
       });
-    })
-    .sortable({
-      "axis": "y",
-      "containment": ".snowball-main",
-      "cursor": "move"
-    });
 
-  $(window)
-    .resize(debounce(function() {
+    $(window)
+      .resize(debounce(function() {
+        zoomPreview();
+      }, 250))
+      .on("beforeunload", function(e) {
+        if (changesMade) {
+          return "You may have unsaved changes.";
+        }
+      });
+
+    $("#collapse-menu").click(debounce(function() {
       zoomPreview();
-    }, 250))
-    .on("beforeunload", function(e) {
-      if (changesMade) {
-        return "You may have unsaved changes.";
-      }
-    });
-
-  $("#collapse-menu").click(debounce(function() {
-    zoomPreview();
-  }, 250));
+    }, 250));
+  }
 
   function populateSavedBlocks() {
     for (var b in snowball.savedblocks) {
@@ -175,26 +179,26 @@
       .appendTo(".snowball-main")
       .trigger("open");
       
-      var preview = block.find(".snowball-preview").contents().find("body");
-      var editors = block.find(".snowball-editor-box");
+    var preview = block.find(".snowball-preview").contents().find("body");
+    var editors = block.find(".snowball-editor-box");
 
-      editors.each(function(index, elem) {
-        var modeType = $(this).attr("data-mode");
-        var isReadOnly = (modeType === "xml") ? true : false;
+    editors.each(function(index, elem) {
+      var modeType = $(this).attr("data-mode");
+      var isReadOnly = (modeType === "xml") ? true : false;
 
-        var editor = CodeMirror.fromTextArea(elem, {
-            mode: {name: modeType, htmlMode: true},
-            readOnly: isReadOnly,
-            lineNumbers: true,
-            lineWrapping: true,
-            theme: "monokai",
-            styleActiveLine: true
-        });
-
-        renderEditor(preview, modeType, editor, data.customCss);
+      var editor = CodeMirror.fromTextArea(elem, {
+          mode: {name: modeType, htmlMode: true},
+          readOnly: isReadOnly,
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: "monokai",
+          styleActiveLine: true
       });
 
-      renderBlockWithEditor(block);
+      renderEditor(preview, modeType, editor, data.customCss);
+    });
+
+    renderBlockWithEditor(block);
   }
 
   function renderPreview(block) {
