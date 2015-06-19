@@ -1,7 +1,115 @@
 (function($) {
   var blockNumber = 0;
   var changesMade = false;
-  snowball.addBlock = function(type, data) {
+
+  jQuery(document).ready(function() {
+    if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
+      populateSavedBlocks();
+    }
+  });
+
+  $("#publish").on("click", function() {
+    changesMade = false;
+  });
+
+  $(".snowball-toolbar").on("click", ".button", function() {
+    var type = $(this).data("type");
+    addBlock(type);
+    changesMade = true;
+  });
+
+  $(".snowball-main")
+    .on("open", ".snowball-block", function() {
+      var block = $(this);
+      setupEditors(block, blockNumber);
+      blockNumber = blockNumber + 1;
+      renderBlockWithEditor(block);
+    })
+    .on("render", ".snowball-block", function() {
+      var block = $(this);
+      renderPreview(block);
+      renderBlockWithEditor(block);
+      refreshEditors(block);
+    })
+    .on("mousedown", ".snowball-block", function(e) {
+      $(".snowball-main").height($(".snowball-main").height());
+    })
+    .on("mouseup", ".snowball-block", function(e) {
+      $(".snowball-main").height("auto");
+    })
+    .on("keyup", "input, textarea", debounce(function() {
+      var block = $(this).parents(".snowball-block");
+      // TODO: should this be made into a function, since this is repeated 3 times?
+      renderPreview(block);
+      renderBlockWithEditor(block);
+      refreshEditors(block);
+      changesMade = true;
+    }, 250))
+    .on("change", "input, textarea", function() {
+      var block = $(this).parents(".snowball-block");
+      renderPreview(block);
+      renderBlockWithEditor(block);
+      refreshEditors(block);
+      changesMade = true;
+    })
+    .on("click", ".snowball-delete", function() {
+      var block = $(this).parents(".snowball-block");
+      confirmDelete(block);
+      changesMade = true;
+    })
+    .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
+      var event = e.originalEvent,
+              d = event.wheelDelta || -event.detail;
+
+          this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
+          e.preventDefault();
+    })
+    .on("click", ".snowball-editor-toggle", function() {
+      var block = $(this).parents(".snowball-block");
+      // toggle the code view
+      var snowballCode = block.find(".snowball-code").slideToggle("slow");
+
+      $(block).find(".CodeMirror").each(function(i, e) {
+        e.CodeMirror.refresh();
+      });
+    })
+    .sortable({
+      "axis": "y",
+      "containment": ".snowball-main",
+      "cursor": "move"
+    });
+
+  $(window)
+    .resize(debounce(function() {
+      zoomPreview();
+    }, 250))
+    .on("beforeunload", function(e) {
+      console.log(e.target);
+      if (changesMade) {
+        return "You may have unsaved changes.";
+      }
+    });
+
+  $("#collapse-menu").click(debounce(function() {
+    zoomPreview();
+  }, 250));
+
+  function populateSavedBlocks() {
+    var savedBlocks = snowball.savedblocks;
+
+    for (var b in savedBlocks) {
+      var block = savedBlocks[b];
+      var type = block["blockType"].toLowerCase();
+
+      // need to delete so snowball.addBlock works properly
+      delete block["blockType"];
+      delete block["orderNumber"];
+
+      addBlock(type, block);
+    }
+  }
+
+  function addBlock(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
     var block =  $("<div class='snowball-block'>" +
@@ -60,11 +168,7 @@
           blockType: type
         };
         snowball.savedblocks.push(dataBlock);
-  jQuery(document).ready(function() {
-    if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
-      populateSavedBlocks();
     }
-  });
 
     block
       .find(".snowball-preview").load(function() {
@@ -79,110 +183,6 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
-
-  };
-
-  $(".snowball-toolbar").on("click", ".button", function() {
-    var type = $(this).data("type");
-    snowball.addBlock(type);
-    changesMade = true;
-  });
-
-  $(".snowball-main")
-    .on("open", ".snowball-block", function() {
-      var block = $(this);
-      setupEditors(block, blockNumber);
-      blockNumber = blockNumber + 1;
-      renderBlockWithEditor(block);
-    })
-    .on("render", ".snowball-block", function() {
-      var block = $(this);
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-    })
-    .on("mousedown", ".snowball-block", function(e) {
-      $(".snowball-main").height($(".snowball-main").height());
-    })
-    .on("mouseup", ".snowball-block", function(e) {
-      $(".snowball-main").height("auto");
-    })
-    .on("keyup", "input, textarea", debounce(function() {
-      var block = $(this).parents(".snowball-block");
-      // TODO: should this be made into a function, since this is repeated 3 times?
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-      changesMade = true;
-    }, 250))
-    .on("change", "input, textarea", function() {
-      var block = $(this).parents(".snowball-block");
-      renderPreview(block);
-      renderBlockWithEditor(block);
-      refreshEditors(block);
-      changesMade = true;
-    })
-    .on("click", ".snowball-delete", function() {
-      var block = $(this).parents(".snowball-block");
-      confirmDelete(block);
-      changesMade = true;
-    })
-    .on("mousewheel", "textarea, .chart .wtHolder", function(e) {
-      var event = e.originalEvent,
-              d = event.wheelDelta || -event.detail;
-          
-          this.scrollTop += ( d < 0 ? 1 : -1 ) * 30;
-          e.preventDefault();
-    })
-    .on("click", ".snowball-editor-toggle", function() {
-      var block = $(this).parents(".snowball-block");
-      // toggle the code view
-      var snowballCode = block.find(".snowball-code").slideToggle("slow");
-
-      $(block).find(".CodeMirror").each(function(i, e) {
-        e.CodeMirror.refresh();
-      });
-    })
-    .sortable({
-      "axis": "y",
-      "containment": ".snowball-main",
-      "cursor": "move"
-    });
-
-  $(window)
-    .resize(debounce(function() {
-      zoomPreview();
-    }, 250))
-    .on("beforeunload", function(e) {
-      console.log(e.target);
-      if (changesMade) {
-        return "You may have unsaved changes.";
-      }
-    });
-
-  $("#collapse-menu").click(debounce(function() {
-    zoomPreview();
-  }, 250));
-
-  function confirmDelete(block) {
-    var result = confirm("Are you sure you want to delete this block?");
-    if (result) {
-      block
-        .trigger("close")
-        .remove();
-  function populateSavedBlocks() {
-    var savedBlocks = snowball.savedblocks;
-
-    for (var b in savedBlocks) {
-      var block = savedBlocks[b];
-      var type = block["blockType"].toLowerCase();
-
-      // need to delete so snowball.addBlock works properly
-      delete block["blockType"];
-      delete block["orderNumber"];
-
-      addBlock(type, block);
-    }
   }
 
   function renderPreview(block) {
@@ -239,17 +239,6 @@
     }
   }
 
-  function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-      var context = this, args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(context, args);
-      }, delay);
-    };
-  }
-
   function setupEditors(block, blockNum) {
     var preview = block.find(".snowball-preview").contents().find("body");
     var editors = block.find(".snowball-editor-box");
@@ -277,7 +266,7 @@
     TODO: needs more refactoring
   */
   function renderEditor(preview, modeType, editor, blockNum) {
-    // search for the index snowball block that is the same as 
+    // search for the index snowball block that is the same as
     // the block that contains the code below.
     var code = "";
     var length = 0;
@@ -364,7 +353,7 @@
     customStyle.html(retrieveNonReadOnlyText(cssEditor));
   }
 
-/* 
+/*
   Would this need a flag in order to know if it needs to be used.
 */
   function refreshEditors(block) {
@@ -377,6 +366,24 @@
     renderEditor(preview, "css", cssEditor, blockNumber);
   }
 
+  function confirmDelete(block) {
+    var result = confirm("Are you sure you want to delete this block?");
+    if (result) {
+      block
+        .trigger("close")
+        .remove();
     }
-  };
+  }
+
+  function debounce(fn, delay) {
+    var timer = null;
+    return function () {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }
+
 })(jQuery);
