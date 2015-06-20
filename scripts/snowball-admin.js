@@ -233,7 +233,7 @@
 
   function zoomPreview(block) {
     var width = $(".snowball-main").width() / 2;
-    var zoom = width / 600;
+    var zoom = (width < 600) ? width/600 : 1;
     var scale = "scale(" + zoom + ")";
 
     if (block) {
