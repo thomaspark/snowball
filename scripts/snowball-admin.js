@@ -344,17 +344,19 @@
   }
 
   function renderBlockWithEditor(block) {
-    var preview = block.find(".snowball-preview").contents().find("section");
     var cm = block.find('.CodeMirror');
-    var cssEditor = cm[1].CodeMirror;
 
-    var customStyle = preview.find("style[data-type='custom']");
+    if (cm.length) {
+      var cssEditor = cm[1].CodeMirror;
+      var preview = block.find(".snowball-preview").contents().find("section");
+      var customStyle = preview.find("style[data-type='custom']");
 
-    if (customStyle.length === 0) {
-      customStyle = $("<style></style>").attr("data-type", "custom").appendTo(preview);
+      if (customStyle.length === 0) {
+        customStyle = $("<style></style>").attr("data-type", "custom").appendTo(preview);
+      }
+
+      customStyle.html(retrieveNonReadOnlyText(cssEditor));
     }
-
-    customStyle.html(retrieveNonReadOnlyText(cssEditor));
   }
 
 /*
