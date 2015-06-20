@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body.modal {
+  overflow: hidden;
+}
+
 #snowball_meta {
   background-color: #32373c;
 }
@@ -38,6 +42,9 @@
   margin: 1em 0;
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 -3px 6px rgba(0, 0, 0, 0.2);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .snowball-block:last-child {
@@ -48,16 +55,11 @@
   position: relative;
 }
 
-.snowball-bottom-bar{
-   background-color: #f8f8f8;
-   min-height:  25px; 
-}
-
 .snowball-tinker,
 .snowball-preview {
   width: 50%;
-  min-height: 250px;
   height: 100%;
+  min-height: 250px;
 }
 
 .snowball-title {
@@ -70,7 +72,6 @@
   display: inline-block;
 }
 
-
 .snowball-title-button {
   float: right;
   opacity: 0.6;
@@ -81,9 +82,9 @@
   font-size: 1.5em;
 }
 
-.snowball-editor-toggle {
-  font-size: 1.25em;
-  margin-right: 2px;
+.snowball-zoom-toggle {
+  margin-top: -1px;
+  margin-right: 1em;
 }
 
 .snowball-title-button:hover {
@@ -94,6 +95,7 @@
   padding: 1em;
   background-color: #f8f8f8;
   border-right: 1px solid #ddd;
+  overflow-y: auto;
 }
 
 .snowball-preview {
@@ -105,6 +107,7 @@
   bottom: 0;
   width: 50%;
   height: 100%;
+  background-color: #fff;
 }
 
 .snowball-block form > p {
@@ -154,11 +157,6 @@ div.wp-picker-holder {
   resize: none;
 }
 
-.snowball-editor-toggle {
-  margin-top: -1px;
-  margin-right: 1em;
-}
-
 .snowball-editor {
   box-sizing: border-box;
   display: inline-block;
@@ -175,6 +173,43 @@ div.wp-picker-holder {
 
 .snowball-editor-box {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 20px);
   min-height: 150px;
+}
+
+.snowball-code .cm-s-monokai.CodeMirror {
+  height: calc(100% - 20px);
+}
+
+.snowball-block.modal {
+  position: fixed;
+  top: 3em;
+  left: 3em;
+  right: 3em;
+  bottom: 3em;
+  z-index: 100001;
+  margin: 0;
+}
+
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 100000;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+body.modal .modal-bg {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.snowball-block.modal .snowball-gui,
+.snowball-block.modal .snowball-code {
+  height: 50%;
 }

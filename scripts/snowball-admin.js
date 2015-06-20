@@ -4,6 +4,8 @@
   
   setHandlers();
 
+  $("<div></div>").addClass("modal-bg").appendTo("body");
+
   jQuery(document).ready(function() {
     if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
       populateSavedBlocks();
@@ -60,20 +62,28 @@
         confirmDelete(block);
         changesMade = true;
       })
-      .on("click", ".snowball-editor-toggle", function() {
+      .on("click", ".snowball-zoom-toggle", function() {
         var block = $(this).parents(".snowball-block");
-        // toggle the code view
-        var snowballCode = block.find(".snowball-code").slideToggle("slow");
+        var snowballCode = block.find(".snowball-code").toggle();
 
-        $(block).find(".CodeMirror").each(function(i, e) {
-          e.CodeMirror.refresh();
+        block.toggleClass("modal");
+        $("body").toggleClass("modal");
+        zoomPreview(block);
+
+        block.find(".CodeMirror").each(function(index, editor){
+          editor.CodeMirror.refresh();
         });
       })
       .sortable({
         "axis": "y",
         "containment": ".snowball-main",
+        "cancel": ".snowball-block.modal",
         "cursor": "move"
       });
+
+    $("body").on("click", ".modal-bg", function() {
+      $(".snowball-block.modal .snowball-zoom-toggle").click();
+    });
 
     $(window)
       .resize(debounce(function() {
@@ -112,7 +122,7 @@
                         "<div>" +
                           "<div class='snowball-title'></div>" +
                           "<div class='snowball-title-button snowball-delete'>&times;</div>" +
-                          "<div class='snowball-title-button snowball-editor-toggle'><i class='fa fa-code'></i></div>" +
+                          "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-search'></i></div>" +
                         "</div>" +
                       "</div>" +
                       "<iframe class='snowball-preview'></iframe>" +
@@ -229,6 +239,7 @@
     var scale = "scale(" + zoom + ")";
 
     if (block) {
+      width = block.width() / 2;
       block.find(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
     } else {
       $(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
