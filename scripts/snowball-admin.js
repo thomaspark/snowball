@@ -175,6 +175,7 @@
     block
       .find(".snowball-preview").load(function() {
         renderPreview(block);
+        renderBlockWithEditor(block);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
         change: debounce(function (event) {
