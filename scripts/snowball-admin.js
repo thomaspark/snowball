@@ -138,6 +138,7 @@
                       "</div>" +
                     "</div>" +
                   "</div>");
+
     block
       .addClass("snowball-block-" + type)
       .attr("data-type", type)
@@ -167,17 +168,19 @@
         }
       }
     } else {
-        var dataBlock = {
-          orderNumber: snowball.savedblocks.length,
-          blockType: type
-        };
-        snowball.savedblocks.push(dataBlock);
+      var dataBlock = {
+        orderNumber: snowball.savedblocks.length,
+        blockType: type
+      };
+
+      snowball.savedblocks.push(dataBlock);
     }
 
     block
       .find(".snowball-preview").load(function() {
         renderPreview(block);
         renderBlockWithEditor(block);
+        refreshEditors(block);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
         change: debounce(function (event) {
@@ -287,7 +290,6 @@
     // the block that contains the code below.
     var code = "";
     var length = 0;
-
     if (modeType == "css") {
       code = preview.find("style:not([data-type='custom'])").html();
 
@@ -377,12 +379,15 @@
 */
   function refreshEditors(block) {
     var cm = block.find('.CodeMirror');
-    var htmlEditor = cm[0].CodeMirror;
-    var cssEditor = cm[1].CodeMirror;
-    var preview = block.find(".snowball-preview").contents().find("body");
 
-    renderEditor(preview, "xml", htmlEditor, blockNumber);
-    renderEditor(preview, "css", cssEditor, blockNumber);
+    if (cm.length) {
+      var htmlEditor = cm[0].CodeMirror;
+      var cssEditor = cm[1].CodeMirror;
+      var preview = block.find(".snowball-preview").contents().find("body");
+
+      renderEditor(preview, "xml", htmlEditor, blockNumber);
+      renderEditor(preview, "css", cssEditor, blockNumber);
+    }
   }
 
   function confirmDelete(block) {
