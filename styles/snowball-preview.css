@@ -9,11 +9,7 @@ html {
 }
 
 .snowball-block {
-  margin: 0;
-}
-
-.snowball-block-text {
-  padding: 1em;
+  margin: 0 auto;
 }
 
 .snowball-block-splash .snowball-block-splash-bg.parallax {
