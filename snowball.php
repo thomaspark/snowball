@@ -124,6 +124,23 @@ add_filter('single_template', 'snowball_template');
 
 
 /*
+ * Add snowball posts to front page displays dropdown
+ */
+
+
+function snowball_front_page_displays($pages) {
+  $snowball_pages = new WP_Query(array('post_type' => 'snowball'));
+  if ($snowball_pages->post_count > 0) {
+    $pages = array_merge($pages, $snowball_pages->posts);
+  }
+
+  return $pages;
+}
+add_filter('get_pages', 'snowball_front_page_displays');
+
+
+
+/*
  * Add scripts and stylesheets
  */
 
