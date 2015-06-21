@@ -367,7 +367,7 @@
       var customStyle = preview.find("style[data-type='custom']");
 
       if (customStyle.length === 0) {
-        customStyle = $("<style></style>").attr("data-type", "custom").appendTo(preview);
+        customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"}).appendTo(preview);
       }
 
       customStyle.html(retrieveNonReadOnlyText(cssEditor));
