@@ -77,7 +77,7 @@
       .sortable({
         "axis": "y",
         "containment": ".snowball-main",
-        "cancel": ".snowball-block.modal",
+        "cancel": ".snowball-block.modal, textarea, input",
         "cursor": "move"
       });
 
