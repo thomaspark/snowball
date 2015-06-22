@@ -12,6 +12,13 @@
     }
   });
 
+  function setupBlock(block, isChanged) {
+    renderPreview(block);
+    renderBlockWithEditor(block);
+    refreshEditors(block);
+    changesMade = isChanged;
+  }
+
   function setHandlers() {
     $("#publish").on("click", function() {
       changesMade = false;
@@ -32,30 +39,29 @@
       })
       .on("render", ".snowball-block", function() {
         var block = $(this);
-        renderPreview(block);
-        renderBlockWithEditor(block);
-        refreshEditors(block);
+        setupBlock(block, false);
       })
-      .on("mousedown", ".snowball-block", function(e) {
+      .on("mousedown", ".snowball-block", function() {
         $(".snowball-main").height($(".snowball-main").height());
       })
-      .on("mouseup", ".snowball-block", function(e) {
+      .on("mouseup", ".snowball-block", function() {
         $(".snowball-main").height("auto");
       })
-      .on("keyup", "input, textarea", debounce(function() {
+      .on("input", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
-        // TODO: should this be made into a function, since this is repeated 3 times?
+        setupBlock(block);
+        alert("tinker");
+      }, 250))
+      .on("input", ".snowball-code input, .snowball-code textarea", debounce(function() {
+        var block = $(this).parents(".snowball-block");
         renderPreview(block);
         renderBlockWithEditor(block);
-        refreshEditors(block);
         changesMade = true;
+        alert("cool");
       }, 250))
       .on("change", "input, textarea", function() {
         var block = $(this).parents(".snowball-block");
-        renderPreview(block);
-        renderBlockWithEditor(block);
-        refreshEditors(block);
-        changesMade = true;
+        setupBlock(block, true);
       })
       .on("click", ".snowball-delete", function() {
         var block = $(this).parents(".snowball-block");
@@ -185,9 +191,7 @@
 
     block
       .find(".snowball-preview").load(function() {
-        renderPreview(block);
-        renderBlockWithEditor(block);
-        refreshEditors(block);
+        setupBlock(block, false);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
         change: debounce(function (event) {
@@ -239,7 +243,6 @@
     }
 
     preview.find("body").html(html);
-
     zoomPreview(block);
   }
 
@@ -280,7 +283,8 @@
           lineNumbers: true,
           lineWrapping: true,
           theme: "monokai",
-          styleActiveLine: true
+          styleActiveLine: true,
+          undoDepth: 40
       });
 
       renderEditor(preview, modeType, editor, blockNum);
@@ -288,9 +292,7 @@
   }
 
   /*
-    Renders the code onto the text editor based on
-    what code mode is used.
-    TODO: needs more refactoring
+    Renders the code onto the text editor based on what code mode is used.
   */
   function renderEditor(preview, modeType, editor, blockNum) {
     // search for the index snowball block that is the same as
@@ -339,7 +341,6 @@
     var options = {readOnly:true, inclusiveLeft:true};
     editor.markText(startLine, endLine, options);
 
-    //editor.setValue() will scroll to top, so scroll back to your last cursor position.
     editor.setCursor(scrollPos);
   }
 
@@ -350,8 +351,7 @@
 
     if (readOnlyMark.length) {
       var mark = readOnlyMark[0];
-//      var firstReadOnlyLine = mark.doc.first;
-      var lastReadOnlyLine = mark.lines.length;// + firstReadOnlyLine;
+      var lastReadOnlyLine = mark.lines.length;
 
       if (lastReadOnlyLine < 2) {
         code = editor.getValue();
@@ -381,9 +381,6 @@
     }
   }
 
-/*
-  Would this need a flag in order to know if it needs to be used.
-*/
   function refreshEditors(block) {
     var cm = block.find('.CodeMirror');
 
@@ -391,7 +388,6 @@
       var htmlEditor = cm[0].CodeMirror;
       var cssEditor = cm[1].CodeMirror;
       var preview = block.find(".snowball-preview").contents().find("body");
-
       renderEditor(preview, "xml", htmlEditor, blockNumber);
       renderEditor(preview, "css", cssEditor, blockNumber);
     }

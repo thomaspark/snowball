@@ -208,9 +208,7 @@ function snowball_metabox_save($post_id) {
 
 /*
  * Ajax calls
- * TODO: add permissions and error traps
- */
-
+*/
 function add_ajax_enqueue($hook) {
   if ((($hook == 'post.php') || ($hook == 'post-new.php')) && (get_post_type(get_the_id()) == 'snowball')) {
     global $post;
@@ -218,17 +216,18 @@ function add_ajax_enqueue($hook) {
 
     // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
     wp_localize_script('ajax-script', 'ajax_object',
-              array('ajax_url' => admin_url('admin-ajax.php'), 'post_id' => $post->ID));
+              array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'post_id' => $post->ID,
+                'snowball_ajax_nonce' => wp_create_nonce('snowball_ajax_nonce')
+              ));
   }
 }
 add_action('admin_enqueue_scripts', 'add_ajax_enqueue');
 
 
 /*
- * Handler function for the add-block 
- TODO: look into magic_quotes_gpc for the slash striping
- TODO: Is there a way to prevent XSS attacks, 
- also json_encode and stripslashes might be iffy
+ * TODO: Is there a way to prevent XSS attacks, 
  */
 function add_blocks_callback() {
   $post_id = $_POST['post_id'];
@@ -256,7 +255,6 @@ add_action('wp_ajax_add_blocks', 'add_blocks_callback');
 */
 function add_article_callback() {
   $post_id = $_POST['post_id'];
-  // removes the \ from the quotes before saving
   $article_data = stripslashes($_POST['article']);
   $insert_id = snowball_save_article($article_data, $post_id);
   $success = "success";
@@ -272,7 +270,7 @@ add_action('wp_ajax_add_article', 'add_article_callback');
 
 /*
  * Returns a string representing the json.
- *  TODO: Does this prevent XSS attacks.
+ *  TODO: Does this prevent XSS attacks?
  */
 function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
@@ -290,14 +288,9 @@ function get_block_json($post_id) {
 
 /*
  * Database calls
- * TODO: add permissions and error traps
  */
 global $snowball_db_version;
 $snowball_db_version = '1.0';
-/* 
-  This is called only once, when the plugin is installed
-  this creates the table needed for the plugin
-*/
 function snowball_install_dbtable() {
   global $wpdb;
   global $snowball_db_version;
@@ -334,9 +327,13 @@ register_activation_hook(__FILE__, 'snowball_install_dbtable');
 
 // if successful return insert_id
 // if fails return -1
-// TODO: error checking beginning and after the function.
 function snowball_save_block($json_block, $post_id) {
   global $wpdb;
+  $nonce = $_POST['snowball_ajax_nonce'];
+
+  if (! wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
+    die ( 'Busted!');
+  }
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
 
@@ -376,11 +373,13 @@ function snowball_save_block($json_block, $post_id) {
   return $was_successful;
 }
 
-// if successful return insert_id
-// if fails return -1
-// TODO: error checking beginning and after the function.
 function snowball_save_article($article, $post_id) {
   global $wpdb;
+  $nonce = $_POST['snowball_ajax_nonce'];
+
+  if (! wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
+    die ( 'Busted!');
+  }
 
   $table_name = $wpdb->prefix . 'snowball_articles';
 
@@ -414,17 +413,10 @@ function snowball_save_article($article, $post_id) {
   }
   // This isn't the best error checking done
   if ($was_successful == false) {
-    //Insert failed
     return -1;
   }
   return $was_successful;
 }
-
-/*
- * Retrieves the blocks stored in the database with a post id of $post_id.
- * Returns the data as a string.
- * Just takes care of retrieving the data, not the formatting of it.
- */
 
 function snowball_get_blocks($post_id) {
   global $wpdb;
@@ -436,12 +428,6 @@ function snowball_get_blocks($post_id) {
   return $row;
 }
 
-/*
-  Retrieves the blocks stored in the database with a post id of $post_id.
-  Returns the data as a string.
-*/
-//TODO figure out a way to deal with when db table is empty
-//this jawn don't work
 function snowball_get_article($post_id) {
   global $wpdb;
 
@@ -465,7 +451,5 @@ function snowball_get_article($post_id) {
 add_shortcode('title', 'get_the_title');
 add_shortcode('date', 'get_the_date');
 add_shortcode('author', 'get_the_author');
-
-
 
 ?>
