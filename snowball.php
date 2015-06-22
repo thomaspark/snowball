@@ -312,7 +312,7 @@ function snowball_install_dbtable() {
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     blocks_value longtext NOT NULL,
-    UNIQUE KEY ID (id)
+    PRIMARY KEY (ID)
  ) $charset_collate;";
 
   $snowball_articles_table = "CREATE TABLE $table_name_articles (
@@ -320,7 +320,7 @@ function snowball_install_dbtable() {
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     article_html longtext NOT NULL,
-    UNIQUE KEY ID (id)
+    PRIMARY KEY (ID)
  ) $charset_collate;";
 
   require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
