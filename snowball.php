@@ -225,11 +225,12 @@ function add_ajax_enqueue($hook) {
 }
 add_action('admin_enqueue_scripts', 'add_ajax_enqueue');
 
-
-/*
- * TODO: Is there a way to prevent XSS attacks, 
- */
 function add_blocks_callback() {
+  $nonce = $_POST['snowball_ajax_nonce'];
+
+  if (!wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
+    die('You do not have permissions to make those changes.');
+  }
   $post_id = $_POST['post_id'];
   $block_data = $_POST['blocks'];
   $block_data = json_encode($block_data);
@@ -254,6 +255,12 @@ add_action('wp_ajax_add_blocks', 'add_blocks_callback');
  * Handler function for add-article
 */
 function add_article_callback() {
+  $nonce = $_POST['snowball_ajax_nonce'];
+
+  if (!wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
+    die('You do not have permissions to make those changes.');
+  }
+
   $post_id = $_POST['post_id'];
   $article_data = stripslashes($_POST['article']);
   $insert_id = snowball_save_article($article_data, $post_id);
@@ -267,11 +274,6 @@ function add_article_callback() {
 add_action('wp_ajax_nopriv_add_article', 'add_article_callback');
 add_action('wp_ajax_add_article', 'add_article_callback');
 
-
-/*
- * Returns a string representing the json.
- *  TODO: Does this prevent XSS attacks?
- */
 function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
   $block_json = '[]';
@@ -329,11 +331,6 @@ register_activation_hook(__FILE__, 'snowball_install_dbtable');
 // if fails return -1
 function snowball_save_block($json_block, $post_id) {
   global $wpdb;
-  $nonce = $_POST['snowball_ajax_nonce'];
-
-  if (! wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
-    die ( 'Busted!');
-  }
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
 
@@ -365,9 +362,8 @@ function snowball_save_block($json_block, $post_id) {
    );
   }
 
-  // This isn't the best error checking done
+  // This can be done better for Insert Failed
   if ($was_successful == false) {
-    //Insert failed
     return -1;
   }
   return $was_successful;
@@ -375,11 +371,6 @@ function snowball_save_block($json_block, $post_id) {
 
 function snowball_save_article($article, $post_id) {
   global $wpdb;
-  $nonce = $_POST['snowball_ajax_nonce'];
-
-  if (! wp_verify_nonce( $nonce, 'snowball_ajax_nonce')) {
-    die ( 'Busted!');
-  }
 
   $table_name = $wpdb->prefix . 'snowball_articles';
 
@@ -395,7 +386,6 @@ function snowball_save_article($article, $post_id) {
  );
 
   $was_successful = true;
-  //$was_successful = $was_updated;
   if ($was_updated === 0 || $was_updated == false) {
     $was_successful = $wpdb->insert(
       $table_name, 
@@ -411,7 +401,6 @@ function snowball_save_article($article, $post_id) {
      )
    );
   }
-  // This isn't the best error checking done
   if ($was_successful == false) {
     return -1;
   }

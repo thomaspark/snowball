@@ -1,5 +1,4 @@
 (function($) {
-  var blockNumber = 0;
   var changesMade = false;
   
   setHandlers();
@@ -11,12 +10,6 @@
       populateSavedBlocks();
     }
   });
-
-  function setupBlock(block, isChanged) {
-    renderPreview(block);
-    refreshEditors(block);
-    changesMade = isChanged;
-  }
 
   function setHandlers() {
     $("#publish").on("click", function() {
@@ -31,14 +24,11 @@
 
     $(".snowball-main")
       .on("open", ".snowball-block", function() {
-        var block = $(this);
-        setupEditors(block, blockNumber);
-        blockNumber = blockNumber + 1;
-        renderPreview(block);
       })
       .on("render", ".snowball-block", function() {
         var block = $(this);
-        setupBlock(block, false);
+        renderPreview(block);
+        refreshEditors(block);
       })
       .on("mousedown", ".snowball-block", function() {
         $(".snowball-main").height($(".snowball-main").height());
@@ -48,7 +38,9 @@
       })
       .on("input", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
-        setupBlock(block);
+        renderPreview(block);
+        refreshEditors(block);
+        changesMade = true;
       }, 250))
       .on("input", ".snowball-code input, .snowball-code textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
@@ -57,7 +49,9 @@
       }, 250))
       .on("change", "input, textarea", function() {
         var block = $(this).parents(".snowball-block");
-        setupBlock(block, true);
+        renderPreview(block);
+        refreshEditors(block);
+        changesMade = true;
       })
       .on("click", ".snowball-delete", function() {
         var block = $(this).parents(".snowball-block");
@@ -113,7 +107,6 @@
     for (var b in snowball.savedblocks) {
       var block = snowball.savedblocks[b];
       var type = block["blockType"].toLowerCase();
-
       // need to delete so snowball.addBlock works properly
       delete block["blockType"];
       delete block["orderNumber"];
@@ -125,7 +118,7 @@
   function addBlock(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
-    var block =  $("<div class='snowball-block'>" +
+    var block = $("<div class='snowball-block'>" +
                     "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
                         "<div>" +
@@ -187,7 +180,8 @@
 
     block
       .find(".snowball-preview").load(function() {
-        setupBlock(block, false);
+        renderPreview(block);
+        refreshEditors(block);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
         change: debounce(function (event) {
@@ -198,6 +192,34 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
+    /*
+      The code the initializes the codemirror editors.
+    */
+    var cssData = "";
+    if (data && data.customCss) {
+      cssData = data.customCss;
+    }
+
+    var preview = block.find(".snowball-preview").contents().find("body");
+    var editors = block.find(".snowball-editor-box");
+
+    editors.each(function(index, elem) {
+      var modeType = $(elem).attr("data-mode");
+      var isReadOnly = (modeType === "xml") ? true : false;
+
+      var editor = CodeMirror.fromTextArea(elem, {
+          mode: {name: modeType, htmlMode: true},
+          readOnly: isReadOnly,
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: "monokai",
+          styleActiveLine: true
+      });
+
+      renderEditor(preview, modeType, editor, cssData);
+    });
+
+    renderPreview(block);
   }
 
   function renderPreview(block) {
@@ -273,34 +295,7 @@
     }
   }
 
-  function setupEditors(block, blockNum) {
-    var preview = block.find(".snowball-preview").contents().find("body");
-    var editors = block.find(".snowball-editor-box");
-
-    editors.each(function(index, elem) {
-      var modeType = $(this).attr("data-mode");
-      var isReadOnly = (modeType === "xml") ? true : false;
-
-      var editor = CodeMirror.fromTextArea(elem, {
-          mode: {name: modeType, htmlMode: true},
-          readOnly: isReadOnly,
-          lineNumbers: true,
-          lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true,
-          undoDepth: 40
-      });
-
-      renderEditor(preview, modeType, editor, blockNum);
-    });
-  }
-
-  /*
-    Renders the code onto the text editor based on what code mode is used.
-  */
-  function renderEditor(preview, modeType, editor, blockNum) {
-    // search for the index snowball block that is the same as
-    // the block that contains the code below.
+  function renderEditor(preview, modeType, editor, cssCode) {
     var code = "";
     var length = 0;
     if (modeType == "css") {
@@ -314,12 +309,8 @@
         code = "";
       }
 
-      // ensures the code will populate the correct custom css code that was saved.
-      if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
-        var customCode = snowball.savedblocks[blockNum].customCss;
-        if (customCode) {
-          code = code + customCode;
-        }
+      if (cssCode) {
+        code = code + cssCode;
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -349,7 +340,7 @@
   }
 
   function retrieveNonReadOnlyText(editor) {
-    //there should only be one marked text object
+    // there should only be one marked text object
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
 
@@ -376,8 +367,8 @@
       var htmlEditor = cm[0].CodeMirror;
       var cssEditor = cm[1].CodeMirror;
       var preview = block.find(".snowball-preview").contents().find("body");
-      renderEditor(preview, "xml", htmlEditor, blockNumber);
-      renderEditor(preview, "css", cssEditor, blockNumber);
+      renderEditor(preview, "xml", htmlEditor);
+      renderEditor(preview, "css", cssEditor);
     }
   }
 

@@ -55,7 +55,6 @@ jQuery(document).ready(function($) {
           block[dataTarget] = inputValue;
         });
 
-        // save the css
         var snowballBlock = $(blockForm).closest('.snowball-block');
         block.customCss = retrieveCustomCss(snowballBlock);
         blocks.push(block);
@@ -77,7 +76,6 @@ jQuery(document).ready(function($) {
   // this is the same function on
   // retrieveNonReadOnlyText except it has block as an argument.
   function retrieveCustomCss(block) {
-    //the css code editor
     var editor = $(block).find('.CodeMirror')[1].CodeMirror;
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
