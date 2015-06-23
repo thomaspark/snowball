@@ -65,6 +65,7 @@
       .on("click", ".snowball-zoom-toggle", function() {
         var block = $(this).parents(".snowball-block");
         var snowballCode = block.find(".snowball-code").toggle();
+        block.find(".snowball-delete").toggle();
 
         block.toggleClass("modal");
         $("body").toggleClass("modal");
@@ -83,6 +84,12 @@
 
     $("body").on("click", ".modal-bg", function() {
       $(".snowball-block.modal .snowball-zoom-toggle").click();
+    });
+
+    $("body").on("keydown", function (e) {
+      if (e.keyCode === 27) { // ESC
+        $(".snowball-block.modal .snowball-zoom-toggle").click();
+      }
     });
 
     $(window)
