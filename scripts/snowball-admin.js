@@ -14,7 +14,6 @@
 
   function setupBlock(block, isChanged) {
     renderPreview(block);
-    renderBlockWithEditor(block);
     refreshEditors(block);
     changesMade = isChanged;
   }
@@ -35,7 +34,7 @@
         var block = $(this);
         setupEditors(block, blockNumber);
         blockNumber = blockNumber + 1;
-        renderBlockWithEditor(block);
+        renderPreview(block);
       })
       .on("render", ".snowball-block", function() {
         var block = $(this);
@@ -50,14 +49,11 @@
       .on("input", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
         setupBlock(block);
-        alert("tinker");
       }, 250))
       .on("input", ".snowball-code input, .snowball-code textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
         renderPreview(block);
-        renderBlockWithEditor(block);
         changesMade = true;
-        alert("cool");
       }, 250))
       .on("change", "input, textarea", function() {
         var block = $(this).parents(".snowball-block");
@@ -210,6 +206,7 @@
     var fields = block.find(selector);
     var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
+    var cm = block.find('.CodeMirror');
 
     var path = snowball.path;
     var css = path + "/styles/snowball.css";
@@ -240,6 +237,13 @@
 
     if (preview.find("head").is(":empty")) {
       preview.find("head").append(stylesheet, stylesheetPreview).end();
+    }
+
+    if (cm.length) {
+      var cssEditor = cm[1].CodeMirror;
+      var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
+      $(customStyle).html(retrieveNonReadOnlyText(cssEditor));
+      html = $(html).append(customStyle);
     }
 
     preview.find("body").html(html);
@@ -312,9 +316,9 @@
 
       // ensures the code will populate the correct custom css code that was saved.
       if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
-        var customCSS = snowball.savedblocks[blockNum].customCss;
-        if (customCSS) {
-          code = code + customCSS;
+        var customCode = snowball.savedblocks[blockNum].customCss;
+        if (customCode) {
+          code = code + customCode;
         }
       }
 
@@ -363,22 +367,6 @@
     }
 
     return code;
-  }
-
-  function renderBlockWithEditor(block) {
-    var cm = block.find('.CodeMirror');
-
-    if (cm.length) {
-      var cssEditor = cm[1].CodeMirror;
-      var preview = block.find(".snowball-preview").contents().find("section");
-      var customStyle = preview.find("style[data-type='custom']");
-
-      if (customStyle.length === 0) {
-        customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"}).appendTo(preview);
-      }
-
-      customStyle.html(retrieveNonReadOnlyText(cssEditor));
-    }
   }
 
   function refreshEditors(block) {
