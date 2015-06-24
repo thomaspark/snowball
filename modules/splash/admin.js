@@ -1,4 +1,24 @@
 (function($) {
+
+  var counter = 0;
+  $(".snowball-main").on("open", ".snowball-block-splash", function() {
+    var textarea = $(this).find("textarea");
+    var id = "snowball-block-splash-textarea-" + counter;
+    textarea.attr("id", id);
+    counter++;
+
+    quicktags({
+      id : id,
+      buttons: "strong,em,link,blockquote,del,code,close"
+    });
+
+    QTags._buttonsInit();
+  });
+
+  $(".snowball-main").on("click", ".snowball-block-splash .quicktags-toolbar .button", function() {
+    $(this).parents(".snowball-block").trigger("render");
+  });
+
   $(document).ready(function() {
     var index;
 
