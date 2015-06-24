@@ -36,23 +36,12 @@
       .on("mouseup", ".snowball-block", function() {
         $(".snowball-main").height("auto");
       })
-      .on("input", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
+      .on("input change", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
         renderPreview(block);
         refreshEditors(block);
         changesMade = true;
       }, 250))
-      .on("input", ".snowball-code input, .snowball-code textarea", debounce(function() {
-        var block = $(this).parents(".snowball-block");
-        renderPreview(block);
-        changesMade = true;
-      }, 250))
-      .on("change", "input, textarea", function() {
-        var block = $(this).parents(".snowball-block");
-        renderPreview(block);
-        refreshEditors(block);
-        changesMade = true;
-      })
       .on("click", ".snowball-delete", function() {
         var block = $(this).parents(".snowball-block");
         confirmDelete(block);
@@ -217,6 +206,13 @@
       });
 
       renderEditor(preview, modeType, editor, cssData);
+
+      editor.on("change", debounce(function() {
+        var block = $(elem).closest(".snowball-block");
+        renderPreview(block);
+        changesMade = true;
+      }, 250));
+
     });
 
     renderPreview(block);
