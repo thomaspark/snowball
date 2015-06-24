@@ -1,19 +1,20 @@
 jQuery(document).ready(function($) {
-  // We can also pass the url value separately from ajaxurl for front end AJAX implementations
   $("#publish").click(function() {
     var blocksRetrieved = retrieveBlocks();
     var articleRetrieved = retrieveRenderedPage();
 
     var blocks_data = {
-      "action": "add_blocks",   // this is needed to know which callback to use
+      "action": "add_blocks",
       "blocks": blocksRetrieved,
-      "post_id": ajax_object.post_id
+      "post_id": ajax_object.post_id,
+      "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
     };
 
     var article_data = {
       "action": "add_article",
       "article": articleRetrieved,
-      "post_id": ajax_object.post_id
+      "post_id": ajax_object.post_id,
+      "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
     };
 
     // adding article to db
@@ -29,14 +30,9 @@ jQuery(document).ready(function($) {
   */
   function retrieveBlocks() {
     var blocks = [];
-    // element is a form that represents a block
-    // parseBlock is a function
+
     $(".snowball-main form").each(parseBlock);
 
-    /*
-      parseBlock will retrieve the data-target attributes that
-      are contained in the input tags
-    */
     function parseBlock(orderNumber, blockForm) {
       var type = $(blockForm).parents(".snowball-block").data("name");
       var selector = "input[type='text'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target]";
@@ -59,7 +55,6 @@ jQuery(document).ready(function($) {
           block[dataTarget] = inputValue;
         });
 
-        // save the css
         var snowballBlock = $(blockForm).closest('.snowball-block');
         block.customCss = retrieveCustomCss(snowballBlock);
         blocks.push(block);
@@ -69,10 +64,6 @@ jQuery(document).ready(function($) {
     return blocks;
   }
 
-
-  // retrieves the html of the blocks in the preview of the blocks
-  // and save the html to the article table
-  // this function returns the html
   function retrieveRenderedPage() {
     var html = '';
     jQuery(".snowball-preview").each(function(index, element) {
@@ -85,7 +76,6 @@ jQuery(document).ready(function($) {
   // this is the same function on
   // retrieveNonReadOnlyText except it has block as an argument.
   function retrieveCustomCss(block) {
-    //the css code editor
     var editor = $(block).find('.CodeMirror')[1].CodeMirror;
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();

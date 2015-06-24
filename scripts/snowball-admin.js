@@ -1,5 +1,4 @@
 (function($) {
-  var blockNumber = 0;
   var changesMade = false;
   
   setHandlers();
@@ -25,38 +24,24 @@
 
     $(".snowball-main")
       .on("open", ".snowball-block", function() {
-        var block = $(this);
-        setupEditors(block, blockNumber);
-        blockNumber = blockNumber + 1;
-        renderBlockWithEditor(block);
       })
       .on("render", ".snowball-block", function() {
         var block = $(this);
         renderPreview(block);
-        renderBlockWithEditor(block);
         refreshEditors(block);
       })
-      .on("mousedown", ".snowball-block", function(e) {
+      .on("mousedown", ".snowball-block", function() {
         $(".snowball-main").height($(".snowball-main").height());
       })
-      .on("mouseup", ".snowball-block", function(e) {
+      .on("mouseup", ".snowball-block", function() {
         $(".snowball-main").height("auto");
       })
-      .on("keyup", "input, textarea", debounce(function() {
+      .on("input change", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
-        // TODO: should this be made into a function, since this is repeated 3 times?
         renderPreview(block);
-        renderBlockWithEditor(block);
         refreshEditors(block);
         changesMade = true;
       }, 250))
-      .on("change", "input, textarea", function() {
-        var block = $(this).parents(".snowball-block");
-        renderPreview(block);
-        renderBlockWithEditor(block);
-        refreshEditors(block);
-        changesMade = true;
-      })
       .on("click", ".snowball-delete", function() {
         var block = $(this).parents(".snowball-block");
         confirmDelete(block);
@@ -111,7 +96,6 @@
     for (var b in snowball.savedblocks) {
       var block = snowball.savedblocks[b];
       var type = block["blockType"].toLowerCase();
-
       // need to delete so snowball.addBlock works properly
       delete block["blockType"];
       delete block["orderNumber"];
@@ -123,7 +107,7 @@
   function addBlock(type, data) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
-    var block =  $("<div class='snowball-block'>" +
+    var block = $("<div class='snowball-block'>" +
                     "<div class='snowball-gui'>" +
                       "<div class='snowball-tinker'>" +
                         "<div>" +
@@ -186,7 +170,6 @@
     block
       .find(".snowball-preview").load(function() {
         renderPreview(block);
-        renderBlockWithEditor(block);
         refreshEditors(block);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
@@ -198,6 +181,41 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
+    /*
+      The code the initializes the codemirror editors.
+    */
+    var cssData = "";
+    if (data && data.customCss) {
+      cssData = data.customCss;
+    }
+
+    var preview = block.find(".snowball-preview").contents().find("body");
+    var editors = block.find(".snowball-editor-box");
+
+    editors.each(function(index, elem) {
+      var modeType = $(elem).attr("data-mode");
+      var isReadOnly = (modeType === "xml") ? true : false;
+
+      var editor = CodeMirror.fromTextArea(elem, {
+          mode: {name: modeType, htmlMode: true},
+          readOnly: isReadOnly,
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: "monokai",
+          styleActiveLine: true
+      });
+
+      renderEditor(preview, modeType, editor, cssData);
+
+      editor.on("change", debounce(function() {
+        var block = $(elem).closest(".snowball-block");
+        renderPreview(block);
+        changesMade = true;
+      }, 250));
+
+    });
+
+    renderPreview(block);
   }
 
   function renderPreview(block) {
@@ -206,6 +224,7 @@
     var fields = block.find(selector);
     var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
+    var cm = block.find('.CodeMirror');
 
     var path = snowball.path;
     var css = path + "/styles/snowball.css";
@@ -238,8 +257,14 @@
       preview.find("head").append(stylesheet, stylesheetPreview).end();
     }
 
-    preview.find("body").html(html);
+    if (cm.length) {
+      var cssEditor = cm[1].CodeMirror;
+      var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
+      $(customStyle).html(retrieveNonReadOnlyText(cssEditor));
+      html = $(html).append(customStyle);
+    }
 
+    preview.find("body").html(html);
     zoomPreview(block);
   }
 
@@ -266,35 +291,7 @@
     }
   }
 
-  function setupEditors(block, blockNum) {
-    var preview = block.find(".snowball-preview").contents().find("body");
-    var editors = block.find(".snowball-editor-box");
-
-    editors.each(function(index, elem) {
-      var modeType = $(this).attr("data-mode");
-      var isReadOnly = (modeType === "xml") ? true : false;
-
-      var editor = CodeMirror.fromTextArea(elem, {
-          mode: {name: modeType, htmlMode: true},
-          readOnly: isReadOnly,
-          lineNumbers: true,
-          lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true
-      });
-
-      renderEditor(preview, modeType, editor, blockNum);
-    });
-  }
-
-  /*
-    Renders the code onto the text editor based on
-    what code mode is used.
-    TODO: needs more refactoring
-  */
-  function renderEditor(preview, modeType, editor, blockNum) {
-    // search for the index snowball block that is the same as
-    // the block that contains the code below.
+  function renderEditor(preview, modeType, editor, cssCode) {
     var code = "";
     var length = 0;
     if (modeType == "css") {
@@ -308,12 +305,8 @@
         code = "";
       }
 
-      // ensures the code will populate the correct custom css code that was saved.
-      if (((typeof blockNum) !== 'undefined') && (snowball.savedblocks[blockNum] !== undefined)) {
-        var customCSS = snowball.savedblocks[blockNum].customCss;
-        if (customCSS) {
-          code = code + customCSS;
-        }
+      if (cssCode) {
+        code = code + cssCode;
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -339,19 +332,17 @@
     var options = {readOnly:true, inclusiveLeft:true};
     editor.markText(startLine, endLine, options);
 
-    //editor.setValue() will scroll to top, so scroll back to your last cursor position.
     editor.setCursor(scrollPos);
   }
 
   function retrieveNonReadOnlyText(editor) {
-    //there should only be one marked text object
+    // there should only be one marked text object
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
 
     if (readOnlyMark.length) {
       var mark = readOnlyMark[0];
-//      var firstReadOnlyLine = mark.doc.first;
-      var lastReadOnlyLine = mark.lines.length;// + firstReadOnlyLine;
+      var lastReadOnlyLine = mark.lines.length;
 
       if (lastReadOnlyLine < 2) {
         code = editor.getValue();
@@ -365,25 +356,6 @@
     return code;
   }
 
-  function renderBlockWithEditor(block) {
-    var cm = block.find('.CodeMirror');
-
-    if (cm.length) {
-      var cssEditor = cm[1].CodeMirror;
-      var preview = block.find(".snowball-preview").contents().find("section");
-      var customStyle = preview.find("style[data-type='custom']");
-
-      if (customStyle.length === 0) {
-        customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"}).appendTo(preview);
-      }
-
-      customStyle.html(retrieveNonReadOnlyText(cssEditor));
-    }
-  }
-
-/*
-  Would this need a flag in order to know if it needs to be used.
-*/
   function refreshEditors(block) {
     var cm = block.find('.CodeMirror');
 
@@ -391,9 +363,8 @@
       var htmlEditor = cm[0].CodeMirror;
       var cssEditor = cm[1].CodeMirror;
       var preview = block.find(".snowball-preview").contents().find("body");
-
-      renderEditor(preview, "xml", htmlEditor, blockNumber);
-      renderEditor(preview, "css", cssEditor, blockNumber);
+      renderEditor(preview, "xml", htmlEditor);
+      renderEditor(preview, "css", cssEditor);
     }
   }
 
