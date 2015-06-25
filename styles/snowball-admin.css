@@ -36,7 +36,7 @@ body.modal {
 .snowball-toolbar .button {
   height: auto;
   width: 75px;
-  padding: 0.8em 1.5em 0.3em;
+  padding: 0.8em 1em 0.3em;
   border: none;
   margin-right: 4px;
   text-align: center;
@@ -45,7 +45,7 @@ body.modal {
 }
 
 .snowball-toolbar .button .fa {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .snowball-block {
