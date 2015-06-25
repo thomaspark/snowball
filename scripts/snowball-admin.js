@@ -226,11 +226,12 @@
     var html = snowball.templates[type];
     var cm = block.find('.CodeMirror');
 
-    var path = snowball.path;
-    var css = path + "/styles/snowball.css";
-    var cssPreview = path + "/styles/snowball-preview.css";
-    var stylesheet = $("<link/>").attr({"rel": "stylesheet", "href": css});
-    var stylesheetPreview = $("<link/>").attr({"rel": "stylesheet", "href": cssPreview});
+    var pluginsUrl = snowball.pluginsUrl;
+    var includesUrl = snowball.includesUrl;
+    var css = $("<link/>").attr({"rel": "stylesheet", "href": pluginsUrl + "/styles/snowball.css"});
+    var cssPreview = $("<link/>").attr({"rel": "stylesheet", "href": pluginsUrl + "/styles/snowball-preview.css"});
+    var jsPreview = document.createElement("script");
+    jsPreview.src = pluginsUrl + "/scripts/snowball-preview.js";
 
     fields.each(function(index, element) {
       var target = $(this).data("target");
@@ -254,7 +255,8 @@
     }
 
     if (preview.find("head").is(":empty")) {
-      preview.find("head").append(stylesheet, stylesheetPreview).end();
+      preview.find("head").append(css, cssPreview).end();
+      preview.find("head")[0].appendChild(jsPreview);
     }
 
     if (cm.length) {
