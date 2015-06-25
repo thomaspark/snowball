@@ -3,3 +3,5 @@ if (typeof(jQuery) == "undefined"){
   var jQuery = function (selector) { return parent.jQuery(selector, body); };
   var $ = jQuery;
 }
+
+$("a").attr("target", "_blank");
