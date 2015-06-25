@@ -19,8 +19,18 @@ body.modal {
   border-bottom: none;
 }
 
+#snowball_meta .inside {
+  margin: 0;
+}
+
 .snowball-toolbar {
-  margin-top: 1em;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1000;
+  top: 32px;
+  margin: 0;
+  padding: 1em 0;
+  background-color: #32373c;
 }
 
 .snowball-toolbar .button {
@@ -41,10 +51,17 @@ body.modal {
 .snowball-block {
   margin: 1em 0;
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 -3px 6px rgba(0, 0, 0, 0.2);
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.snowball-block.ui-sortable-helper {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 -3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.snowball-block:first-child {
+  margin-top: 0;
 }
 
 .snowball-block:last-child {

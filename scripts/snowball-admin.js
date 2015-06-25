@@ -16,11 +16,14 @@
       changesMade = false;
     });
 
-    $(".snowball-toolbar").on("click", ".button", function() {
-      var type = $(this).data("type");
-      addBlock(type);
-      changesMade = true;
-    });
+    $(".snowball-toolbar")
+      .on("click", ".button", function() {
+        var type = $(this).data("type");
+        addBlock(type);
+        changesMade = true;
+      })
+      .css("width", $(".snowball-toolbar").parent().width())
+      .fixedsticky();
 
     $(".snowball-main")
       .on("open", ".snowball-block", function() {
@@ -81,6 +84,9 @@
       .resize(debounce(function() {
         zoomPreview();
       }, 250))
+      .resize(function() {
+        $(".fixedsticky-on").css("width", $(".fixedsticky-on").parent().width());
+      })
       .on("beforeunload", function(e) {
         if (changesMade) {
           return "You may have unsaved changes.";

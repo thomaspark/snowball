@@ -1,4 +1,4 @@
-<header class="snowball-toolbar">
+<header class="snowball-toolbar fixedsticky">
 
 <?php
 
