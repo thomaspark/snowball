@@ -26,8 +26,6 @@
       .fixedsticky();
 
     $(".snowball-main")
-      .on("open", ".snowball-block", function() {
-      })
       .on("render", ".snowball-block", function() {
         var block = $(this);
         renderPreview(block);
@@ -337,7 +335,7 @@
 
     var startLine = {line: 0, ch: 0};
     var endLine = {line: length, ch: 0};
-    var options = {readOnly:true, inclusiveLeft:true};
+    var options = {readOnly: true, inclusiveLeft: true};
     editor.markText(startLine, endLine, options);
 
     editor.setCursor(scrollPos);
