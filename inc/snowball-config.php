@@ -69,9 +69,28 @@ add_action('admin_init', 'snowball_remove_editor');
 
 function snowball_remove_metaboxes() {
   remove_meta_box('slugdiv', 'snowball', 'normal'); // Slug
-  // remove_meta_box('submitdiv', 'snowball', 'side'); // Publish box
+  remove_meta_box('submitdiv', 'snowball', 'side'); // Publish box
+  remove_meta_box('authordiv', 'snowball', 'normal');
+  remove_meta_box('commentsdiv', 'snowball', 'normal');
+  remove_meta_box('commentstatusdiv', 'snowball', 'normal');
 }
 add_action('add_meta_boxes', 'snowball_remove_metaboxes');
+
+
+
+/*
+ * Add metabox
+ */
+
+function snowball_add_metabox_custom() {
+  add_meta_box('snowball_meta_settings', 'Settings', 'snowball_metabox_settings_callback', 'snowball');
+}
+add_action('add_meta_boxes', 'snowball_add_metabox_custom');
+
+function snowball_metabox_settings_callback() {
+  wp_nonce_field(plugin_basename(__FILE__), 'snowball_metabox_content_nonce');
+  require('snowball-settings.php');
+}
 
 
 

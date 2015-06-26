@@ -23,6 +23,14 @@ body.modal {
   margin: 0;
 }
 
+#snowball_meta_settings .inside {
+  padding: 0;
+}
+
+.settings-section {
+  margin-left: 12px !important;
+}
+
 .snowball-toolbar {
   position: -webkit-sticky;
   position: sticky;
