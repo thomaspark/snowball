@@ -29,7 +29,6 @@
       .on("render", ".snowball-block", function() {
         var block = $(this);
         renderPreview(block);
-        refreshEditors(block);
       })
       .on("mousedown", ".snowball-block", function() {
         $(".snowball-main").height($(".snowball-main").height());
