@@ -1,6 +1,6 @@
 (function($) {
   var changesMade = false;
-  
+
   setHandlers();
 
   $("<div></div>").addClass("modal-bg").appendTo("body");

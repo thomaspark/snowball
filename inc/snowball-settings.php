@@ -23,7 +23,9 @@ function snowball_submit_meta_box($post, $args = array() ) {
   $can_publish = current_user_can($post_type_object->cap->publish_posts);
 ?>
 <div class="submitbox" id="submitpost">
+<?php 
 
+?>
 <div id="minor-publishing">
 
 <?php // Hidden submit button early on so that the browser chooses the right button when form is submitted with Return key ?>
@@ -31,34 +33,7 @@ function snowball_submit_meta_box($post, $args = array() ) {
 <?php submit_button( __( 'Save' ), 'button', 'save' ); ?>
 </div>
 
-<div id="minor-publishing-actions">
-<div id="save-action">
-<?php if ( 'publish' != $post->post_status && 'future' != $post->post_status && 'pending' != $post->post_status ) { ?>
-<input <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save Draft'); ?>" class="button" />
-<?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
-<input type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save as Pending'); ?>" class="button" />
-<?php } ?>
-<span class="spinner"></span>
-</div>
-<?php if ( $post_type_object->public ) : ?>
-<div id="preview-action">
-<?php
-if ( 'publish' == $post->post_status ) {
-  $preview_link = esc_url( get_permalink( $post->ID ) );
-  $preview_button = __( 'Preview Changes' );
-} else {
-  $preview_link = set_url_scheme( get_permalink( $post->ID ) );
-  $preview_link = esc_url( apply_filters( 'preview_post_link', add_query_arg( 'preview', 'true', $preview_link ), $post ) );
-  $preview_button = __( 'Preview' );
-}
-?>
-<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
-<input type="hidden" name="wp-preview" id="wp-preview" value="" />
-</div>
-<?php endif; // public post type ?>
-<div class="clear"></div>
-</div><!-- #minor-publishing-actions -->
-
+<?php snowball_comment_status_meta_box($post)?>
 <div id="misc-publishing-actions">
 
 <div class="misc-pub-section misc-pub-post-status"><label for="post_status"><?php _e('Status:') ?></label>
@@ -225,7 +200,7 @@ do_action( 'post_submitbox_misc_actions' );
  */
 do_action( 'post_submitbox_start' );
 ?>
-<div id="delete-action">
+<div class="move-to-trash">
 <?php
 if ( current_user_can( "delete_post", $post->ID ) ) {
   if ( !EMPTY_TRASH_DAYS )
@@ -233,11 +208,43 @@ if ( current_user_can( "delete_post", $post->ID ) ) {
   else
     $delete_text = __('Move to Trash');
   ?>
-<a class="submitdelete deletion" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
+<a class="submitdelete deletion button button-delete button-medium" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
 } ?>
 </div>
 
-<div id="publishing-action">
+
+
+<div class="save-button-holder">
+<?php if ( 'publish' != $post->post_status && 'future' != $post->post_status && 'pending' != $post->post_status ) { ?>
+<input <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save Draft'); ?>" class="button" />
+<?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
+<input type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save as Pending'); ?>" class="button" />
+<?php } ?>
+<span class="spinner"></span>
+</div>
+
+
+
+<?php if ( $post_type_object->public ) : ?>
+<div class="preview-button-holder">
+<?php
+if ( 'publish' == $post->post_status ) {
+  $preview_link = esc_url( get_permalink( $post->ID ) );
+  $preview_button = __( 'Preview Changes' );
+} else {
+  $preview_link = set_url_scheme( get_permalink( $post->ID ) );
+  $preview_link = esc_url( apply_filters( 'preview_post_link', add_query_arg( 'preview', 'true', $preview_link ), $post ) );
+  $preview_button = __( 'Preview' );
+}
+?>
+<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
+<input type="hidden" name="wp-preview" id="wp-preview" value="" />
+</div>
+<?php endif; // public post type ?>
+
+
+
+<div class="publish-button-holder">
 <span class="spinner"></span>
 <?php
 if ( !in_array( $post->post_status, array('publish', 'future', 'private') ) || 0 == $post->ID ) {
@@ -280,7 +287,6 @@ if ( !in_array( $post->post_status, array('publish', 'future', 'private') ) || 0
 function snowball_author_meta_box($post) {
   global $user_ID;
 ?>
-<p class="settings-section">
   <label for="post_author_override" style="margin-right:15px;"><strong>Author</strong></label>
   <label class="screen-reader-text" for="post_author_override"><?php _e('Author'); ?></label>
 <?php
@@ -291,7 +297,6 @@ function snowball_author_meta_box($post) {
     'include_selected' => true
   ) );
 ?>
-</p>
 <?php
 }
 ?>
@@ -303,75 +308,35 @@ function snowball_comment_status_meta_box($post) {
 ?>
 <input name="advanced_view" type="hidden" value="1" />
 <p class="meta-options settings-section">
+  <?php snowball_author_meta_box($post);?>
+  <br>
+  <strong>Discussion</strong>
+  <br>
   <label for="comment_status" class="selectit"><input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($post->comment_status, 'open'); ?> /> <?php _e( 'Allow comments.' ) ?></label><br />
   <label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php printf( __( 'Allow <a href="%s" target="_blank">trackbacks and pingbacks</a> on this page.' ), __( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) ); ?></label>
-<?php
-/**
- * Fires at the end of the Discussion meta box on the post editing screen.
- *
- * @since 3.1.0
- *
- * @param WP_Post $post WP_Post object of the current post.
- */
-do_action( 'post_comment_status_meta_box-options', $post );
-?>
+  <?php
+  /**
+   * Fires at the end of the Discussion meta box on the post editing screen.
+   *
+   * @since 3.1.0
+   *
+   * @param WP_Post $post WP_Post object of the current post.
+   */
+  do_action( 'post_comment_status_meta_box-options', $post );
+  ?>
 </p>
 <?php
 }
 ?>
 
 
-
-<?php
-/**
- * Display comments for post.
- *
- * @since 2.8.0
- *
- * @param object $post
- */
-function snowball_comment_meta_box( $post ) {
-  wp_nonce_field( 'get-comments', 'add_comment_nonce', false );
-  ?>
-  <p class="hide-if-no-js" id="add-new-comment"><a class="button" href="#commentstatusdiv" onclick="window.commentReply && commentReply.addcomment(<?php echo $post->ID; ?>);return false;"><?php _e('Add comment'); ?></a></p>
-  <?php
-
-  $total = get_comments( array( 'post_id' => $post->ID, 'number' => 1, 'count' => true ) );
-  $wp_list_table = _get_list_table('WP_Post_Comments_List_Table');
-  $wp_list_table->display( true );
-
-  if ( 1 > $total ) {
-    echo '<p id="no-comments">' . __('No comments yet.') . '</p>';
-  } else {
-    $hidden = get_hidden_meta_boxes( get_current_screen() );
-    if ( ! in_array('commentsdiv', $hidden) ) {
-      ?>
-      <script type="text/javascript">jQuery(document).ready(function(){commentsBox.get(<?php echo $total; ?>, 10);});</script>
-      <?php
-    }
-
-    ?>
-    <p class="hide-if-no-js" id="show-comments"><a href="#commentstatusdiv" onclick="commentsBox.get(<?php echo $total; ?>);return false;"><?php _e('Show comments'); ?></a> <span class="spinner"></span></p>
-    <?php
-  }
-
-  wp_comment_trashnotice();
-}
-?>
 <?php
 global $post;
 setup_postdata($post);
-snowball_author_meta_box($post);
 ?>
-<hr>
 <?php
-snowball_comment_status_meta_box($post);
+//snowball_comment_status_meta_box($post);
 ?>
-<hr>
-<?php
-snowball_comment_meta_box($post);
-?>
-<hr>
 <?php
 snowball_submit_meta_box($post);
 ?>
