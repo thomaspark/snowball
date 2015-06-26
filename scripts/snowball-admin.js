@@ -49,7 +49,7 @@
       })
       .on("click", ".snowball-zoom-toggle", function() {
         var block = $(this).parents(".snowball-block");
-        var snowballCode = block.find(".snowball-code").toggle();
+        block.find(".snowball-code").toggle();
         block.find(".snowball-delete").toggle();
 
         block.toggleClass("modal");
