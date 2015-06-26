@@ -83,7 +83,7 @@ add_action('add_meta_boxes', 'snowball_remove_metaboxes');
  */
 
 function snowball_add_metabox_custom() {
-  add_meta_box('snowball_meta_settings', 'Settings', 'snowball_metabox_settings_callback', 'snowball');
+  add_meta_box('submitdiv', 'Settings', 'snowball_metabox_settings_callback', 'snowball');
 }
 add_action('add_meta_boxes', 'snowball_add_metabox_custom');
 
