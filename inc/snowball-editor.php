@@ -3,6 +3,7 @@
 <?php
 
   global $post;
+  global $path;
   setup_postdata($post);
 
   $modules = array_filter(glob($path . 'modules/*'), 'is_dir');
