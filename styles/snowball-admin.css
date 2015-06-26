@@ -198,6 +198,21 @@ div.wp-picker-holder {
   height: calc(100% - 20px);
 }
 
+.snowball-css .cm-s-monokai.CodeMirror,
+.cm-s-monokai .CodeMirror-activeline-background {
+  background-color: #111 !important;
+}
+
+.readonly,
+.readonly.CodeMirror-activeline-background,
+.readonly + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
+  background-color: #272822 !important;
+}
+
+.CodeMirror-activeline-background + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
+  background-color: #555;
+}
+
 .snowball-block.modal {
   position: fixed;
   top: 3em;

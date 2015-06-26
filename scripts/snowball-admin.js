@@ -56,7 +56,7 @@
         $("body").toggleClass("modal");
         zoomPreview(block);
 
-        block.find(".CodeMirror").each(function(index, editor){
+        block.find(".CodeMirror").each(function(index, editor) {
           editor.CodeMirror.refresh();
         });
       })
@@ -304,7 +304,7 @@
 
       if (code) {
         code = code.replace(/^\n+|\n+$/g, '');
-        code = code + "\n\n";
+        code = code + "\n";
         length = code.split(/\r\n|\r|\n/).length - 1;
       } else {
         code = "";
@@ -312,6 +312,8 @@
 
       if (cssCode) {
         code = code + cssCode;
+      } else {
+        code = code + "\n\n\n\n";
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -337,7 +339,12 @@
     var options = {readOnly: true, inclusiveLeft: true};
     editor.markText(startLine, endLine, options);
 
+    for (var i = 0; i < length; i++) {
+      editor.addLineClass(i, "background", "readonly");
+    }
+
     editor.setCursor(scrollPos);
+    editor.scrollIntoView(null, 18);
   }
 
   function retrieveNonReadOnlyText(editor) {
