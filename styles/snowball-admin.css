@@ -23,6 +23,69 @@ body.modal {
   margin: 0;
 }
 
+#snowball_meta_settings .inside {
+  padding: 0;
+}
+
+#submitdiv .misc-pub-section {
+  padding: 5px 10px;
+}
+
+#submitdiv .edit-post-status,
+#submitdiv .edit-visibility, 
+#submitdiv .edit-timestamp {
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.button.button-delete {
+  padding: 0 10px 1px 10px;
+  border-color: #ae3115;
+  background-color: #d34e2a;
+  box-shadow: none;
+  color: #fff;
+  line-height: 26px;
+}
+
+.button.button-delete:hover {
+  padding: 0 10px 1px 10px;
+  border: 1px solid #ae1115;
+  box-shadow: none;
+  background-color: #c34e2a;
+  color: #fff;
+  line-height: 26px;
+}
+
+#minor-publishing-actions {
+  padding-top: 0px;
+}
+
+.move-to-trash {
+  float: left;
+}
+
+.save-button-holder {
+  float: left;
+  margin-left: 30px;
+}
+
+.preview-button-holder {
+  float: left;
+}
+
+.publish-button-holder {
+  float: right;
+}
+
+.settings-section {
+  float: right;
+  margin: 0 20px;
+}
+
+#major-publishing-actions {
+  padding: 5px;
+}
+
 .snowball-toolbar {
   position: -webkit-sticky;
   position: sticky;
