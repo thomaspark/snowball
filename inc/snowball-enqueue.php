@@ -26,7 +26,6 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
     wp_enqueue_script('codemirror-js', plugins_url('snowball/lib/codemirror/lib/codemirror.js'));
-    wp_enqueue_script('codemirror-active-line-js', plugins_url('snowball/lib/codemirror/addon/selection/active-line.js'));
     wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/lib/codemirror/mode/javascript.js'));
     wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/lib/codemirror/mode/css.js'));
     wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/lib/codemirror/mode/xml.js'));

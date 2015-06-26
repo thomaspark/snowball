@@ -194,23 +194,17 @@ div.wp-picker-holder {
   min-height: 150px;
 }
 
-.snowball-code .cm-s-monokai.CodeMirror {
+.snowball-code .CodeMirror {
   height: calc(100% - 20px);
 }
 
-.snowball-css .cm-s-monokai.CodeMirror,
-.cm-s-monokai .CodeMirror-activeline-background {
+.snowball-css .CodeMirror {
   background-color: #111 !important;
 }
 
-.readonly,
-.readonly.CodeMirror-activeline-background,
-.readonly + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
+.CodeMirror-linebackground.readonly,
+.CodeMirror-linebackground.readonly + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
   background-color: #272822 !important;
-}
-
-.CodeMirror-activeline-background + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
-  background-color: #555;
 }
 
 .snowball-block.modal {
