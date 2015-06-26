@@ -23,67 +23,66 @@ body.modal {
   margin: 0;
 }
 
-#snowball_meta_settings .inside {
-  padding: 0;
-}
-
 #submitdiv .misc-pub-section {
   padding: 5px 10px;
+}
+
+.settings-section {
+  float: right;
+  margin: 3px 20px 0;
 }
 
 #submitdiv .edit-post-status,
 #submitdiv .edit-visibility, 
 #submitdiv .edit-timestamp {
   margin-left: 5px;
-  font-size: 13px;
 }
 
 .button.button-delete {
-  padding: 0 10px 1px 10px;
-  border-color: #ae3115;
-  background-color: #d34e2a;
-  box-shadow: none;
-  color: #fff;
-  line-height: 26px;
+  transition: none;
 }
 
-.button.button-delete:hover {
-  padding: 0 10px 1px 10px;
-  border: 1px solid #ae1115;
-  box-shadow: none;
-  background-color: #c34e2a;
-  color: #fff;
-  line-height: 26px;
+.button.button-delete:hover,
+.button.button-delete:focus {
+  border: 1px solid #9e1115 !important;
+  background-color: #c94e2a !important;
+  box-shadow: inset 0 1px 0 #e34e2a,0 1px 0 rgba(0,0,0,.08);
+  color: #fff !important;
 }
 
-#minor-publishing-actions {
-  padding-top: 0px;
-}
-
-.move-to-trash {
-  float: left;
-}
-
-.save-button-holder {
-  float: left;
-  margin-left: 30px;
-}
-
-.preview-button-holder {
-  float: left;
-}
-
-.publish-button-holder {
-  float: right;
-}
-
-.settings-section {
-  float: right;
-  margin: 0 20px;
+.button.button-delete:focus,
+.button.button-delete:active {
+  border: 1px solid #000 !important;
+  background-color: #a94e2a !important;
 }
 
 #major-publishing-actions {
   padding: 5px;
+  text-align: right;
+}
+
+#minor-publishing-actions {
+  padding-top: 0;
+}
+
+.trash-button-holder,
+.save-button-holder,
+.preview-button-holder,
+.publish-button-holder {
+  display: inline-block;
+}
+
+.trash-button-holder {
+  float: left;
+}
+
+.save-button-holder input#save-post,
+.preview-button-holder .preview {
+  float: none;
+}
+
+.save-button-holder .spinner {
+  display: none;
 }
 
 .snowball-toolbar {
