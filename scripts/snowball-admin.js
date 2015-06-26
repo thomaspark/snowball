@@ -304,7 +304,7 @@
 
       if (code) {
         code = code.replace(/^\n+|\n+$/g, '');
-        code = code + "\n";
+        code = code + "\n\n";
         length = code.split(/\r\n|\r|\n/).length - 1;
       } else {
         code = "";
@@ -312,8 +312,6 @@
 
       if (cssCode) {
         code = code + cssCode;
-      } else {
-        code = code + "\n\n\n\n";
       }
 
       var nonReadOnlyCode = retrieveNonReadOnlyText(editor);
@@ -327,24 +325,21 @@
       length = code.split(/\r\n|\r|\n/).length;
     }
 
-    var scrollPos = {
-      line: editor.getCursor().line,
-      ch: editor.getCursor().ch
-    };
-
-    editor.setValue(code);
-
+    var cursorPos = editor.getCursor();
+    var scrollPos = editor.getScrollInfo().top;
     var startLine = {line: 0, ch: 0};
     var endLine = {line: length, ch: 0};
     var options = {readOnly: true, inclusiveLeft: true};
+
+    editor.setValue(code);
     editor.markText(startLine, endLine, options);
 
     for (var i = 0; i < length; i++) {
       editor.addLineClass(i, "background", "readonly");
     }
 
-    editor.setCursor(scrollPos);
-    editor.scrollIntoView(null, 18);
+    editor.setCursor(cursorPos);
+    editor.scrollTo(null, scrollPos);
   }
 
   function retrieveNonReadOnlyText(editor) {
