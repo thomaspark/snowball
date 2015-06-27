@@ -29,7 +29,7 @@ body.modal {
 
 .settings-section {
   float: right;
-  margin: 3px 20px 0;
+  margin: 3px 20px 6px;
 }
 
 #submitdiv .edit-post-status,
