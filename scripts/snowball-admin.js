@@ -185,7 +185,6 @@
     block
       .find(".snowball-preview").load(function() {
         renderPreview(block);
-        refreshEditors(block);
       }).end()
       .find(".wp-color-picker").wpColorPicker({
         change: debounce(function (event) {
@@ -196,8 +195,6 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
-
-    renderPreview(block);
   }
 
   function renderPreview(block) {
@@ -252,7 +249,10 @@
 
     html = $(html).append(customStyle);
     preview.find("body").html(html);
-    zoomPreview(block);
+
+    if (block.width()) {
+      zoomPreview(block);
+    }
   }
 
   function zoomPreview(block) {
