@@ -54,10 +54,6 @@
         block.find(".snowball-code").toggle();
         block.find(".snowball-delete").toggle();
 
-        if (block.find(".CodeMirror").length === 0) {
-          initEditors(block);
-        }
-
         block.toggleClass("modal");
         $("body").toggleClass("modal");
         zoomPreview(block);
@@ -65,6 +61,13 @@
         block.find(".CodeMirror").each(function(index, editor) {
           editor.CodeMirror.refresh();
         });
+      })
+      .on("mouseover", ".snowball-zoom-toggle", function() {
+        var block = $(this).parents(".snowball-block");
+
+        if (block.find(".CodeMirror").length === 0) {
+          initEditors(block);
+        }
       })
       .sortable({
         "axis": "y",
