@@ -38,6 +38,7 @@
 </header>
 
 <section class="snowball-main"></section>
+<div class="modal-bg"></div>
 
 <script type="text/javascript">
   var snowball = {

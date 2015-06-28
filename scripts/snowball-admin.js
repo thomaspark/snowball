@@ -3,7 +3,6 @@
 
   jQuery(document).ready(function() {
 
-  $("<div></div>").addClass("modal-bg").appendTo("body");
     setHandlers();
 
     if (snowball.savedblocks === null) {
