@@ -224,7 +224,6 @@ div.wp-picker-holder {
 .snowball-code {
   position: relative;
   background-color: #f8f8f8;
-  box-sizing: border-box;
   border-top: 1px solid #ddd;
   display: none;
 }
@@ -236,7 +235,6 @@ div.wp-picker-holder {
 }
 
 .snowball-editor {
-  box-sizing: border-box;
   display: inline-block;
   width: 50%;
   height: 100%;
