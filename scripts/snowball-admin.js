@@ -91,7 +91,8 @@
         zoomPreview();
       }, 250))
       .resize(function() {
-        $(".fixedsticky-on").css("width", $(".fixedsticky-on").parent().width());
+        var fixedsticky = $(".fixedsticky");
+        fixedsticky.css("width", fixedsticky.parent().width());
       })
       .on("beforeunload", function(e) {
         if (changesMade) {
