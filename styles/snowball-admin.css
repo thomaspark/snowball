@@ -76,9 +76,8 @@ body.modal {
   float: left;
 }
 
-.save-button-holder input#save-post,
-.preview-button-holder .preview {
-  float: none;
+#publish {
+  float: right;
 }
 
 .save-button-holder .spinner {
