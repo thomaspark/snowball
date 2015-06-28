@@ -55,14 +55,12 @@ add_action('wp_ajax_add_article', 'add_article_callback');
 
 function get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
-  $block_json = '[]';
+  $block_json = [];
 
-  if (isset($row)) {
+  if (isset($row) && isset($row->blocks_value)) {
     $block_json = $row->blocks_value;
-    if (!isset($block_json)) {
-      $block_json = '[]';
-    }
   }
+
   return $block_json;
 }
 

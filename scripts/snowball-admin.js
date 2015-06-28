@@ -1,12 +1,14 @@
 (function($) {
   var changesMade = false;
 
-  setHandlers();
+  jQuery(document).ready(function() {
 
   $("<div></div>").addClass("modal-bg").appendTo("body");
+    setHandlers();
 
-  jQuery(document).ready(function() {
-    if (snowball.savedblocks !== null && snowball.savedblocks !== "") {
+    if (snowball.savedblocks === null) {
+      snowball.savedblocks = [];
+    } else {
       populateSavedBlocks();
     }
   });
