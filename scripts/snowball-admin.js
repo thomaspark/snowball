@@ -4,6 +4,7 @@
   jQuery(document).ready(function() {
 
     setHandlers();
+    snowball.savedblocks = JSON.parse(snowball.savedblocks);
 
     if (snowball.savedblocks === null) {
       snowball.savedblocks = [];

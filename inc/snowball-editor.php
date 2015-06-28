@@ -1,5 +1,3 @@
-<header class="snowball-toolbar fixedsticky">
-
 <?php
 
   global $post;
@@ -10,6 +8,12 @@
   $blocks = array();
   $templates = array();
   $names = array();
+
+?>
+
+<header class="snowball-toolbar fixedsticky">
+
+<?php
 
   foreach ($modules as $module) {
     if (file_exists($module . '/admin.html') && file_exists($module . '/template.html') && file_exists($module . '/admin.json')) {
@@ -40,16 +44,20 @@
 <section class="snowball-main"></section>
 <div class="modal-bg"></div>
 
-<script type="text/javascript">
-  var snowball = {
-    blocks:       <?php echo json_encode($blocks); ?>,
-    templates:    <?php echo json_encode($templates); ?>,
-    names:        <?php echo json_encode($names); ?>,
-    pluginsUrl:   <?php echo json_encode(plugins_url("snowball")); ?>,
-    includesUrl:  <?php echo json_encode(includes_url()); ?>,
-    savedblocks:  <?php $postid=(string)$post->ID; echo get_block_json($post->ID); ?>,
-    author:       <?php echo json_encode(get_the_author()); ?>,
-    date:         <?php echo json_encode(get_the_date()); ?>,
-    title:        <?php echo json_encode(get_the_title()); ?>
-  };
-</script>
+<?php
+
+  $snowball = array(
+    'blocks'      => $blocks,
+    'templates'   => $templates,
+    'names'       => $names,
+    'pluginsUrl'  => plugins_url("snowball"),
+    'includesUrl' => includes_url(),
+    'savedblocks' => get_block_json($post->ID),
+    'author'      => get_the_author(),
+    'date'        => get_the_date(),
+    'title'       => get_the_title()
+  );
+
+  wp_localize_script('snowball-js', 'snowball', $snowball);
+
+?>
