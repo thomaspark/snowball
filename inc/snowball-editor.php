@@ -54,8 +54,11 @@
     'includesUrl' => includes_url(),
     'savedblocks' => get_block_json($post->ID),
     'author'      => get_the_author(),
+    'blogname'    => get_bloginfo(),
+    'blogurl'     => get_site_url(),
     'date'        => get_the_date(),
-    'title'       => get_the_title()
+    'title'       => get_the_title(),
+    'url'         => get_permalink()
   );
 
   wp_localize_script('snowball-js', 'snowball', $snowball);

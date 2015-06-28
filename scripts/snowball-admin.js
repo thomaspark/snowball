@@ -231,6 +231,9 @@
     html = html.replace(/{{.+}}/g, "");
 
     html = html.replace(/\[author\]/g, snowball.author)
+               .replace(/\[blogname\]/g, snowball.blogname)
+               .replace(/\[blogurl\]/g, snowball.blogurl)
+               .replace(/\[date\]/g, snowball.date)
                .replace(/\[url\]/g, snowball.url);
 
     if (snowball.title) {
