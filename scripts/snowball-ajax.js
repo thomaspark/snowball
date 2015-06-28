@@ -76,20 +76,30 @@ jQuery(document).ready(function($) {
   // this is the same function on
   // retrieveNonReadOnlyText except it has block as an argument.
   function retrieveCustomCss(block) {
-    var editor = $(block).find('.CodeMirror')[1].CodeMirror;
-    var readOnlyMark = editor.getAllMarks();
-    var code = editor.getValue();
-    if (readOnlyMark.length) {
-      var mark = readOnlyMark[0];
-      var lastReadOnlyLine = mark.lines.length;
-      if (lastReadOnlyLine < 2) {
-        code = editor.getValue();
-      } else {
-        var fromLine = {line:lastReadOnlyLine-1, ch:0};
-        var toLine = {line:editor.lastLine()+1, ch:0};
-        code = editor.getRange(fromLine, toLine);
+    var cm = $(block).find(".CodeMirror");
+    var code;
+
+    if (cm.length === 0) {
+      code = $(block).find("textarea[data-mode='css']").html();
+    } else {
+      var editor = $(block).find('.CodeMirror')[1].CodeMirror;
+      var readOnlyMark = editor.getAllMarks();
+      code = editor.getValue();
+
+      if (readOnlyMark.length) {
+        var mark = readOnlyMark[0];
+        var lastReadOnlyLine = mark.lines.length;
+
+        if (lastReadOnlyLine < 2) {
+          code = editor.getValue();
+        } else {
+          var fromLine = {line:lastReadOnlyLine-1, ch:0};
+          var toLine = {line:editor.lastLine()+1, ch:0};
+          code = editor.getRange(fromLine, toLine);
+        }
       }
     }
+
     return code;
   }
 });

@@ -54,6 +54,10 @@
         block.find(".snowball-code").toggle();
         block.find(".snowball-delete").toggle();
 
+        if (block.find(".CodeMirror").length === 0) {
+          initEditors(block);
+        }
+
         block.toggleClass("modal");
         $("body").toggleClass("modal");
         zoomPreview(block);
@@ -162,7 +166,13 @@
             }
           }
         }
+
+        if (data.customCss) {
+          block.find("textarea[data-mode='css']").html(data.customCss);
+        }
       }
+
+
     } else {
       var dataBlock = {
         orderNumber: snowball.savedblocks.length,
@@ -186,39 +196,6 @@
       }).end()
       .appendTo(".snowball-main")
       .trigger("open");
-    /*
-      The code the initializes the codemirror editors.
-    */
-    var cssData = "";
-    if (data && data.customCss) {
-      cssData = data.customCss;
-    }
-
-    var preview = block.find(".snowball-preview").contents().find("body");
-    var editors = block.find(".snowball-editor-box");
-
-    editors.each(function(index, elem) {
-      var modeType = $(elem).attr("data-mode");
-      var isReadOnly = (modeType === "xml") ? true : false;
-
-      var editor = CodeMirror.fromTextArea(elem, {
-          mode: {name: modeType, htmlMode: true},
-          readOnly: isReadOnly,
-          lineNumbers: true,
-          lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true
-      });
-
-      renderEditor(preview, modeType, editor, cssData);
-
-      editor.on("change", debounce(function() {
-        var block = $(elem).closest(".snowball-block");
-        renderPreview(block);
-        changesMade = true;
-      }, 250));
-
-    });
 
     renderPreview(block);
   }
@@ -264,13 +241,16 @@
       preview.find("head")[0].appendChild(jsPreview);
     }
 
+    var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
+
     if (cm.length) {
       var cssEditor = cm[1].CodeMirror;
-      var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
-      $(customStyle).html(retrieveNonReadOnlyText(cssEditor));
-      html = $(html).append(customStyle);
+      customStyle.html(retrieveNonReadOnlyText(cssEditor));
+    } else {
+      customStyle.html(block.find("textarea[data-mode='css']").html());
     }
 
+    html = $(html).append(customStyle);
     preview.find("body").html(html);
     zoomPreview(block);
   }
@@ -296,6 +276,34 @@
       });
 
     }
+  }
+
+  function initEditors(block) {
+    var preview = block.find(".snowball-preview").contents().find("body");
+    var editors = block.find(".snowball-editor-box");
+
+    editors.each(function(index, elem) {
+      var modeType = $(elem).attr("data-mode");
+      var isReadOnly = (modeType === "xml") ? true : false;
+
+      var editor = CodeMirror.fromTextArea(elem, {
+          mode: {name: modeType, htmlMode: true},
+          readOnly: isReadOnly,
+          lineNumbers: true,
+          lineWrapping: true,
+          theme: "monokai",
+          styleActiveLine: true
+      });
+
+      renderEditor(preview, modeType, editor);
+
+      editor.on("change", debounce(function() {
+        var block = $(elem).closest(".snowball-block");
+        renderPreview(block);
+        changesMade = true;
+      }, 250));
+
+    });
   }
 
   function renderEditor(preview, modeType, editor, cssCode) {
