@@ -241,6 +241,7 @@ div.wp-picker-holder {
   width: 50%;
   height: 100%;
   min-height: 200px;
+  vertical-align: top;
   background-color: #f8f8f8;
   padding: 1em;
 }
