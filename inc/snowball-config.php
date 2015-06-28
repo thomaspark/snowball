@@ -160,14 +160,4 @@ function snowball_front_page_displays($pages) {
 }
 add_filter('get_pages', 'snowball_front_page_displays');
 
-
-
-/*
- * Define shortcodes
- */
-
-add_shortcode('title', 'get_the_title');
-add_shortcode('date', 'get_the_date');
-add_shortcode('author', 'get_the_author');
-
 ?>
