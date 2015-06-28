@@ -230,11 +230,11 @@
 
     html = html.replace(/{{.+}}/g, "");
 
-    html = html.replace("[author]", snowball.author)
-               .replace("[date]", snowball.date);
+    html = html.replace(/\[author\]/g, snowball.author)
+               .replace(/\[url\]/g, snowball.url);
 
     if (snowball.title) {
-      html = html.replace("[title]", snowball.title);
+      html = html.replace(/\[title\]/g, snowball.title);
     }
 
     if (preview.find("head").is(":empty")) {
