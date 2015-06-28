@@ -1,5 +1,5 @@
 (function($) {
-  $(".snowball-main").on("open", ".snowball-block-table", function() {
+  $("#snowball-main").on("open", ".snowball-block-table", function() {
       var block = $(this);
       var container = block.find(".table").get(0);
       var data = JSON.parse(block.find("[data-target='JSON']").val());

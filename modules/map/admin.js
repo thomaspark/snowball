@@ -1,11 +1,11 @@
 (function($) {
 
-  $(".snowball-main").on("open", ".snowball-block-map", function() {
+  $("#snowball-main").on("open", ".snowball-block-map", function() {
     var zoom = $(this).find(".zoom").val();
     $(this).find(".zoom-output").text(zoom);
   });
 
-  $(".snowball-main").on("change keyup", ".snowball-block-map .map-user", function() {
+  $("#snowball-main").on("change keyup", ".snowball-block-map .map-user", function() {
     var block = $(this).parents(".snowball-block-map");
     var url = $(this).val();
     var props = mapParse(url);
@@ -19,7 +19,7 @@
     block.trigger("render");
   });
 
-  $(".snowball-main").on("input change", ".snowball-block-map .zoom", function() {
+  $("#snowball-main").on("input change", ".snowball-block-map .zoom", function() {
     var block = $(this).parents(".snowball-block-map");
     var zoom = $(this).val();
 

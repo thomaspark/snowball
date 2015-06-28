@@ -11,7 +11,7 @@
 
 ?>
 
-<header class="snowball-toolbar fixedsticky">
+<header id="snowball-toolbar" class="fixedsticky">
 
 <?php
 
@@ -41,8 +41,8 @@
 
 </header>
 
-<section class="snowball-main"></section>
-<div class="modal-bg"></div>
+<section id="snowball-main"></section>
+<div id="modal-bg"></div>
 
 <?php
 

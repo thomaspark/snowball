@@ -18,25 +18,25 @@
       changesMade = false;
     });
 
-    $(".snowball-toolbar")
+    $("#snowball-toolbar")
       .on("click", ".button", function() {
         var type = $(this).data("type");
         addBlock(type);
         changesMade = true;
       })
-      .css("width", $(".snowball-toolbar").parent().width())
+      .css("width", $("#snowball-toolbar").parent().width())
       .fixedsticky();
 
-    $(".snowball-main")
+    $("#snowball-main")
       .on("render", ".snowball-block", function() {
         var block = $(this);
         renderPreview(block);
       })
       .on("mousedown", ".snowball-block", function() {
-        $(".snowball-main").height($(".snowball-main").height());
+        $("#snowball-main").height($("#snowball-main").height());
       })
       .on("mouseup", ".snowball-block", function() {
-        $(".snowball-main").height("auto");
+        $("#snowball-main").height("auto");
       })
       .on("input change", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
         var block = $(this).parents(".snowball-block");
@@ -71,12 +71,12 @@
       })
       .sortable({
         "axis": "y",
-        "containment": ".snowball-main",
+        "containment": "#snowball-main",
         "cancel": ".snowball-block.modal, textarea, input",
         "cursor": "move"
       });
 
-    $("body").on("click", ".modal-bg", function() {
+    $("body").on("click", "#modal-bg", function() {
       $(".snowball-block.modal .snowball-zoom-toggle").click();
     });
 
@@ -196,7 +196,7 @@
             .attr("value", $(this).val());
         }, 250)
       }).end()
-      .appendTo(".snowball-main")
+      .appendTo("#snowball-main")
       .trigger("open");
   }
 

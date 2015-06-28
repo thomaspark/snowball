@@ -84,7 +84,7 @@ body.modal {
   display: none;
 }
 
-.snowball-toolbar {
+#snowball-toolbar {
   position: -webkit-sticky;
   position: sticky;
   z-index: 1000;
@@ -94,7 +94,7 @@ body.modal {
   background-color: #32373c;
 }
 
-.snowball-toolbar .button {
+#snowball-toolbar .button {
   height: auto;
   width: 75px;
   padding: 0.8em 1em 0.3em;
@@ -105,7 +105,7 @@ body.modal {
   line-height: 1.7em;
 }
 
-.snowball-toolbar .button .fa {
+#snowball-toolbar .button .fa {
   font-size: 18px;
 }
 
@@ -277,7 +277,7 @@ div.wp-picker-holder {
   margin: 0;
 }
 
-.modal-bg {
+#modal-bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -290,7 +290,7 @@ div.wp-picker-holder {
   pointer-events: none;
 }
 
-body.modal .modal-bg {
+body.modal #modal-bg {
   opacity: 1;
   pointer-events: auto;
 }

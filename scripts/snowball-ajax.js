@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
   function retrieveBlocks() {
     var blocks = [];
 
-    $(".snowball-main form").each(parseBlock);
+    $("#snowball-main form").each(parseBlock);
 
     function parseBlock(orderNumber, blockForm) {
       var type = $(blockForm).parents(".snowball-block").data("name");

@@ -1,5 +1,5 @@
 (function($) {
-  $(".snowball-main").on("open", ".snowball-block-image", function() {
+  $("#snowball-main").on("open", ".snowball-block-image", function() {
     var borderradius = $(this).find(".img-border-radius").val() + "%";
     $(this).find(".img-border-radius-output").text(borderradius);
   });
@@ -7,7 +7,7 @@
   $(document).ready(function() {
     var index;
 
-    $(".snowball-main").on("click", ".snowball-block-image .upload-image-button", function() {
+    $("#snowball-main").on("click", ".snowball-block-image .upload-image-button", function() {
       var block = $(this).parents(".snowball-block");
       index = $(".snowball-block").index(block);
       tb_show("", "media-upload.php?type=image&TB_iframe=true");
@@ -24,7 +24,7 @@
       return false;
     });
 
-    $(".snowball-main").on("input change", ".snowball-block-image .img-border-radius", function() {
+    $("#snowball-main").on("input change", ".snowball-block-image .img-border-radius", function() {
       var block = $(this).parents(".snowball-block-image");
       var borderradius = $(this).val() + "%";
 
