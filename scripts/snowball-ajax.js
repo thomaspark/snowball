@@ -76,13 +76,13 @@ jQuery(document).ready(function($) {
   // this is the same function on
   // retrieveNonReadOnlyText except it has block as an argument.
   function retrieveCustomCss(block) {
-    var cm = $(block).find(".CodeMirror");
+    var cm = $(block).find(".snowball-code .CodeMirror");
     var code;
 
     if (cm.length === 0) {
       code = $(block).find("textarea[data-mode='css']").html();
     } else {
-      var editor = $(block).find('.CodeMirror')[1].CodeMirror;
+      var editor = cm[1].CodeMirror;
       var readOnlyMark = editor.getAllMarks();
       code = editor.getValue();
 

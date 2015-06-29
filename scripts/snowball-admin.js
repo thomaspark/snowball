@@ -65,7 +65,7 @@
       .on("mouseover", ".snowball-zoom-toggle", function() {
         var block = $(this).parents(".snowball-block");
 
-        if (block.find(".CodeMirror").length === 0) {
+        if (block.find(".snowball-code .CodeMirror").length === 0) {
           initEditors(block);
         }
       })
@@ -207,7 +207,7 @@
     var fields = block.find(selector);
     var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
-    var cm = block.find('.CodeMirror');
+    var cm = block.find('.snowball-code .CodeMirror');
 
     var pluginsUrl = snowball.pluginsUrl;
     var includesUrl = snowball.includesUrl;
@@ -220,8 +220,8 @@
       var target = $(this).data("target");
       var value = $(this).val();
 
-      if ($(this).is("textarea")) {
-        // For textareas, replace \n\n with <p>
+      if ((type === "text") && $(this).is("textarea")) {
+        // For text blocks, replace \n\n with <p>
         value = value.replace(/(.+?)\n{2,}/g,'<p>$1</p>');
       }
 
@@ -246,16 +246,20 @@
     }
 
     var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
+    var style;
 
     if (cm.length) {
       var cssEditor = cm[1].CodeMirror;
-      customStyle.html(retrieveNonReadOnlyText(cssEditor));
+      style = retrieveNonReadOnlyText(cssEditor);
     } else {
-      customStyle.html(block.find("textarea[data-mode='css']").html());
+      style = block.find("textarea[data-mode='css']").html();
     }
 
-    html = $(html).append(customStyle);
-    preview.find("body").html(html);
+    if (style) {
+      customStyle.html(style);
+    }
+
+    preview.find("body").html(html).append(customStyle);
 
     if (block.width()) {
       zoomPreview(block);
@@ -317,7 +321,10 @@
     var code = "";
     var length = 0;
     if (modeType == "css") {
-      code = preview.find("style:not([data-type='custom'])").html();
+      preview.find("style:not([data-type='custom'])").each(function() {
+        code = code + $(this).html();
+      });
+      // code = preview.find("style:not([data-type='custom'])").html();
 
       if (code) {
         code = code.replace(/^\n+|\n+$/g, '');
@@ -381,7 +388,7 @@
   }
 
   function refreshEditors(block) {
-    var cm = block.find('.CodeMirror');
+    var cm = block.find('.snowball-code .CodeMirror');
 
     if (cm.length) {
       var htmlEditor = cm[0].CodeMirror;
