@@ -302,8 +302,7 @@
           readOnly: isReadOnly,
           lineNumbers: true,
           lineWrapping: true,
-          theme: "monokai",
-          styleActiveLine: true
+          theme: "monokai"
       });
 
       renderEditor(preview, modeType, editor);
