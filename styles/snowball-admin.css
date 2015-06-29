@@ -254,14 +254,15 @@ div.wp-picker-holder {
   min-height: 150px;
 }
 
+.CodeMirror {
+  background-color: #111 !important;
+}
+
 .snowball-code .CodeMirror {
   height: calc(100% - 20px);
 }
 
-.snowball-css .CodeMirror {
-  background-color: #111 !important;
-}
-
+.snowball-html .CodeMirror,
 .CodeMirror-linebackground.readonly,
 .CodeMirror-linebackground.readonly + .CodeMirror-gutter-wrapper > .CodeMirror-linenumber {
   background-color: #272822 !important;
