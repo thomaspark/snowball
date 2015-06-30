@@ -1,0 +1,85 @@
+<section class="snowball-block snowball-block-contact">
+  <form>
+    <div>{{form}}</div>
+    <textarea name="message"></textarea>
+    <input type="hidden" name="to" value="{{to}}">
+    <input type="hidden" name="subject" value="{{subject}}">
+    <input type="hidden" name="confirmation" value="{{confirmation}}">
+    <p>
+      <a class="btn submit">Submit</a>
+    </p>
+  </form>
+  <style>
+textarea {
+  width: 100%;
+  height: 140px;
+  margin-bottom: 1em;
+}
+
+.btn {
+  padding: 1em 2em;
+  border-radius: 999em;
+  background-color: #2887CA;
+  color: #fff;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #1968B6;
+}
+
+.btn:active,
+.btn:focus {
+  background-color: #14518D;
+}
+  </style>
+  <script>
+
+  (function($) {
+
+    $(document).ready(function() {
+      $(".snowball-block-contact .submit")
+        .off("click.snowball")
+        .on("click.snowball", function() {
+          var form = $(this).closest("form");
+          var to = form.find("[name='to']").val();
+          var subject = form.find("[name='subject']").val();
+          var confirmation = form.find("[name='confirmation']").val();
+          var message = "";
+          var others = form.find("input, textarea").not("[type='hidden']");
+
+          others.each(function() {
+            var val = $(this).val();
+
+            if ($(this).attr("name")) {
+              message = message + "\n\n" + $(this).attr("name") + ": " + val;
+            } else {
+              message = message + "\n\n" + val;
+            }
+          });
+
+          var data = {
+            action: "mail_before_submit",
+            to: to,
+            subject: subject,
+            message: message
+          };
+
+          if (window.parent) {
+            jQuery = window.parent.jQuery;
+            snowball = window.parent.snowball;
+          }
+
+          jQuery.post(snowball.adminUrl + "/admin-ajax.php", data, function(response) {
+            form.text(confirmation);
+          });
+        });
+    });
+
+  })(jQuery);
+
+  </script>
+</section>

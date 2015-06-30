@@ -215,4 +215,27 @@ function snowball_get_article($post_id) {
   return "<section></section>";
 }
 
+/*
+ * Handle AJAX for mail
+ */
+
+
+function send_AJAX_mail_before_submit() {
+  // check_ajax_referer('my_email_ajax_nonce');
+  if (isset($_POST['action']) && $_POST['action'] == "mail_before_submit") {
+
+    $to = $_POST['to'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+
+    wp_mail($to, $subject, $message);
+    echo 'email sent';
+    die();
+  }
+  echo 'error';
+  die();
+}
+add_action('wp_ajax_mail_before_submit', 'send_AJAX_mail_before_submit');
+add_action('wp_ajax_nopriv_mail_before_submit', 'send_AJAX_mail_before_submit');
+
 ?>
