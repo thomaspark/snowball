@@ -224,8 +224,8 @@
         // For text blocks, replace \n\n with <p>
         value = value.replace(/(.+?)\n{2,}/g,'<p>$1</p>');
       }
-
-      html = html.replace("{{" + target + "}}", value);
+      var regex = new RegExp("{{" + target + "}}", "g");
+      html = html.replace(regex, value);
     });
 
     html = html.replace(/{{.+}}/g, "");
