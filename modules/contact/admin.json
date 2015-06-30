@@ -1,4 +1,5 @@
 {
   "name": "Contact",
-  "iconClasses": "fa fa-envelope-o"
+  "iconClasses": "fa fa-envelope-o",
+  "order": 8
 }

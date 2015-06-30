@@ -1,4 +1,5 @@
 {
   "name": "Quote",
-  "iconClasses": "fa fa-quote-left"
+  "iconClasses": "fa fa-quote-left",
+  "order": 5
 }

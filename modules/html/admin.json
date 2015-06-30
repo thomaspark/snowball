@@ -1,4 +1,5 @@
 {
   "name": "HTML",
-  "iconClasses": "fa fa-code"
+  "iconClasses": "fa fa-code",
+  "order": 9
 }

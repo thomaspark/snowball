@@ -1,4 +1,5 @@
 {
   "name": "Video",
-  "iconClasses": "fa fa-film"
+  "iconClasses": "fa fa-film",
+  "order": 3
 }

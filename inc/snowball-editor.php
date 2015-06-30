@@ -8,6 +8,8 @@
   $blocks = array();
   $templates = array();
   $names = array();
+  $iconClasses = array();
+  $order = array();
 
 ?>
 
@@ -23,18 +25,23 @@
 
       $json = file_get_contents($module . '/admin.json');
       $meta = json_decode($json);
+      $order[$meta->order] = $type;
+      ksort($order, SORT_NUMERIC);
       $names[$type] = $meta->name;
-
-      echo '<a id="add-' . $type . '" class="button button-secondary" data-type="' . $type .'">';
-      echo '<div><i class="' . $meta->iconClasses . '"></i></div>';
-      echo '<div>' . $meta->name . '</div>';
-      echo '</a>';
+      $iconClasses[$type] = $meta->iconClasses;
 
       if (file_exists($module . '/admin.js')) {
         $plugins_path = plugins_url('snowball/modules/' . $type . '/admin.js');
         echo '<script defer src="' . $plugins_path . '"></script>';
       }
     }
+  }
+
+  foreach ($order as $rank => $type) {
+    echo '<a id="add-' . $type . '" class="button button-secondary" data-type="' . $type .'">';
+    echo '<div><i class="' . $iconClasses[$type] . '"></i></div>';
+    echo '<div>' . $names[$type] . '</div>';
+    echo '</a>';
   }
 
 ?>

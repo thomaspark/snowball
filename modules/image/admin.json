@@ -1,4 +1,5 @@
 {
   "name": "Image",
-  "iconClasses": "fa fa-file-image-o"
+  "iconClasses": "fa fa-file-image-o",
+  "order": 2
 }

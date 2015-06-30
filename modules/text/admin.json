@@ -1,4 +1,5 @@
 {
   "name": "Text",
-  "iconClasses": "fa fa-font"
+  "iconClasses": "fa fa-font",
+  "order": 1
 }

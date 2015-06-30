@@ -1,4 +1,5 @@
 {
   "name": "Map",
-  "iconClasses": "fa fa-map-marker"
+  "iconClasses": "fa fa-map-marker",
+  "order": 7
 }

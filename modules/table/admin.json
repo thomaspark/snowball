@@ -1,4 +1,5 @@
 {
   "name": "Table",
-  "iconClasses": "fa fa-table"
+  "iconClasses": "fa fa-table",
+  "order": 6
 }
