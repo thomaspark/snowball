@@ -50,6 +50,7 @@
     'blocks'      => $blocks,
     'templates'   => $templates,
     'names'       => $names,
+    'adminUrl'    => admin_url(),
     'pluginsUrl'  => plugins_url("snowball"),
     'includesUrl' => includes_url(),
     'savedblocks' => get_block_json($post->ID),
