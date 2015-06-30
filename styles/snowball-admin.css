@@ -141,7 +141,7 @@ body.modal {
 .snowball-preview {
   width: 50%;
   height: 100%;
-  min-height: 250px;
+  min-height: 300px;
 }
 
 .snowball-title {
@@ -198,7 +198,7 @@ body.modal {
 }
 
 .snowball-block form > p {
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
 }
 
 .snowball-block label + label {

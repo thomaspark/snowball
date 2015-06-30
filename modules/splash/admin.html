@@ -1,9 +1,9 @@
 <form>
-  <textarea data-target="content" style="width: 100%; max-width: 100%; min-height: 150px;"><h1>[title]</h1>
+  <textarea data-target="content" style="min-height: 100px;"><h1>[title]</h1>
 <p>[author]</p>
 <p>[date]</p></textarea>
 
-  <p>Text Color<br>
+  <p style="float: left; width: 50%;">Text Color<br>
     <input type="text" class="wp-color-picker" data-target="color" value="#fff" data-default-color="#fff" />
   </p>
 
@@ -11,13 +11,13 @@
     <input type="text" class="wp-color-picker" data-target="background-color" value="#bada55" data-default-color="#bada55" />
   </p>
 
-  <p> Background Image<br>
+  <p>Background Image<br>
     <input type="text" class="upload-image regular-text" data-target="background-image">
     <button type="button" class="upload-image-button button">Choose Image</button><br>
-    <label><input type="checkbox" data-target="parallax" value=" parallax"> Parallax</label>
   </p>
   
   <p>
     <label><input type="checkbox" data-target="full-width" value=" full-width" checked> Full-Width</label>
+    <label><input type="checkbox" data-target="parallax" value=" parallax"> Parallax</label>
   </p>
 </form>
