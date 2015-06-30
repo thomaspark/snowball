@@ -1,0 +1,9 @@
+/node_modules/
+/node_modules/*
+.DS_Store
+lib/.DS_Store
+lib/codemirror/.DS_Store
+lib/codemirror/addon/.DS_Store
+lib/codemirror/mode/.DS_Store
+lib/codemirror/theme/.DS_Store
+modules/.DS_Store

@@ -1,0 +1,43 @@
+Setting Up Gulp
+========================================================
+You must have npm(Node Package Manager) installed first,
+which is part of Node.js.
+
+Check out https://nodejs.org/ to install Nodejs.
+
+You should have a package.json file in your directory
+when you retrieve this repository.
+
+Entering:
+npm install
+
+will automatically install all the dependencies you need.
+If that DOESN'T WORK: try the steps below.
+
+Once that is done, install gulp globally using npm by:
+npm install -g gulp 
+
+After it is globally installed, then install locally 
+to your project with:
+npm install --save-dev gulp
+
+then install each plugin needed using:
+npm install --save-dev plugin-name
+
+The list of packages should be listed in packages.json
+
+
+Running Gulp
+========================================================
+After you installed gulp, there should be a gulpfile.js
+file that has the configurations on what gulp will do.
+
+You should've downloaded an already created gulpfile.js.
+So all you need to do to get started is type in:
+gulp
+
+Here are separate command to certain tasks without running
+everything.
+
+Enter gulp minify to just minify the css files
+Enter gulp uglify to just minify the js files
