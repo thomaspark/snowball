@@ -26,6 +26,19 @@ h1 {
   text-align: center;
 }
 
+a,
+a:visited {
+  color: #2887CA;
+}
+
+a:hover {
+  color: #1968B6;
+}
+
+a:active {
+  color: #14518D;
+}
+
 input,
 textarea {
   padding: 1em;
