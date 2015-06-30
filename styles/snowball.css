@@ -49,6 +49,10 @@ label {
   margin: 0 auto 4em;
 }
 
+.mid-width {
+  width: 800px;
+}
+
 .full-width {
   width: 100%;
 }
@@ -99,10 +103,11 @@ label {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .snowball-block {
     width: 100%;
     padding: 1em;
+    margin: 0 auto;
   }
 
   .full-width {

@@ -6,12 +6,12 @@ html {
 
 body {
   margin: 0;
+  min-width: 800px;
 }
 
 .snowball-block {
-  min-width: 600px;
   margin: 0 auto;
-  padding: 1em;
+  padding: 0;
 }
 
 .snowball-block.full-width {

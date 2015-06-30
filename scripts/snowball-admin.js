@@ -275,14 +275,14 @@
 
     if (block) {
       width = block.width() / 2;
-      zoom = (width < 600) ? width/600 : 1;
+      zoom = (width < 800) ? width/800 : 1;
       scale = "scale(" + zoom + ")";
 
       block.find(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
     } else {
       $(".snowball-preview").each(function() {
         width = $(this).parents(".snowball-block").width() / 2;
-        zoom = (width < 600) ? width/600 : 1;
+        zoom = (width < 800) ? width/800 : 1;
         scale = "scale(" + zoom + ")";
 
         $(this).contents().find("html").css({"-webkit-transform": scale, "transform": scale});
