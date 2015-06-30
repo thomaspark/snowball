@@ -29,12 +29,19 @@ h1 {
 input,
 textarea {
   padding: 1em;
+  border: 1px solid #ddd;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
   font-size: 14px;
   outline: none;
   resize: none;
+}
+
+label {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-size: 14px;
 }
 
 .snowball-block {
