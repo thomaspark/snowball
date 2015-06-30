@@ -26,6 +26,17 @@ h1 {
   text-align: center;
 }
 
+input,
+textarea {
+  padding: 1em;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+}
+
 .snowball-block {
   width: 600px;
   margin: 0 auto 4em;
