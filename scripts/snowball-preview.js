@@ -1,7 +1,7 @@
 var body = document.getElementsByTagName("body")[0];
 
 // set jquery variable within the iframe's context
-if (typeof(jQuery) == "undefined") {
+if (typeof jQuery == "undefined") {
   var jQuery = function (selector) { return parent.jQuery(selector, body); };
   var $ = jQuery;
 }
