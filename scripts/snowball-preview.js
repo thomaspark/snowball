@@ -8,6 +8,7 @@ if (typeof(jQuery) == "undefined") {
 
 // reset script tags within the iframe's context
 $("script").each(function() {
+  var block = $(this).closest(".snowball-block");
   var script = document.createElement("script");
   var attr = $(this).attr("src");
 
@@ -18,7 +19,7 @@ $("script").each(function() {
     script.innerHTML = $(this).html();
   }
 
-  body.appendChild(script);
+  block[0].appendChild(script);
 }).remove();
 
 $("a[href]").attr("target", "_blank");

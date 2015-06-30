@@ -259,7 +259,9 @@
       customStyle.html(style);
     }
 
-    preview.find("body").html(html).append(customStyle);
+    preview
+      .find("body").html(html).end()
+      .find(".snowball-block").append(customStyle);
 
     if (block.width()) {
       zoomPreview(block);
