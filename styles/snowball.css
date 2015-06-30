@@ -83,6 +83,13 @@ label {
   color: rgba(0, 0, 0, 0.5);
 }
 
+.btn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 @media (max-width: 1200px) {
   .offset-left > *,
   .offset-right > * {

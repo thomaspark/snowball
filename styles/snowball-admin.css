@@ -103,6 +103,10 @@ body.modal {
   text-align: center;
   font-size: 12px;
   line-height: 1.7em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #snowball-toolbar .button .fa {
