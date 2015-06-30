@@ -1,12 +1,14 @@
 <?php
 
 function snowball_add_stylesheets() {
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/snowball.css') . '">';
 }
 add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
   echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
 }
