@@ -11,7 +11,7 @@ body {
 
 .snowball-block {
   margin: 0 auto;
-  padding: 0;
+  padding: 1em;
 }
 
 .snowball-block.full-width {
