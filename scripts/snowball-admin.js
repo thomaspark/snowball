@@ -203,18 +203,10 @@
 
   function renderPreview(block) {
     var type = block.data("type");
-    var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
-    var fields = block.find(selector);
     var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
-    var cm = block.find('.snowball-code .CodeMirror');
-
-    var pluginsUrl = snowball.pluginsUrl;
-    var includesUrl = snowball.includesUrl;
-    var css = $("<link/>").attr({"rel": "stylesheet", "href": pluginsUrl + "/styles/snowball.css"});
-    var cssPreview = $("<link/>").attr({"rel": "stylesheet", "href": pluginsUrl + "/styles/snowball-preview.css"});
-    var jsPreview = document.createElement("script");
-    jsPreview.src = pluginsUrl + "/scripts/snowball-preview.js";
+    var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
+    var fields = block.find(selector);
 
     fields.each(function(index, element) {
       var target = $(this).data("target");
@@ -240,12 +232,34 @@
       html = html.replace(/\[title\]/g, snowball.title);
     }
 
-    if (preview.find("head").is(":empty")) {
-      preview.find("head").append(css, cssPreview).end();
-      preview.find("head")[0].appendChild(jsPreview);
-    }
+    var $html = $(html);
+    var blockScripts = $html.find("script").detach();
 
-    var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
+    preview.find("body").empty().append($html);
+    previewScripts(blockScripts, block);
+
+    if (block.width()) {
+      zoomPreview(block);
+    }
+  }
+
+  // create script elements from iframe document so js is executed in iframe's context
+  // append default scripts to head so they aren't repeated in article for each block
+  // append block scripts to body so they are included in article
+  // only block scripts with src are re-appended here
+  // block scripts with innerhtml must be evaled in snowball-preview.js
+
+  function previewScripts(blockScripts, block) {
+    var iframe = block.find(".snowball-preview");
+    var preview = iframe.contents();
+    var head = preview.find("head");
+    var body = preview.find("body");
+    var cm = block.find('.snowball-code .CodeMirror');
+    var defaultCss = "";
+
+    var pluginsUrl = snowball.pluginsUrl;
+    var includesUrl = snowball.includesUrl;
+
     var style;
 
     if (cm.length) {
@@ -256,15 +270,46 @@
     }
 
     if (style) {
+      var customStyle = $("<style></style>").attr({"data-type": "custom", "scoped": "scoped"});
       customStyle.html(style);
+      body.find(".snowball-block").append(customStyle);
     }
 
-    preview
-      .find("body").html(html).end()
-      .find(".snowball-block").append(customStyle);
+    var defaultStylesheets = [
+                                pluginsUrl + "/styles/snowball.css",
+                                pluginsUrl + "/styles/snowball-preview.css",
+                                pluginsUrl + "/lib/fluidbox/css/fluidbox.css",
+                                pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css"
+                              ];
 
-    if (block.width()) {
-      zoomPreview(block);
+    var defaultScripts = [
+                            pluginsUrl + "/scripts/snowball-preview.js"
+                          ];
+
+    defaultStylesheets.forEach(function(href) {
+      var code = "<link rel='stylesheet' href='" + href + "'>\n";
+      defaultCss = defaultCss + code;
+    });
+
+    blockScripts.each(function() {
+      var src = $(this).attr("src");
+      if (src) {
+        var script = iframe.get(0).contentDocument.createElement("script");
+        script.src = src;
+        body.find(".snowball-block").get(0).appendChild(script);
+      } else {
+        body.find(".snowball-block").append($(this));
+      }
+    });
+
+    defaultScripts.forEach(function(src) {
+      var script = iframe.get(0).contentDocument.createElement("script");
+      script.src = src;
+      body[0].appendChild(script);
+    });
+
+    if (head.is(":empty")) {
+      head.html(defaultCss);
     }
   }
 
