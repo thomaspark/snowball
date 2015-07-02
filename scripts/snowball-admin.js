@@ -4,12 +4,12 @@
   jQuery(document).ready(function() {
 
     setHandlers();
-    snowball.savedblocks = JSON.parse(snowball.savedblocks);
 
-    if (snowball.savedblocks === null) {
-      snowball.savedblocks = [];
-    } else {
+    if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
+      snowball.savedblocks = JSON.parse(snowball.savedblocks);
       populateSavedBlocks();
+    } else {
+      snowball.savedblocks = [];
     }
   });
 
