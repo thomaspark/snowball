@@ -41,3 +41,7 @@ everything.
 
 Enter gulp minify to just minify the css files
 Enter gulp uglify to just minify the js files
+
+Files in the lib folder will not be compiled.
+To minify the Codemirror library, run the command:
+gulp minify-codemirror
