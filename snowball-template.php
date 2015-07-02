@@ -3,6 +3,16 @@
 global $post;
 setup_postdata($post);
 
+$snowball = array(
+  'author'      => get_the_author(),
+  'blogname'    => get_bloginfo(),
+  'blogurl'     => get_site_url(),
+  'date'        => get_the_date(),
+  'excerpt'     => get_the_excerpt(),
+  'title'       => get_the_title(),
+  'url'         => get_permalink()
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +24,7 @@ setup_postdata($post);
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
   <script>
-    var snowball = {
-        adminUrl: "<?php echo admin_url() ?>"
-      };
+    var snowball = <?php echo json_encode($snowball, JSON_PRETTY_PRINT); ?>;
   </script>
   <?php do_action("snowball_enqueue_stylesheets"); ?>
   <?php do_action("snowball_enqueue_scripts"); ?>
