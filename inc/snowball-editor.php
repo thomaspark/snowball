@@ -66,7 +66,8 @@
     'blogurl'     => get_site_url(),
     'date'        => get_the_date(),
     'title'       => get_the_title(),
-    'url'         => get_permalink()
+    'url'         => get_permalink(),
+    'excerpt'     => get_the_excerpt()
   );
 
   wp_localize_script('snowball-js', 'snowball', $snowball);
