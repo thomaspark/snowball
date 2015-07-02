@@ -100,9 +100,11 @@
         }
       });
 
-    $("#collapse-menu").click(debounce(function() {
+    $("#collapse-menu").click(function() {
+      var fixedsticky = $(".fixedsticky");
+      fixedsticky.css("width", fixedsticky.parent().width());
       zoomPreview();
-    }, 250));
+    });
   }
 
   function populateSavedBlocks() {
