@@ -128,7 +128,7 @@
                         "<div>" +
                           "<div class='snowball-title'></div>" +
                           "<div class='snowball-title-button snowball-delete'>&times;</div>" +
-                          "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-search'></i></div>" +
+                          "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
                         "</div>" +
                       "</div>" +
                       "<iframe class='snowball-preview'></iframe>" +

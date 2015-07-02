@@ -169,6 +169,10 @@ body.modal {
   margin-right: 1em;
 }
 
+.snowball-zoom-toggle .fa-code {
+  font-weight: bold;
+}
+
 .snowball-title-button:hover {
   opacity: 1;
 }
