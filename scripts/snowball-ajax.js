@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  $("#publish").click(function() {
+  $("#publish, #save-post").click(function() {
     var blocksRetrieved = retrieveBlocks();
     var articleRetrieved = retrieveRenderedPage();
 
