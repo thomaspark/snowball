@@ -1,0 +1,94 @@
+<section class="snowball-block snowball-block-social">
+  <h3>{{header}}</h3>
+  <div>
+    <span class="button{{facebook}}"><i class="fa fa-facebook" alt="Facebook"></i></span>
+    <span class="button{{twitter}}"><i class="fa fa-twitter" alt="Twitter"></i></span>
+    <span class="button{{tumblr}}"><i class="fa fa-tumblr" alt="Tumblr"></i></span>
+    <span class="button{{google-plus}}"><i class="fa fa-google-plus" alt="Google Plus"></i></span>
+  </div>
+<style scoped>
+h3 {
+  text-align: center;
+}
+
+div {
+  margin: 1em auto;
+  text-align: center;
+}
+
+.button {
+  display: none;
+  width: 60px;
+  height: 60px;
+  margin: 0 6px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button:hover {
+  transition: box-shadow 0.3s;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+}
+
+.button.show {
+  display: inline-block;
+}
+
+.button.facebook {
+  background-color: #2C408E;
+}
+
+.button.twitter {
+  background-color: #008DC9;
+}
+
+.button.tumblr {
+  background-color: #27354B;
+}
+
+.button.google-plus {
+  background-color: #D92900;
+}
+
+.button i {
+  font-size: 28px;
+  line-height: 62px;
+}
+</style>
+<script>
+jQuery(".snowball-block-social").on("click", ".button", function() {
+  var button = jQuery(this);
+  var width = 500;
+  var height = 400;
+  var windowLeft = (screen.width/2) - (width/2);
+  var windowTop = (screen.height/2) - (height/2);
+  var opts = "toolbar=0,status=0,width=" + width + ",height=" + height + ",top=" + windowTop + ",left=" + windowLeft;
+  var url;
+
+  if (typeof snowball === "undefined") {
+    snowball = window.parent.snowball;
+  }
+
+  if (button.hasClass("facebook")) {
+    url = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(snowball.url);
+    window.open(url, "social", opts);
+
+  } else if (button.hasClass("twitter")) {
+    url = "http://twitter.com/share?url=" + encodeURIComponent(snowball.url) + "&text=" + encodeURIComponent(snowball.title);
+    window.open(url, "social", opts);
+
+  } else if (button.hasClass("tumblr")) {
+    url = "https://www.tumblr.com/widgets/share/tool?posttype=link&canonicalUrl=" + encodeURIComponent(snowball.url) + "&title=" + encodeURIComponent(snowball.title) + "&content=" + encodeURIComponent(snowball.excerpt);
+    window.open(url, "social", opts);
+
+  } else if (button.hasClass("google-plus")) {
+    url = "https://plus.google.com/share?url=" + encodeURIComponent(snowball.url);
+    window.open(url, "social", opts);
+
+  }
+
+});
+</script>
+</section>
