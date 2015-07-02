@@ -73,7 +73,8 @@
         "axis": "y",
         "containment": "#snowball-main",
         "cancel": ".snowball-block.modal, textarea, input",
-        "cursor": "move"
+        "cursor": "move",
+        "tolerance": "pointer"
       });
 
     $("body").on("click", "#modal-bg", function() {
