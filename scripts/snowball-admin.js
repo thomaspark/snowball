@@ -14,7 +14,7 @@
   });
 
   function setHandlers() {
-    $("#publish").on("click", function() {
+    $("#publish, #save-post").on("click", function() {
       changesMade = false;
     });
 
