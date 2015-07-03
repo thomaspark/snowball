@@ -29,11 +29,13 @@ textarea {
 
 .btn:hover {
   background-color: #1968B6;
+  color: #fff;
 }
 
 .btn:active,
 .btn:focus {
   background-color: #14518D;
+  color: #fff;
 }
   </style>
   <script>
@@ -73,7 +75,7 @@ textarea {
             snowball = window.parent.snowball;
           }
 
-          jQuery.post(snowball.adminUrl + "/admin-ajax.php", data, function(response) {
+          jQuery.post(snowball.adminUrl + "admin-ajax.php", data, function(response) {
             form.text(confirmation);
           });
         });
