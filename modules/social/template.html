@@ -57,38 +57,4 @@ div {
   line-height: 62px;
 }
 </style>
-<script>
-jQuery(".snowball-block-social").on("click", ".button", function() {
-  var button = jQuery(this);
-  var width = 500;
-  var height = 400;
-  var windowLeft = (screen.width/2) - (width/2);
-  var windowTop = (screen.height/2) - (height/2);
-  var opts = "toolbar=0,status=0,width=" + width + ",height=" + height + ",top=" + windowTop + ",left=" + windowLeft;
-  var url;
-
-  if (typeof snowball === "undefined") {
-    snowball = window.parent.snowball;
-  }
-
-  if (button.hasClass("facebook")) {
-    url = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(snowball.url);
-    window.open(url, "social", opts);
-
-  } else if (button.hasClass("twitter")) {
-    url = "http://twitter.com/share?url=" + encodeURIComponent(snowball.url) + "&text=" + encodeURIComponent(snowball.title);
-    window.open(url, "social", opts);
-
-  } else if (button.hasClass("tumblr")) {
-    url = "https://www.tumblr.com/widgets/share/tool?posttype=link&canonicalUrl=" + encodeURIComponent(snowball.url) + "&title=" + encodeURIComponent(snowball.title) + "&content=" + encodeURIComponent(snowball.excerpt);
-    window.open(url, "social", opts);
-
-  } else if (button.hasClass("google-plus")) {
-    url = "https://plus.google.com/share?url=" + encodeURIComponent(snowball.url);
-    window.open(url, "social", opts);
-
-  }
-
-});
-</script>
 </section>
