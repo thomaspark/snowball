@@ -29,7 +29,6 @@ $snowball = array(
     var snowball = <?php echo json_encode($snowball, JSON_PRETTY_PRINT); ?>;
   </script>
   <?php do_action("snowball_enqueue_stylesheets"); ?>
-  <?php do_action("snowball_enqueue_scripts"); ?>
   <!--[if lt IE 9]>
   <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
   <![endif]-->
@@ -44,5 +43,6 @@ $snowball = array(
     ?>
 
   </article>
+  <?php do_action("snowball_enqueue_scripts"); ?>
 </body>
 </html>
