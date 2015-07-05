@@ -40,11 +40,10 @@
     });
 
     function refreshOnChange(block, data) {
-      var generatedJSON = JSON.parse(JSON.stringify(data));
-      var jsonString = JSON.stringify(generatedJSON);
+      var jsonString = JSON.stringify(data);
 
       block.find("[data-target='JSON']").val(jsonString);
-      block.find("[data-target='HTML']").val(createTable(generatedJSON));
+      block.find("[data-target='HTML']").val(createTable(data));
 
       block.trigger("render");
     }
