@@ -1,6 +1,7 @@
 <?php
 
 function snowball_add_stylesheets() {
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/snowball.css') . '">';
@@ -9,6 +10,10 @@ add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
   echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
+  echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>';
+  echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
