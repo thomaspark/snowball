@@ -38,7 +38,7 @@
       .on("mouseup", ".snowball-block", function() {
         $("#snowball-main").height("auto");
       })
-      .on("input change", ".snowball-tinker input, .snowball-tinker textarea", debounce(function() {
+      .on("input change", ".snowball-tinker input, .snowball-tinker textarea:not(.handsontableInput), .snowball-tinker select", debounce(function() {
         var block = $(this).parents(".snowball-block");
         renderPreview(block);
         refreshEditors(block);
@@ -72,7 +72,7 @@
       .sortable({
         "axis": "y",
         "containment": "#snowball-main",
-        "cancel": ".snowball-block.modal, textarea, input",
+        "cancel": ".snowball-block.modal, textarea, input, select",
         "cursor": "move",
         "tolerance": "pointer"
       });
@@ -208,7 +208,7 @@
     var type = block.data("type");
     var preview = block.find(".snowball-preview").contents();
     var html = snowball.templates[type];
-    var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target]";
+    var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target], select[data-target]";
     var fields = block.find(selector);
 
     fields.each(function(index, element) {
