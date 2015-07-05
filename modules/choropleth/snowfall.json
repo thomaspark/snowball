@@ -1,0 +1,257 @@
+[
+  {
+    "State": "Alabama",
+    "fips": "US01",
+    "Value": 0.57
+  },
+  {
+    "State": "Alaska",
+    "fips": "US02",
+    "Value": 64.46
+  },
+  {
+    "State": "Arizona",
+    "fips": "US04",
+    "Value": 4.76
+  },
+  {
+    "State": "Arkansas",
+    "fips": "US05",
+    "Value": 4.04
+  },
+  {
+    "State": "California",
+    "fips": "US06",
+    "Value": 3.76
+  },
+  {
+    "State": "Colorado",
+    "fips": "US08",
+    "Value": 67.30
+  },
+  {
+    "State": "Connecticut",
+    "fips": "US09",
+    "Value": 37.85
+  },
+  {
+    "State": "Delaware",
+    "fips": "US10",
+    "Value": 16.94
+  },
+  {
+    "State": "District of Columbia",
+    "fips": "US11",
+    "Value": 17.61
+  },
+  {
+    "State": "Florida",
+    "fips": "US12",
+    "Value": 0.01
+  },
+  {
+    "State": "Georgia",
+    "fips": "US13",
+    "Value": 0.76
+  },
+  {
+    "State": "Hawaii",
+    "fips": "US15",
+    "Value": 0.00
+  },
+  {
+    "State": "Idaho",
+    "fips": "US16",
+    "Value": 36.49
+  },
+  {
+    "State": "Illinois",
+    "fips": "US17",
+    "Value": 21.75
+  },
+  {
+    "State": "Indiana",
+    "fips": "US18",
+    "Value": 21.93
+  },
+  {
+    "State": "Iowa",
+    "fips": "US19",
+    "Value": 31.27
+  },
+  {
+    "State": "Kansas",
+    "fips": "US20",
+    "Value": 15.42
+  },
+  {
+    "State": "Kentucky",
+    "fips": "US21",
+    "Value": 8.83
+  },
+  {
+    "State": "Louisiana",
+    "fips": "US22",
+    "Value": 0.20
+  },
+  {
+    "State": "Maine",
+    "fips": "US23",
+    "Value": 77.28
+  },
+  {
+    "State": "Maryland",
+    "fips": "US24",
+    "Value": 20.61
+  },
+  {
+    "State": "Massachusetts",
+    "fips": "US25",
+    "Value": 51.05
+  },
+  {
+    "State": "Michigan",
+    "fips": "US26",
+    "Value": 60.66
+  },
+  {
+    "State": "Minnesota",
+    "fips": "US27",
+    "Value": 43.43
+  },
+  {
+    "State": "Mississippi",
+    "fips": "US28",
+    "Value": 0.71
+  },
+  {
+    "State": "Missouri",
+    "fips": "US29",
+    "Value": 12.67
+  },
+  {
+    "State": "Montana",
+    "fips": "US30",
+    "Value": 37.28
+  },
+  {
+    "State": "Nebraska",
+    "fips": "US31",
+    "Value": 28.12
+  },
+  {
+    "State": "Nevada",
+    "fips": "US32",
+    "Value": 18.83
+  },
+  {
+    "State": "New Hampshire",
+    "fips": "US33",
+    "Value": 71.44
+  },
+  {
+    "State": "New Jersey",
+    "fips": "US34",
+    "Value": 23.73
+  },
+  {
+    "State": "New Mexico",
+    "fips": "US35",
+    "Value": 22.74
+  },
+  {
+    "State": "New York",
+    "fips": "US36",
+    "Value": 55.32
+  },
+  {
+    "State": "North Carolina",
+    "fips": "US37",
+    "Value": 5.03
+  },
+  {
+    "State": "North Dakota",
+    "fips": "US38",
+    "Value": 37.00
+  },
+  {
+    "State": "Ohio",
+    "fips": "US39",
+    "Value": 26.63
+  },
+  {
+    "State": "Oklahoma",
+    "fips": "US40",
+    "Value": 5.88
+  },
+  {
+    "State": "Oregon",
+    "fips": "US41",
+    "Value": 10.91
+  },
+  {
+    "State": "Pennsylvania",
+    "fips": "US42",
+    "Value": 35.84
+  },
+  {
+    "State": "Rhode Island",
+    "fips": "US44",
+    "Value": 38.85
+  },
+  {
+    "State": "South Carolina",
+    "fips": "US45",
+    "Value": 1.50
+  },
+  {
+    "State": "South Dakota",
+    "fips": "US46",
+    "Value": 37.43
+  },
+  {
+    "State": "Tennessee",
+    "fips": "US47",
+    "Value": 4.61
+  },
+  {
+    "State": "Texas",
+    "fips": "US48",
+    "Value": 1.36
+  },
+  {
+    "State": "Utah",
+    "fips": "US49",
+    "Value": 40.99
+  },
+  {
+    "State": "Vermont",
+    "fips": "US50",
+    "Value": 89.25
+  },
+  {
+    "State": "Virginia",
+    "fips": "US51",
+    "Value": 14.85
+  },
+  {
+    "State": "Washington",
+    "fips": "US53",
+    "Value": 15.57
+  },
+  {
+    "State": "West Virginia",
+    "fips": "US54",
+    "Value": 25.13
+  },
+  {
+    "State": "Wisconsin",
+    "fips": "US55",
+    "Value": 45.79
+  },
+  {
+    "State": "Wyoming",
+    "fips": "US56",
+    "Value": 51.00
+  }
+]
