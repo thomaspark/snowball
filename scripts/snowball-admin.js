@@ -279,14 +279,22 @@
     }
 
     var defaultStylesheets = [
+                                pluginsUrl + "/lib/d3-geomap/css/d3.geomap.css",
+                                pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css",
                                 pluginsUrl + "/styles/snowball.css",
-                                pluginsUrl + "/styles/snowball-preview.css",
-                                pluginsUrl + "/lib/fluidbox/css/fluidbox.css",
-                                pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css"
+                                pluginsUrl + "/styles/snowball-preview.css"
                               ];
 
     var defaultScripts = [
-                            pluginsUrl + "/scripts/snowball-preview.js"
+                            includesUrl + "js/jquery/jquery.js",
+                            "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js",
+                            "https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js",
+                            pluginsUrl + "/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js",
+                            pluginsUrl + "/lib/d3-geomap/js/d3.geomap.min.js",
+                            pluginsUrl + "/scripts/snowball-preview.js",
+                            pluginsUrl + "/modules/choropleth/template.js",
+                            pluginsUrl + "/modules/contact/template.js",
+                            pluginsUrl + "/modules/social/template.js"
                           ];
 
     defaultStylesheets.forEach(function(href) {
@@ -294,25 +302,47 @@
       defaultCss = defaultCss + code;
     });
 
-    blockScripts.each(function() {
-      var src = $(this).attr("src");
-      if (src) {
-        var script = iframe.get(0).contentDocument.createElement("script");
-        script.src = src;
-        body.find(".snowball-block").get(0).appendChild(script);
-      } else {
-        body.find(".snowball-block").append($(this));
-      }
-    });
+    head.html("<meta charset='utf-8'>");
+    head.append(defaultCss);
+    callback(0);
 
-    defaultScripts.forEach(function(src) {
+    function callback(i) {
       var script = iframe.get(0).contentDocument.createElement("script");
-      script.src = src;
-      body[0].appendChild(script);
-    });
+      script.src = defaultScripts[i];
 
-    if (head.is(":empty")) {
-      head.html(defaultCss);
+      if (i < defaultScripts.length - 1) {
+        script.onload = function() {
+          callback(i+1);
+        };
+      } else {
+        script.onload = function() {
+          callback2(0);
+        };
+      }
+
+      head[0].appendChild(script);
+    }
+
+    function callback2(i) {
+      if (i < blockScripts.length) {
+        var src = blockScripts.eq(i).attr("src");
+        var script = iframe.get(0).contentDocument.createElement("script");
+
+        if (src) {
+          // if template.js, change path to work in preview iframe
+          // var re = /^\.\.\/(\.\.\/wp-content\/plugins\/snowball\/modules\/.*\/template.js)/g;
+          // src = src.replace(re, "$1");
+
+          script.src = src;
+          script.onload = function() {
+            callback2(i+1);
+          };
+        } else {
+          script.innerHTML = blockScripts.eq(i).html();
+        }
+
+        body.find(".snowball-block").get(0).appendChild(script);
+      }
     }
   }
 
@@ -335,7 +365,6 @@
 
         $(this).contents().find("html").css({"-webkit-transform": scale, "transform": scale});
       });
-
     }
   }
 
