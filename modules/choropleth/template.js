@@ -20,15 +20,26 @@ function drawMap(block) {
   var color = block.find("input.color").val();
   var palette = colorbrewer[color][quantize];
 
+  var mapType = block.find(".map-type").val();
+  var file = path + "/topojson/countries/USA.json";
+  var projection = d3.geo.albersUsa;
+  var scale = 800;
+
+  if (mapType === "world") {
+    file = path + "/topojson/world/countries.json";
+    projection = d3.geo.equirectangular;
+    scale = 100;
+  }
+
   if (json) {
     block.find(".map").empty();
 
     var map = d3.geomap.choropleth()
-      .geofile(path + "/topojson/countries/USA.json")
-      .projection(d3.geo.albersUsa)
+      .geofile(file)
+      .projection(projection)
       .column("Value")
       .unitId("fips")
-      .scale(800)
+      .scale(scale)
       .translate([400, 200])
       .colors(palette)
       .legend(true);

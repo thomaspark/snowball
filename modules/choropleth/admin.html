@@ -1,5 +1,5 @@
 <form>
-  <p style="float: left; width: 50%; max-width: 150px;">
+  <p style="float: left; width: 33%; max-width: 150px">
     Color Palette<br>
     <select data-target="color">
       <option value="Blues" selected="selected">Blues</option>
@@ -39,13 +39,20 @@
       <option value="Set3">Set3</option>
     </select>
   </p>
-  <p style="float: left;">
+  <p style="float: left; width: 33%;">
     Quantize<br>
     <input type="range" data-target="quantize" min="3" max="9" step="1" value="5" style="margin-top: 5px;">
     <small class="quantize-output" style="vertical-align: 9px;">5</small>
   </p>
+  <p style="float: left; width: 33%;">
+    Map<br>
+    <select data-target="map-type">
+      <option value="usa" selected="selected">U.S. States</option>
+      <option value="world">World</option>
+    </select>
+  </p>
   <p style="clear: left;">Caption<br>
-    <input type="text" class="regular-text" data-target="caption" value="Annual Snowfall by U.S. State (inches)">
+    <input type="text" class="regular-text" data-target="caption" value="Annual Snowfall (inches)">
   </p>
   <div class="table"></div>
   <input data-target="JSON" type="hidden">

@@ -1,0 +1,1062 @@
+[
+  {
+    "State": "Afghanistan",
+    "fips": "AFG",
+    "Value": 327
+  },
+  {
+    "State": "Albania",
+    "fips": "ALB",
+    "Value": 1485
+  },
+  {
+    "State": "Algeria",
+    "fips": "DZA",
+    "Value": 89
+  },
+  {
+    "State": "American Samoa",
+    "fips": "ASM",
+    "Value": 2923
+  },
+  {
+    "State": "Andorra",
+    "fips": "AND",
+    "Value": 899
+  },
+  {
+    "State": "Angola",
+    "fips": "AGO",
+    "Value": 1010
+  },
+  {
+    "State": "Antigua and Barbuda",
+    "fips": "ATG",
+    "Value": 1030
+  },
+  {
+    "State": "Argentina",
+    "fips": "ARG",
+    "Value": 591
+  },
+  {
+    "State": "Armenia",
+    "fips": "ARM",
+    "Value": 562
+  },
+  {
+    "State": "Aruba",
+    "fips": "ABW",
+    "Value": 0
+  },
+  {
+    "State": "Australia",
+    "fips": "AUS",
+    "Value": 534
+  },
+  {
+    "State": "Austria",
+    "fips": "AUT",
+    "Value": 1110
+  },
+  {
+    "State": "Azerbaijan",
+    "fips": "AZE",
+    "Value": 447
+  },
+  {
+    "State": "Bahamas",
+    "fips": "BHS",
+    "Value": 1292
+  },
+  {
+    "State": "Bahrain",
+    "fips": "BHR",
+    "Value": 83
+  },
+  {
+    "State": "Bangladesh",
+    "fips": "BGD",
+    "Value": 2666
+  },
+  {
+    "State": "Barbados",
+    "fips": "BRB",
+    "Value": 1422
+  },
+  {
+    "State": "Belarus",
+    "fips": "BLR",
+    "Value": 618
+  },
+  {
+    "State": "Belgium",
+    "fips": "BEL",
+    "Value": 847
+  },
+  {
+    "State": "Belize",
+    "fips": "BLZ",
+    "Value": 1705
+  },
+  {
+    "State": "Benin",
+    "fips": "BEN",
+    "Value": 1039
+  },
+  {
+    "State": "Bermuda",
+    "fips": "BMU",
+    "Value": 1466
+  },
+  {
+    "State": "Bhutan",
+    "fips": "BTN",
+    "Value": 2200
+  },
+  {
+    "State": "Bolivia",
+    "fips": "BOL",
+    "Value": 1146
+  },
+  {
+    "State": "Bosnia and Herzegovina",
+    "fips": "BIH",
+    "Value": 1028
+  },
+  {
+    "State": "Botswana",
+    "fips": "BWA",
+    "Value": 416
+  },
+  {
+    "State": "Brazil",
+    "fips": "BRA",
+    "Value": 1761
+  },
+  {
+    "State": "Brunei Darussalam",
+    "fips": "BRN",
+    "Value": 2722
+  },
+  {
+    "State": "Bulgaria",
+    "fips": "BGR",
+    "Value": 608
+  },
+  {
+    "State": "Burkina Faso",
+    "fips": "BFA",
+    "Value": 748
+  },
+  {
+    "State": "Burundi",
+    "fips": "BDI",
+    "Value": 1274
+  },
+  {
+    "State": "Cabo Verde",
+    "fips": "CPV",
+    "Value": 228
+  },
+  {
+    "State": "Cambodia",
+    "fips": "KHM",
+    "Value": 1904
+  },
+  {
+    "State": "Cameroon",
+    "fips": "CMR",
+    "Value": 1604
+  },
+  {
+    "State": "Canada",
+    "fips": "CAN",
+    "Value": 537
+  },
+  {
+    "State": "Cayman Islands",
+    "fips": "CYM",
+    "Value": 1201 
+  },
+  {
+    "State": "Central African Republic",
+    "fips": "CAF",
+    "Value": 1343
+  },
+  {
+    "State": "Chad",
+    "fips": "TCD",
+    "Value": 322
+  },
+  {
+    "State": "Chile",
+    "fips": "CHL",
+    "Value": 1522
+  },
+  {
+    "State": "China",
+    "fips": "CHN",
+    "Value": 645
+  },
+  {
+    "State": "Colombia",
+    "fips": "COL",
+    "Value": 3240
+  },
+  {
+    "State": "Comoros",
+    "fips": "COM",
+    "Value": 900
+  },
+  {
+    "State": "Congo, Dem. Rep.",
+    "fips": "COD",
+    "Value": 1543
+  },
+  {
+    "State": "Congo, Rep.",
+    "fips": "COG",
+    "Value": 1646
+  },
+  {
+    "State": "Costa Rica",
+    "fips": "CRI",
+    "Value": 2926
+  },
+  {
+    "State": "Cote d`Ivoire",
+    "fips": "CIV",
+    "Value": 1348
+  },
+  {
+    "State": "Croatia",
+    "fips": "HRV",
+    "Value": 1113
+  },
+  {
+    "State": "Cuba",
+    "fips": "CUB",
+    "Value": 1335
+  },
+  {
+    "State": "Curacao",
+    "fips": "CUW",
+    "Value": 0
+  },
+  {
+    "State": "Cyprus",
+    "fips": "CYP",
+    "Value": 498
+  },
+  {
+    "State": "Czech Republic",
+    "fips": "CZE",
+    "Value": 677
+  },
+  {
+    "State": "Denmark",
+    "fips": "DNK",
+    "Value": 703
+  },
+  {
+    "State": "Djibouti",
+    "fips": "DJI",
+    "Value": 220
+  },
+  {
+    "State": "Dominica",
+    "fips": "DMA",
+    "Value": 2083
+  },
+  {
+    "State": "Dominican Republic",
+    "fips": "DOM",
+    "Value": 1410
+  },
+  {
+    "State": "Ecuador",
+    "fips": "ECU",
+    "Value": 2274
+  },
+  {
+    "State": "Egypt, Arab Rep.",
+    "fips": "EGY",
+    "Value": 51
+  },
+  {
+    "State": "El Salvador",
+    "fips": "SLV",
+    "Value": 1784
+  },
+  {
+    "State": "Equatorial Guinea",
+    "fips": "GNQ",
+    "Value": 2156
+  },
+  {
+    "State": "Eritrea",
+    "fips": "ERI",
+    "Value": 384
+  },
+  {
+    "State": "Estonia",
+    "fips": "EST",
+    "Value": 626
+  },
+  {
+    "State": "Ethiopia",
+    "fips": "ETH",
+    "Value": 848
+  },
+  {
+    "State": "Faeroe Islands",
+    "fips": "FRO",
+    "Value": 1387 
+  },
+  {
+    "State": "Fiji",
+    "fips": "FJI",
+    "Value": 2592
+  },
+  {
+    "State": "Finland",
+    "fips": "FIN",
+    "Value": 536
+  },
+  {
+    "State": "France",
+    "fips": "FRA",
+    "Value": 867
+  },
+  {
+    "State": "French Polynesia",
+    "fips": "PYF",
+    "Value": 0
+  },
+  {
+    "State": "Gabon",
+    "fips": "GAB",
+    "Value": 1831
+  },
+  {
+    "State": "Gambia",
+    "fips": "GMB",
+    "Value": 836
+  },
+  {
+    "State": "Georgia",
+    "fips": "GEO",
+    "Value": 1026
+  },
+  {
+    "State": "Germany",
+    "fips": "DEU",
+    "Value": 700
+  },
+  {
+    "State": "Ghana",
+    "fips": "GHA",
+    "Value": 1187
+  },
+  {
+    "State": "Greece",
+    "fips": "GRC",
+    "Value": 652
+  },
+  {
+    "State": "Greenland",
+    "fips": "GRL",
+    "Value": 0
+  },
+  {
+    "State": "Grenada",
+    "fips": "GRD",
+    "Value": 2350
+  },
+  {
+    "State": "Guam",
+    "fips": "GUM",
+    "Value": 0
+  },
+  {
+    "State": "Guatemala",
+    "fips": "GTM",
+    "Value": 1996
+  },
+  {
+    "State": "Guinea",
+    "fips": "GIN",
+    "Value": 1651
+  },
+  {
+    "State": "Guinea-Bissau",
+    "fips": "XXX",
+    "Value": 1577
+  },
+  {
+    "State": "Guyana",
+    "fips": "GNB",
+    "Value": 2387
+  },
+  {
+    "State": "Haiti",
+    "fips": "HTI",
+    "Value": 1440
+  },
+  {
+    "State": "Honduras",
+    "fips": "HND",
+    "Value": 1976
+  },
+  {
+    "State": "Hong Kong SAR, China",
+    "fips": "HKG",
+    "Value": 0
+  },
+  {
+    "State": "Hungary",
+    "fips": "HUN",
+    "Value": 589
+  },
+  {
+    "State": "Iceland",
+    "fips": "ISL",
+    "Value": 1940
+  },
+  {
+    "State": "India",
+    "fips": "IND",
+    "Value": 1083
+  },
+  {
+    "State": "Indonesia",
+    "fips": "IDN",
+    "Value": 2702
+  },
+  {
+    "State": "Iran, Islamic Rep.",
+    "fips": "IRN",
+    "Value": 228
+  },
+  {
+    "State": "Iraq",
+    "fips": "IRQ",
+    "Value": 216
+  },
+  {
+    "State": "Ireland",
+    "fips": "IRL",
+    "Value": 1118
+  },
+  {
+    "State": "Isle of Man",
+    "fips": "IMN",
+    "Value": 0
+  },
+  {
+    "State": "Israel",
+    "fips": "ISR",
+    "Value": 435
+  },
+  {
+    "State": "Italy",
+    "fips": "ITA",
+    "Value": 832
+  },
+  {
+    "State": "Jamaica",
+    "fips": "JAM",
+    "Value": 2051
+  },
+  {
+    "State": "Japan",
+    "fips": "JPN",
+    "Value": 1668
+  },
+  {
+    "State": "Jordan",
+    "fips": "JOR",
+    "Value": 111
+  },
+  {
+    "State": "Kazakhstan",
+    "fips": "KAZ",
+    "Value": 250
+  },
+  {
+    "State": "Kenya",
+    "fips": "KEN",
+    "Value": 630
+  },
+  {
+    "State": "Kiribati",
+    "fips": "KIR",
+    "Value": 1343
+  },
+  {
+    "State": "Korea, Dem. Rep.",
+    "fips": "PRK",
+    "Value": 1054
+  },
+  {
+    "State": "Korea, Rep.",
+    "fips": "KOR",
+    "Value": 1274
+  },
+  {
+    "State": "Kuwait",
+    "fips": "KWT",
+    "Value": 121
+  },
+  {
+    "State": "Kyrgyz Republic",
+    "fips": "KGZ",
+    "Value": 533
+  },
+  {
+    "State": "Lao PDR",
+    "fips": "LAO",
+    "Value": 1834
+  },
+  {
+    "State": "Latvia",
+    "fips": "LVA",
+    "Value": 641
+  },
+  {
+    "State": "Lebanon",
+    "fips": "LBN",
+    "Value": 661
+  },
+  {
+    "State": "Lesotho",
+    "fips": "LSO",
+    "Value": 788
+  },
+  {
+    "State": "Liberia",
+    "fips": "LBR",
+    "Value": 2391
+  },
+  {
+    "State": "Libya",
+    "fips": "LBY",
+    "Value": 56
+  },
+  {
+    "State": "Liechtenstein",
+    "fips": "LIE",
+    "Value": 1123
+  },
+  {
+    "State": "Lithuania",
+    "fips": "LTU",
+    "Value": 656
+  },
+  {
+    "State": "Luxembourg",
+    "fips": "LUX",
+    "Value": 934
+  },
+  {
+    "State": "Macao SAR, China",
+    "fips": "MAC",
+    "Value": 0
+  },
+  {
+    "State": "Macedonia, FYR",
+    "fips": "MKD",
+    "Value": 619
+  },
+  {
+    "State": "Madagascar",
+    "fips": "MDG",
+    "Value": 1513
+  },
+  {
+    "State": "Malawi",
+    "fips": "MWI",
+    "Value": 1181
+  },
+  {
+    "State": "Malaysia",
+    "fips": "MYS",
+    "Value": 2875
+  },
+  {
+    "State": "Maldives",
+    "fips": "MDV",
+    "Value": 1972
+  },
+  {
+    "State": "Mali",
+    "fips": "MLI",
+    "Value": 282
+  },
+  {
+    "State": "Malta",
+    "fips": "MLT",
+    "Value": 560
+  },
+  {
+    "State": "Marshall Islands",
+    "fips": "MHL",
+    "Value": 3365
+  },
+  {
+    "State": "Mauritania",
+    "fips": "MRT",
+    "Value": 92
+  },
+  {
+    "State": "Mauritius",
+    "fips": "MUS",
+    "Value": 2041
+  },
+  {
+    "State": "Mexico",
+    "fips": "MEX",
+    "Value": 758
+  },
+  {
+    "State": "Micronesia, Fed. Sts.",
+    "fips": "FSM",
+    "Value": 5393
+  },
+  {
+    "State": "Moldova",
+    "fips": "MDA",
+    "Value": 450
+  },
+  {
+    "State": "Monaco",
+    "fips": "MCO",
+    "Value": 811
+  },
+  {
+    "State": "Mongolia",
+    "fips": "MNG",
+    "Value": 241
+  },
+  {
+    "State": "Montenegro",
+    "fips": "MNE",
+    "Value": 1106
+  },
+  {
+    "State": "Morocco",
+    "fips": "MAR",
+    "Value": 346
+  },
+  {
+    "State": "Mozambique",
+    "fips": "MOZ",
+    "Value": 1032
+  },
+  {
+    "State": "Myanmar",
+    "fips": "MMR",
+    "Value": 2091
+  },
+  {
+    "State": "Namibia",
+    "fips": "NAM",
+    "Value": 285
+  },
+  {
+    "State": "Nepal",
+    "fips": "NPL",
+    "Value": 1500
+  },
+  {
+    "State": "Netherlands",
+    "fips": "NLD",
+    "Value": 778
+  },
+  {
+    "State": "New Caledonia",
+    "fips": "NCL",
+    "Value": 0
+  },
+  {
+    "State": "New Zealand",
+    "fips": "NZL",
+    "Value": 1732
+  },
+  {
+    "State": "Nicaragua",
+    "fips": "NIC",
+    "Value": 2280
+  },
+  {
+    "State": "Niger",
+    "fips": "NER",
+    "Value": 151
+  },
+  {
+    "State": "Nigeria",
+    "fips": "NGA",
+    "Value": 1150
+  },
+  {
+    "State": "Northern Mariana Islands",
+    "fips": "MNP",
+    "Value": 0
+  },
+  {
+    "State": "Norway",
+    "fips": "NOR",
+    "Value": 1414
+  },
+  {
+    "State": "Oman",
+    "fips": "OMN",
+    "Value": 125
+  },
+  {
+    "State": "Pakistan",
+    "fips": "PAK",
+    "Value": 494
+  },
+  {
+    "State": "Palau",
+    "fips": "PLW",
+    "Value": 3481
+  },
+  {
+    "State": "Panama",
+    "fips": "PAN",
+    "Value": 2928
+  },
+  {
+    "State": "Papua New Guinea",
+    "fips": "PNG",
+    "Value": 3142
+  },
+  {
+    "State": "Paraguay",
+    "fips": "PRY",
+    "Value": 1130
+  },
+  {
+    "State": "Peru",
+    "fips": "PER",
+    "Value": 1738
+  },
+  {
+    "State": "Philippines",
+    "fips": "PHL",
+    "Value": 2348
+  },
+  {
+    "State": "Poland",
+    "fips": "POL",
+    "Value": 600
+  },
+  {
+    "State": "Portugal",
+    "fips": "PRT",
+    "Value": 854
+  },
+  {
+    "State": "Puerto Rico",
+    "fips": "PRI",
+    "Value": 2054
+  },
+  {
+    "State": "Qatar",
+    "fips": "QAT",
+    "Value": 74
+  },
+  {
+    "State": "Romania",
+    "fips": "ROU",
+    "Value": 637
+  },
+  {
+    "State": "Russian Federation",
+    "fips": "RUS",
+    "Value": 460
+  },
+  {
+    "State": "Rwanda",
+    "fips": "RWA",
+    "Value": 1212
+  },
+  {
+    "State": "Samoa",
+    "fips": "WSM",
+    "Value": 3056
+  },
+  {
+    "State": "San Marino",
+    "fips": "SMR",
+    "Value": 0
+  },
+  {
+    "State": "Sao Tome and Principe",
+    "fips": "STP",
+    "Value": 3200
+  },
+  {
+    "State": "Saudi Arabia",
+    "fips": "SAU",
+    "Value": 59
+  },
+  {
+    "State": "Senegal",
+    "fips": "SEN",
+    "Value": 686
+  },
+  {
+    "State": "Serbia",
+    "fips": "SRB",
+    "Value": 0
+  },
+  {
+    "State": "Seychelles",
+    "fips": "SYC",
+    "Value": 2330
+  },
+  {
+    "State": "Sierra Leone",
+    "fips": "SLE",
+    "Value": 2526
+  },
+  {
+    "State": "Singapore",
+    "fips": "SGP",
+    "Value": 2497
+  },
+  {
+    "State": "Sint Maarten (Dutch part)",
+    "fips": "SXM",
+    "Value": 0
+  },
+  {
+    "State": "Slovak Republic",
+    "fips": "SVK",
+    "Value": 824
+  },
+  {
+    "State": "Slovenia",
+    "fips": "SVN",
+    "Value": 1162
+  },
+  {
+    "State": "Solomon Islands",
+    "fips": "SLB",
+    "Value": 3028
+  },
+  {
+    "State": "Somalia",
+    "fips": "SOM",
+    "Value": 282
+  },
+  {
+    "State": "South Africa",
+    "fips": "ZAF",
+    "Value": 495
+  },
+  {
+    "State": "South Sudan",
+    "fips": "SSD",
+    "Value": 900
+  },
+  {
+    "State": "Spain",
+    "fips": "ESP",
+    "Value": 636
+  },
+  {
+    "State": "Sri Lanka",
+    "fips": "LKA",
+    "Value": 1712
+  },
+  {
+    "State": "St. Kitts and Nevis",
+    "fips": "KNA",
+    "Value": 1427
+  },
+  {
+    "State": "St. Lucia",
+    "fips": "LCA",
+    "Value": 2301
+  },
+  {
+    "State": "St. Martin (French part)",
+    "fips": "MAF",
+    "Value": 0
+  },
+  {
+    "State": "St. Vincent and the Grenadines",
+    "fips": "VCT",
+    "Value": 1583
+  },
+  {
+    "State": "Sudan",
+    "fips": "SDN",
+    "Value": 250
+  },
+  {
+    "State": "Suriname",
+    "fips": "SUR",
+    "Value": 2331
+  },
+  {
+    "State": "Swaziland",
+    "fips": "SWZ",
+    "Value": 788
+  },
+  {
+    "State": "Sweden",
+    "fips": "SWE",
+    "Value": 624
+  },
+  {
+    "State": "Switzerland",
+    "fips": "CHE",
+    "Value": 1537
+  },
+  {
+    "State": "Syrian Arab Republic",
+    "fips": "SYR",
+    "Value": 252
+  },
+  {
+    "State": "Taiwan",
+    "fips": "TWN",
+    "Value": 0
+  },
+  {
+    "State": "Tajikistan",
+    "fips": "TJK",
+    "Value": 691
+  },
+  {
+    "State": "Tanzania",
+    "fips": "TZA",
+    "Value": 1071
+  },
+  {
+    "State": "Thailand",
+    "fips": "THA",
+    "Value": 1622
+  },
+  {
+    "State": "Timor-Leste",
+    "fips": "TLS",
+    "Value": 1500
+  },
+  {
+    "State": "Togo",
+    "fips": "TGO",
+    "Value": 1168
+  },
+  {
+    "State": "Tonga",
+    "fips": "TON",
+    "Value": 1690
+  },
+  {
+    "State": "Trinidad and Tobago",
+    "fips": "TTO",
+    "Value": 2200
+  },
+  {
+    "State": "Tunisia",
+    "fips": "TUN",
+    "Value": 207
+  },
+  {
+    "State": "Turkey",
+    "fips": "TUR",
+    "Value": 593
+  },
+  {
+    "State": "Turkmenistan",
+    "fips": "TKM",
+    "Value": 161
+  },
+  {
+    "State": "Turks and Caicos Islands",
+    "fips": "TCA",
+    "Value": 0
+  },
+  {
+    "State": "Tuvalu",
+    "fips": "TUV",
+    "Value": 3483
+  },
+  {
+    "State": "Uganda",
+    "fips": "UGA",
+    "Value": 1180
+  },
+  {
+    "State": "Ukraine",
+    "fips": "UKR",
+    "Value": 565
+  },
+  {
+    "State": "United Arab Emirates",
+    "fips": "ARE",
+    "Value": 78
+  },
+  {
+    "State": "United Kingdom",
+    "fips": "GBR",
+    "Value": 1220
+  },
+  {
+    "State": "United States",
+    "fips": "USA",
+    "Value": 715
+  },
+  {
+    "State": "Uruguay",
+    "fips": "URY",
+    "Value": 1300
+  },
+  {
+    "State": "Uzbekistan",
+    "fips": "UZB",
+    "Value": 206
+  },
+  {
+    "State": "Vanuatu",
+    "fips": "VUT",
+    "Value": 2291
+  },
+  {
+    "State": "Venezuela",
+    "fips": "VEN",
+    "Value": 2044
+  },
+  {
+    "State": "Vietnam",
+    "fips": "VNM",
+    "Value": 1821
+  },
+  {
+    "State": "Virgin Islands (U.S.)",
+    "fips": "VIR",
+    "Value": 0
+  },
+  {
+    "State": "Yemen",
+    "fips": "YEM",
+    "Value": 167
+  },
+  {
+    "State": "Zambia",
+    "fips": "ZMB",
+    "Value": 1020
+  },
+  {
+    "State": "Zimbabwe",
+    "fips": "ZWE",
+    "Value": 657
+  }
+]
