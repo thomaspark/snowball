@@ -302,9 +302,11 @@
       defaultCss = defaultCss + code;
     });
 
-    head.html("<meta charset='utf-8'>");
-    head.append(defaultCss);
-    callback(0);
+    if(head.is(":empty")) {
+      head.html("<meta charset='utf-8'>");
+      head.append(defaultCss);
+      callback(0);
+    }
 
     function callback(i) {
       var script = iframe.get(0).contentDocument.createElement("script");
@@ -329,10 +331,6 @@
         var script = iframe.get(0).contentDocument.createElement("script");
 
         if (src) {
-          // if template.js, change path to work in preview iframe
-          // var re = /^\.\.\/(\.\.\/wp-content\/plugins\/snowball\/modules\/.*\/template.js)/g;
-          // src = src.replace(re, "$1");
-
           script.src = src;
           script.onload = function() {
             callback2(i+1);
