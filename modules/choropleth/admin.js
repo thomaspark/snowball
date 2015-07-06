@@ -50,6 +50,7 @@
           colHeaders: ["fips", "State", "Value"],
         });
         hot.loadData(data);
+        hot.render();
         $("[data-target='caption']").val("Annual Snowfall (inches)");
       });
     } else {
@@ -58,6 +59,7 @@
           colHeaders: ["fips", "Country", "Value"],
         });
         hot.loadData(data);
+        hot.render();
         $("[data-target='caption']").val("Annual Precipitation (mm)");
       });
     }
