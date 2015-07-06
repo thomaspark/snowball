@@ -18,9 +18,16 @@
   });
 
   function parseVideoURL(videoUrl) {
-    var re = /youtube.com.*v=(.*)/;
+    var re;
+
+    if (videoUrl.indexOf("embed") >= 0) {
+      re = /youtube.com.*embed\/(\S*)"/;
+    } else {
+      re = /youtube.com.*v=(.*)/;
+    }
+
     var matches = re.exec(videoUrl);
-    
+
     return matches[1];
   }
 })(jQuery);
