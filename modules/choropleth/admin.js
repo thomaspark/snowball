@@ -65,7 +65,7 @@
   });
 
   $("#snowball-main").on("input change", ".snowball-block-choropleth [data-target='quantize']", function() {
-    var block = $(this).parents(".snowball-block-choropleth");
+    var block = $(this).closest(".snowball-block-choropleth");
     var quantize = $(this).val();
 
     block.find(".quantize-output").text(quantize);

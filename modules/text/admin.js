@@ -17,7 +17,7 @@
     });
 
     $("#snowball-main").on("click", ".snowball-block-text .quicktags-toolbar .button", function() {
-      $(this).parents(".snowball-block").trigger("render");
+      $(this).closest(".snowball-block").trigger("render");
     });
 
 })(jQuery);

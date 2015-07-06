@@ -8,7 +8,7 @@
     var index;
 
     $("#snowball-main").on("click", ".snowball-block-image .upload-image-button", function() {
-      var block = $(this).parents(".snowball-block");
+      var block = $(this).closest(".snowball-block");
       index = $(".snowball-block").index(block);
       tb_show("", "media-upload.php?type=image&TB_iframe=true");
 
@@ -25,7 +25,7 @@
     });
 
     $("#snowball-main").on("input change", ".snowball-block-image .img-border-radius", function() {
-      var block = $(this).parents(".snowball-block-image");
+      var block = $(this).closest(".snowball-block-image");
       var borderradius = $(this).val() + "%";
 
       block.find(".img-border-radius-output").text(borderradius);

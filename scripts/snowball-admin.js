@@ -39,18 +39,18 @@
         $("#snowball-main").height("auto");
       })
       .on("input change", ".snowball-tinker input, .snowball-tinker textarea:not(.handsontableInput), .snowball-tinker select", debounce(function() {
-        var block = $(this).parents(".snowball-block");
+        var block = $(this).closest(".snowball-block");
         block.trigger("render");
         refreshEditors(block);
         changesMade = true;
       }, 250))
       .on("click", ".snowball-delete", function() {
-        var block = $(this).parents(".snowball-block");
+        var block = $(this).closest(".snowball-block");
         confirmDelete(block);
         changesMade = true;
       })
       .on("click", ".snowball-zoom-toggle", function() {
-        var block = $(this).parents(".snowball-block");
+        var block = $(this).closest(".snowball-block");
         block.find(".snowball-code").toggle();
         block.find(".snowball-delete").toggle();
 
@@ -63,7 +63,7 @@
         });
       })
       .on("mouseover", ".snowball-zoom-toggle", function() {
-        var block = $(this).parents(".snowball-block");
+        var block = $(this).closest(".snowball-block");
 
         if (block.find(".snowball-code .CodeMirror").length === 0) {
           initEditors(block);
@@ -359,7 +359,7 @@
       block.find(".snowball-preview").contents().find("html").css({"-webkit-transform": scale, "transform": scale});
     } else {
       $(".snowball-preview").each(function() {
-        width = $(this).parents(".snowball-block").width() / 2;
+        width = $(this).closest(".snowball-block").width() / 2;
         zoom = (width < 800) ? width/800 : 1;
         scale = "scale(" + zoom + ")";
 

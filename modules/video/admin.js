@@ -9,7 +9,7 @@
   });
 
   $("#snowball-main").on("change keyup", ".snowball-block-video .video-url", function() {
-    var block = $(this).parents(".snowball-block-video");
+    var block = $(this).closest(".snowball-block-video");
     var videoUrl = $(this).val();
     var videoID = parseVideoURL(videoUrl);
 
