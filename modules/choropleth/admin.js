@@ -17,6 +17,17 @@
       }
     });
 
+    $("#snowball-main").on("rendered", ".snowball-block-choropleth", function() {
+      var block = $(this);
+      var iframe = block.find(".snowball-preview");
+      var map = iframe.contents().find(".map");
+      var draw = iframe[0].contentWindow.drawMap;
+
+      if (map && draw) {
+        draw(iframe.contents().find(".snowball-block-choropleth"));
+      }
+    });
+
 
     $("#snowball-main").on("input change", ".snowball-block-choropleth [data-target='quantize']", function() {
       var block = $(this).parents(".snowball-block-choropleth");
