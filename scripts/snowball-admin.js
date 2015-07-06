@@ -40,7 +40,7 @@
       })
       .on("input change", ".snowball-tinker input, .snowball-tinker textarea:not(.handsontableInput), .snowball-tinker select", debounce(function() {
         var block = $(this).parents(".snowball-block");
-        renderPreview(block);
+        block.trigger("render");
         refreshEditors(block);
         changesMade = true;
       }, 250))
@@ -244,6 +244,8 @@
     if (block.width()) {
       zoomPreview(block);
     }
+
+    block.trigger("rendered");
   }
 
   // create script elements from iframe document so js is executed in iframe's context
