@@ -72,17 +72,17 @@ label {
 .offset-left > *,
 .offset-right > * {
   width: 500px;
-  margin: 0 2em 1em;
+  margin: 0 2em 1em !important;
 }
 
 .offset-left > * {
   float: left;
-  margin-left: -250px;
+  margin-left: -250px !important;
 }
 
 .offset-right > * {
   float: right;
-  margin-right: -250px;
+  margin-right: -250px !important;
 }
 
 .meta {
@@ -111,7 +111,7 @@ label {
   .offset-right > * {
     float: none;
     width: 100%;
-    margin: 0;
+    margin: 0 !important;
   }
 }
 
