@@ -67,7 +67,12 @@ jQuery(document).ready(function($) {
   function retrieveRenderedPage() {
     var html = '';
     jQuery(".snowball-preview").each(function(index, element) {
-      html = html + "\n" + jQuery(element).contents().find("body").html();
+      var newHTML = jQuery(element).contents().find("body");
+
+      // filter out svg code, which chokes the db
+      newHTML.find("svg").remove();
+
+      html = html + "\n" + newHTML.html();
     });
 
     return html;
