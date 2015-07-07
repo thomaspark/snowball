@@ -1,6 +1,6 @@
 (function($) {
 
-  $("#snowball-main").on("open", ".snowball-block-video", function() {
+  $("#snowball-main").on("open", ".snowball-block-youtube", function() {
     var videoUrl = $(this).find(".video-url").val();
     var videoID = parseVideoURL(videoUrl);
 
@@ -8,8 +8,8 @@
     $(this).trigger("render");
   });
 
-  $("#snowball-main").on("change keyup", ".snowball-block-video .video-url", function() {
-    var block = $(this).closest(".snowball-block-video");
+  $("#snowball-main").on("change keyup", ".snowball-block-youtube .video-url", function() {
+    var block = $(this).closest(".snowball-block-youtube");
     var videoUrl = $(this).val();
     var videoID = parseVideoURL(videoUrl);
 
