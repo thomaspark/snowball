@@ -160,4 +160,15 @@ function snowball_front_page_displays($pages) {
 }
 add_filter('get_pages', 'snowball_front_page_displays');
 
+
+function snowball_enable_front_page($query) {
+  if((!isset($query->query_vars['post_type']) || '' == $query->query_vars['post_type']) && 0 != $query->query_vars['page_id']) {
+    $query->query_vars['post_type'] = array('page', 'snowball');
+  }
+}
+add_action('pre_get_posts', 'snowball_enable_front_page');
+
+add_filter('template_include', 'snowball_template');
+
+
 ?>
