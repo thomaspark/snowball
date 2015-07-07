@@ -1,7 +1,7 @@
 (function($) {
   $(document).ready(function() {
 
-    $("body").on("click", ".snowball-block-social .button", function() {
+    $("body").on("click", ".snowball-block-share .button", function() {
       var snowball = snowball || window.parent.snowball;
       var button = jQuery(this);
       var width = 500;
@@ -21,7 +21,7 @@
         url = "https://plus.google.com/share?url=" + encodeURIComponent(snowball.url);
       }
 
-      window.open(url, "social", opts);
+      window.open(url, "share", opts);
     });
 
   });

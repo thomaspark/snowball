@@ -307,7 +307,7 @@
                             pluginsUrl + "/scripts/snowball-preview.js",
                             pluginsUrl + "/modules/choropleth/template.js",
                             pluginsUrl + "/modules/contact/template.js",
-                            pluginsUrl + "/modules/social/template.js"
+                            pluginsUrl + "/modules/share/template.js"
                           ];
 
     defaultStylesheets.forEach(function(href) {

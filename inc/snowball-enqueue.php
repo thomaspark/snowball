@@ -19,7 +19,7 @@ function snowball_add_scripts() {
   echo '<script src="' . plugins_url('snowball/scripts/snowball.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/modules/choropleth/template.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/modules/contact/template.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/modules/social/template.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/modules/share/template.js') . '"></script>';
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
 
