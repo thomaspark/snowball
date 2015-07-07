@@ -4,6 +4,7 @@ var minifyCss = require('gulp-minify-css');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 var browserSync = require('browser-sync');
@@ -25,10 +26,12 @@ gulp.task('minify-snowball-css', function () {
     .pipe(plumber({
       errorHandler: onError
     }))
+    .pipe(sourcemaps.init())
     .pipe(minifyCss())
     .pipe(rename(function(path) {
       path.basename += '.min';
     }))
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./styles/min/"));
 });
 
@@ -41,10 +44,12 @@ gulp.task('minify-snowball-js', function() {
         sound: 'Beep'
       })
     }))
+    .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(rename(function (path) {
       path.basename += '.min';
     }))
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./scripts/min/"));
 });
 
@@ -53,8 +58,10 @@ gulp.task('minify-templates', function () {
     .pipe(plumber({
       errorHandler: onError
     }))
+    .pipe(sourcemaps.init())
     .pipe(concat('templates.min.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("scripts/min"));
 });
 
@@ -63,8 +70,10 @@ gulp.task('minify-admins', function () {
     .pipe(plumber({
       errorHandler: onError
     }))
+    .pipe(sourcemaps.init())
     .pipe(concat('admins.min.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("scripts/min"));
 });
 
