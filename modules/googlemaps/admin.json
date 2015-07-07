@@ -1,5 +1,6 @@
 {
-  "name": "Map",
+  "name": "Google Maps",
+  "tags": "media",
   "iconClasses": "fa fa-map-marker",
   "order": 7
 }
