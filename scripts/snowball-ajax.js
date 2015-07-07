@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
     $("#snowball-main form").each(parseBlock);
 
     function parseBlock(orderNumber, blockForm) {
-      var type = $(blockForm).closest(".snowball-block").data("name");
+      var type = $(blockForm).closest(".snowball-block").data("type");
       var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target], select[data-target]";
       var inputs = $(blockForm).find(selector);
 
