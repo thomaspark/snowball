@@ -90,14 +90,16 @@ body.modal {
   z-index: 1000;
   top: 32px;
   margin: 0;
-  padding: 1em 0;
+  padding: 0.5em 0 0.75em;
   background-color: #32373c;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 #snowball-toolbar .button {
   height: auto;
   width: 75px;
-  padding: 0.8em 1em 0.3em;
+  padding: 0.8em 0 0.3em;
   border: none;
   margin-right: 4px;
   text-align: center;
@@ -111,6 +113,30 @@ body.modal {
 
 #snowball-toolbar .button .fa {
   font-size: 18px;
+}
+
+#snowball-toolbar .tags {
+  margin-bottom: 8px;
+  font-size: 10px;
+  color: #bbb;
+}
+
+#snowball-toolbar .tags span {
+  display: inline-block;
+  padding: 0 8px;
+  background-color: #222;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#snowball-toolbar .tags span:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+#snowball-toolbar .tags span.active {
+  background-color: #0B5E9A;
+  color: #fff;
 }
 
 .snowball-block {

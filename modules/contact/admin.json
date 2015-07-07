@@ -1,5 +1,6 @@
 {
   "name": "Contact",
+  "tags": "meta social",
   "iconClasses": "fa fa-envelope-o",
   "order": 9
 }

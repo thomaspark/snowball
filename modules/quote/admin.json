@@ -1,5 +1,6 @@
 {
   "name": "Quote",
+  "tags": "basic",
   "iconClasses": "fa fa-quote-left",
   "order": 5
 }

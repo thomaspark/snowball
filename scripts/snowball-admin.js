@@ -24,6 +24,17 @@
         addBlock(type);
         changesMade = true;
       })
+      .on("click", ".tag", function() {
+        var tag = $(this).attr("data-tag");
+        $(".tag.active").removeClass("active");
+        $(this).addClass("active");
+
+        if (tag === "all") {
+          $("#snowball-toolbar .button").show();
+        } else {
+          $("#snowball-toolbar .button").hide().filter("." + tag).show();
+        }
+      })
       .css("width", $("#snowball-toolbar").parent().width())
       .fixedsticky();
 

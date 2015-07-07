@@ -1,5 +1,6 @@
 {
   "name": "Splash",
+  "tags": "basic",
   "iconClasses": "fa fa-picture-o",
   "order": 4
 }

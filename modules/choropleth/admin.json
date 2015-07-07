@@ -1,5 +1,6 @@
 {
   "name": "Choropleth",
+  "tags": "data",
   "iconClasses": "fa fa-area-chart",
   "order": 8
 }

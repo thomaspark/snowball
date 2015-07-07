@@ -14,6 +14,14 @@
 ?>
 
 <header id="snowball-toolbar" class="fixedsticky">
+  <div class="tags">
+    <span class="tag active" data-tag="all">All</span>
+    <span class="tag" data-tag="basic">Basic</span>
+    <span class="tag" data-tag="media">Media</span>
+    <span class="tag" data-tag="social">Social</span>
+    <span class="tag" data-tag="data">Data</span>
+    <span class="tag" data-tag="meta">Meta</span>
+  </div>
 
 <?php
 
@@ -29,6 +37,7 @@
       ksort($order, SORT_NUMERIC);
       $names[$type] = $meta->name;
       $iconClasses[$type] = $meta->iconClasses;
+      $tags[$type] = $meta->tags;
 
       if (file_exists($module . '/admin.js')) {
         $plugins_path = plugins_url('snowball/modules/' . $type . '/admin.js');
@@ -38,7 +47,7 @@
   }
 
   foreach ($order as $rank => $type) {
-    echo '<a id="add-' . $type . '" class="button button-secondary" data-type="' . $type .'">';
+    echo '<a id="add-' . $type . '" class="button button-secondary ' . $tags[$type] . '" data-type="' . $type .'">';
     echo '<div><i class="' . $iconClasses[$type] . '"></i></div>';
     echo '<div>' . $names[$type] . '</div>';
     echo '</a>';
