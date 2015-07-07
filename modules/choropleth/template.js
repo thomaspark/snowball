@@ -14,7 +14,7 @@ function drawMap(block) {
   var snowball = snowball || window.parent.snowball;
   var path = snowball.pluginsUrl + "/lib/d3-geomap";
 
-  var json = block.find("input.json").val();
+  var json = block.find(".json-usa").val();
   var container = block.find(".map").get(0);
   var quantize = parseInt(block.find("input.quantize").val());
   var color = block.find("input.color").val();
@@ -26,6 +26,7 @@ function drawMap(block) {
   var scale = 800;
 
   if (mapType === "world") {
+    json = block.find(".json-world").val();
     file = path + "/topojson/world/countries.json";
     projection = d3.geo.equirectangular;
     scale = 100;

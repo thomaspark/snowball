@@ -391,12 +391,12 @@
   },
   {
     "State": "Guinea-Bissau",
-    "fips": "XXX",
+    "fips": "GNB",
     "Value": 1577
   },
   {
     "State": "Guyana",
-    "fips": "GNB",
+    "fips": "GUY",
     "Value": 2387
   },
   {
@@ -1042,6 +1042,11 @@
   {
     "State": "Virgin Islands (U.S.)",
     "fips": "VIR",
+    "Value": 0
+  },
+  {
+    "State": "Western Sahara",
+    "fips": "ESH",
     "Value": 0
   },
   {

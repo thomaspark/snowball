@@ -2,29 +2,11 @@
 
   $("#snowball-main").on("open", ".snowball-block-choropleth", function() {
     var block = $(this);
-    var container = block.find(".table").get(0);
-    var mapType = block.find("[data-target='map-type']").val();
-    var data;
+    var quantize = block.find("[data-target='quantize']").val();
 
-    var quantize = $(this).find("[data-target='quantize']").val();
     $(this).find(".quantize-output").text(quantize);
 
-    if (block.find("[data-target='JSON']").val()) {
-      data = JSON.parse(block.find("[data-target='JSON']").val());
-      initTable(block, container, data, mapType);
-    } else {
-
-      if (mapType === "usa") {
-        $.getJSON(snowball.pluginsUrl + "/modules/choropleth/snowfall.json", function(data) {
-          initTable(block, container, data, mapType);
-        });
-      } else {
-        $.getJSON(snowball.pluginsUrl + "/modules/choropleth/precipitation.json", function(data) {
-          initTable(block, container, data, mapType);
-        });
-      }
-
-    }
+    loadData(block);
   });
 
   $("#snowball-main").on("rendered", ".snowball-block-choropleth", function() {
@@ -38,43 +20,79 @@
     }
   });
 
-
   $("#snowball-main").on("change", ".snowball-block-choropleth [data-target='map-type']", function() {
     var block = $(this).closest(".snowball-block-choropleth");
-    var hot = block.data("hot");
     var mapType = $(this).val();
 
-    if (mapType === "usa") {
-      $.getJSON(snowball.pluginsUrl + "/modules/choropleth/snowfall.json", function(data) {
-        hot.updateSettings({
-          colHeaders: ["fips", "State", "Value"],
-        });
-        hot.loadData(data);
-        hot.render();
-        $("[data-target='caption']").val("Annual Snowfall (inches)");
-      });
-    } else {
-      $.getJSON(snowball.pluginsUrl + "/modules/choropleth/precipitation.json", function(data) {
-        hot.updateSettings({
-          colHeaders: ["fips", "Country", "Value"],
-        });
-        hot.loadData(data);
-        hot.render();
-        $("[data-target='caption']").val("Annual Precipitation (mm)");
-      });
-    }
-
+    reloadData(block, mapType);
   });
 
   $("#snowball-main").on("input change", ".snowball-block-choropleth [data-target='quantize']", function() {
     var block = $(this).closest(".snowball-block-choropleth");
+    var hot = block.data("hot");
     var quantize = $(this).val();
 
     block.find(".quantize-output").text(quantize);
   });
 
-  function initTable(block, container, data, mapType) {
+  function loadData(block) {
+    var container = block.find(".table").get(0);
+    var mapType = block.find("[data-target='map-type']").val();
+    var json;
 
+    if (mapType === "usa") {
+      json = block.find("[data-target='json-usa']").val();
+    } else {
+      json = block.find("[data-target='json-world']").val();
+    }
+
+    if (json) {
+      var data = JSON.parse(json);
+      initTable(block, container, data, mapType); 
+    } else {
+      var url = snowball.pluginsUrl + "/modules/choropleth/precipitation-" + mapType + ".json";
+
+      $.getJSON(url, function(data) {
+        initTable(block, container, data, mapType);
+      });
+    }
+  }
+
+  function reloadData(block, mapType) {
+    var container = block.find(".table").get(0);
+    var hot = block.data("hot");
+    var colHeaders;
+    var json;
+
+    if (mapType === "usa") {
+      json = block.find("[data-target='json-usa']").val();
+      colHeaders = ["fips", "State", "Value"];
+    } else {
+      json = block.find("[data-target='json-world']").val();
+      colHeaders = ["fips", "Country", "Value"];
+    }
+
+    if (json) {
+      var data = JSON.parse(json);
+      hot.updateSettings({
+        colHeaders: colHeaders
+      });
+      hot.loadData(data);
+      hot.render();
+    } else {
+      var url = snowball.pluginsUrl + "/modules/choropleth/precipitation-" + mapType + ".json";
+
+      $.getJSON(url, function(data) {
+        hot.updateSettings({
+          colHeaders: colHeaders,
+        });
+        hot.loadData(data);
+        hot.render();
+      });
+    }
+  }
+
+  function initTable(block, container, data, mapType) {
     var colHeaders = ["fips", "Country", "Value"];
 
     if (mapType === "usa") {
@@ -111,8 +129,6 @@
         refreshOnChange(block, data);
       },
       afterInit: function() {
-        var data = this.getData();
-        refreshOnChange(block, data);
         block.trigger("render");
       }
     });
@@ -123,8 +139,9 @@
   function refreshOnChange(block, data, source) {
     var generatedJSON = data;
     var jsonString = JSON.stringify(generatedJSON);
+    var mapType = block.find("[data-target='map-type']").val();
 
-    block.find("[data-target='JSON']").val(jsonString);
+    block.find("[data-target='json-" + mapType + "']").val(jsonString);
   }
 
 })(jQuery);
