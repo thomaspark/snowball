@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var concat = require('gulp-concat-util');
 var minifyCss = require('gulp-minify-css');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
@@ -12,16 +13,14 @@ var onError = function (err) {
   console.log(err);
 };
 
-gulp.task('default', ['minify-snowball-css', 'minify-snowball-js'], function () {
+gulp.task('default', ['minify-snowball-css', 'minify-snowball-js', 'minify-templates', 'minify-admins'], function () {
   gulp.watch("scripts/*.js", ['minify-snowball-js']);
   gulp.watch("styles/*.css", ['minify-snowball-css']);
-  gulp.watch("*.php");
-  gulp.watch("inc/*.php");
-  gulp.watch("modules/*/*");
+  gulp.watch("modules/*/template.js", ['minify-templates']);
+  gulp.watch("modules/*/admin.js", ['minify-admins']);
 });
 
 gulp.task('minify-snowball-css', function () {
-  //var negateMinCSS = 'styles/!(*.min.css)'; for retrieving all non .min.css
   gulp.src('styles/*.css')
     .pipe(plumber({
       errorHandler: onError
@@ -34,7 +33,6 @@ gulp.task('minify-snowball-css', function () {
 });
 
 gulp.task('minify-snowball-js', function() {
-  //var negateMinJS = 'scripts/!(*.min.js)'; for retrieving all non .min.js
   gulp.src('./scripts/*.js')
     .pipe(plumber({
       errorHandler: notify.onError({
@@ -49,6 +47,28 @@ gulp.task('minify-snowball-js', function() {
     }))
     .pipe(gulp.dest("./scripts/min/"));
 });
+
+gulp.task('minify-templates', function () {
+  gulp.src('./modules/*/template.js')
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(concat('templates.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest("scripts/min"));
+});
+
+gulp.task('minify-admins', function () {
+  gulp.src('./modules/*/admin.js')
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(concat('admins.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest("scripts/min"));
+});
+
+
 
 // minifies the code for the css/js libraries
 gulp.task('minify-libraries', ['minify-codemirror', 'minify-fixed-sticky']);

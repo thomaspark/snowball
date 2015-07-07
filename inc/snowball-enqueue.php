@@ -17,9 +17,7 @@ function snowball_add_scripts() {
   echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/modules/choropleth/template.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/modules/contact/template.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/modules/share/template.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
 
@@ -37,12 +35,12 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
     wp_enqueue_script('codemirror-js', plugins_url('snowball/lib/codemirror/lib/codemirror.min.js'));
-    //wp_enqueue_script('codemirror-mode-javascript', plugins_url('snowball/lib/codemirror/mode/javascript.min.js'));
     wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/lib/codemirror/mode/css.min.js'));
     wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/lib/codemirror/mode/xml.min.js'));
     wp_enqueue_script('fixedsticky-js', plugins_url('snowball/lib/fixed-sticky/fixedsticky.min.js'), array('jquery'), '', true);
     wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/min/snowball-admin.min.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
+    wp_enqueue_script('admins-js', plugins_url('snowball/scripts/min/admins.min.js'), array('jquery'), '', true);
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');

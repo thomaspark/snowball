@@ -292,10 +292,10 @@
     }
 
     var defaultStylesheets = [
+                                pluginsUrl + "/lib/d3-geomap/css/d3.geomap.css",
+                                pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css",
                                 pluginsUrl + "/styles/min/snowball.min.css",
-                                pluginsUrl + "/styles/min/snowball-preview.min.css",
-                                pluginsUrl + "/lib/fluidbox/css/fluidbox.css",
-                                pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css"
+                                pluginsUrl + "/styles/min/snowball-preview.min.css"
                               ];
 
     var defaultScripts = [
@@ -305,9 +305,7 @@
                             pluginsUrl + "/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js",
                             pluginsUrl + "/lib/d3-geomap/js/d3.geomap.min.js",
                             pluginsUrl + "/scripts/min/snowball-preview.min.js",
-                            pluginsUrl + "/modules/choropleth/template.js",
-                            pluginsUrl + "/modules/contact/template.js",
-                            pluginsUrl + "/modules/share/template.js"
+                            pluginsUrl + "/scripts/min/templates.min.js"
                           ];
 
     defaultStylesheets.forEach(function(href) {
@@ -456,7 +454,7 @@
   }
 
   function retrieveNonReadOnlyText(editor) {
-    // there should only be one marked text object
+    // there should only be one marked text object in editor.getAllMarks()
     var readOnlyMark = editor.getAllMarks();
     var code = editor.getValue();
 

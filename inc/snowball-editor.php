@@ -38,11 +38,6 @@
       $names[$type] = $meta->name;
       $iconClasses[$type] = $meta->iconClasses;
       $tags[$type] = $meta->tags;
-
-      if (file_exists($module . '/admin.js')) {
-        $plugins_path = plugins_url('snowball/modules/' . $type . '/admin.js');
-        echo '<script defer src="' . $plugins_path . '"></script>';
-      }
     }
   }
 

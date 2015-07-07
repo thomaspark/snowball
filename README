@@ -67,3 +67,10 @@ To minify the Codemirror library, run the command:
 gulp minify-libraries
 
 
+========================================================
+Git Merge Conflicts for Minified Files
+========================================================
+If there are merge conflicts for the minified files,
+fix the conflicts in the non-minified files first,
+then run gulp to minify them all to the version you
+want.
