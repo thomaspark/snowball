@@ -10,6 +10,7 @@
   $names = array();
   $iconClasses = array();
   $order = array();
+  $tags = array();
 
 ?>
 
@@ -37,7 +38,12 @@
       ksort($order, SORT_NUMERIC);
       $names[$type] = $meta->name;
       $iconClasses[$type] = $meta->iconClasses;
-      $tags[$type] = $meta->tags;
+
+      if (isset($meta->tags)) {
+        $tags[$type] = $meta->tags;
+      } else {
+        $tags[$type] = "";
+      }
     }
   }
 
