@@ -9,6 +9,8 @@
           mode: {name: "xml", htmlMode: true},
           lineNumbers: true,
           lineWrapping: true,
+          indentUnit: 2,
+          tabSize: 2,
           theme: "monokai"
       });
 

@@ -390,6 +390,8 @@
           readOnly: isReadOnly,
           lineNumbers: true,
           lineWrapping: true,
+          indentUnit: 2,
+          tabSize: 2,
           theme: "monokai"
       });
 
