@@ -6,7 +6,7 @@
       var textarea = block.find("textarea");
 
       window.editor = CodeMirror.fromTextArea(textarea[0], {
-          mode: {name: "xml", htmlMode: true},
+          mode: "htmlmixed",
           lineNumbers: true,
           lineWrapping: true,
           indentUnit: 2,
