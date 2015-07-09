@@ -329,6 +329,8 @@
       head.html("<meta charset='utf-8'>");
       head.append(defaultCss);
       callback(0);
+    } else {
+      callback2(0);
     }
 
     function callback(i) {
