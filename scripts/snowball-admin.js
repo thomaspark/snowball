@@ -88,14 +88,26 @@
         "tolerance": "pointer"
       });
 
-    $("body").on("click", "#modal-bg", function() {
-      $(".snowball-block.modal .snowball-zoom-toggle").click();
+    $("body")
+      .on("click", "#modal-bg", function() {
+        $(".snowball-block.modal .snowball-zoom-toggle").click();
+      })
+      .on("keydown", function (e) {
+        if (e.keyCode === 27) { // ESC
+          $(".snowball-block.modal .snowball-zoom-toggle").click();
+        }
+      });
+
+    $("#adminmenuback").on("mouseenter", function() {
+      $("body").addClass("show-menu");
     });
 
-    $("body").on("keydown", function (e) {
-      if (e.keyCode === 27) { // ESC
-        $(".snowball-block.modal .snowball-zoom-toggle").click();
-      }
+    $("#adminmenuwrap").on("mouseleave", function() {
+      $("body").removeClass("show-menu");
+    });
+
+    $("#wpwrap").on("click", function() {
+      $("body").removeClass("show-menu");
     });
 
     $(window)

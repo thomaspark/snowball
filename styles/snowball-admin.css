@@ -6,6 +6,10 @@ body.modal {
   overflow: hidden;
 }
 
+#wpfooter {
+  display: none;
+}
+
 #snowball_meta {
   background-color: #32373c;
 }
@@ -338,4 +342,41 @@ body.modal #modal-bg {
 .snowball-block.modal .snowball-gui,
 .snowball-block.modal .snowball-code {
   height: 50%;
+}
+
+@media (max-width: 1400px) {
+  
+  #wpcontent {
+    margin-left: 0 !important;
+  }
+
+  #adminmenumain {
+    float: left;
+    width: 0;
+  }
+
+  #adminmenuwrap {
+    top: 32px;
+    bottom: 0;
+    left: -160px;
+    transition: 0.5s left;
+  }
+
+  body.folded #adminmenuwrap {
+    left: -36px;
+  }
+
+  body.show-menu #adminmenuwrap {
+    left: 0;
+  }
+
+  #adminmenuback {
+    width: 20px;
+    background: none;
+  }
+
+  ul#adminmenu a.wp-has-current-submenu:after,
+  ul#adminmenu>li.current>a.current:after {
+    border-right: none;
+  }
 }
