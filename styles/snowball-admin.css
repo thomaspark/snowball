@@ -96,7 +96,7 @@ body.modal {
   margin: 0;
   padding: 0.5em 0 0.75em;
   background-color: #32373c;
-  overflow-x: scroll;
+  overflow-x: auto;
   white-space: nowrap;
 }
 
