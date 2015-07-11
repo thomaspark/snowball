@@ -1,0 +1,32 @@
+[
+  {
+    "Label": "North Pole",
+    "X": 90,
+    "Y": 0
+  },
+  {
+    "Label": "Juneau, Alaska",
+    "X": 58,
+    "Y": 1050
+  },
+  {
+    "Label": "Glacier National Park",
+    "X": 49,
+    "Y": 2600
+  },
+  {
+    "Label": "Sierra Nevada",
+    "X": 37,
+    "Y": 3725
+  },
+  {
+    "Label": "Himalayas",
+    "X": 28,
+    "Y": 5103
+  },
+  {
+    "Label": "Ecuador",
+    "X": 0,
+    "Y": 4788
+  }
+]
