@@ -1,0 +1,46 @@
+<section class="snowball-block snowball-block-sidenote{{offset}}">
+  <aside>{{text}}</aside>
+<style scoped>
+aside {
+  padding: 1.5em 2em;
+  background-color: {{background-color}};
+  font-size: 14px;
+  color: {{color}};
+}
+
+.margin-left,
+.margin-right {
+  width: 200px;
+}
+
+.margin-left {
+  float: left;
+  clear: left;
+  margin-left: calc((100% - 600px)/2 - 200px - 50px);
+}
+
+.margin-right {
+  float: right;
+  clear: right;
+  margin-right: calc((100% - 600px)/2 - 200px - 50px);
+}
+
+@media (max-width: 1200px) {
+  .margin-left,
+  .margin-right {
+    float: none;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  .margin-left,
+  .margin-right {
+    width: 100%;
+  }
+}
+
+</style>
+</section>
