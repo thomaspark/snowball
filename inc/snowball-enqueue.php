@@ -15,11 +15,15 @@ function snowball_add_scripts() {
   echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
+
+function snowball_add_scripts_deferred() {
+  echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
+}
+add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred');
 
 function snowball_admin_add_scripts_and_stylesheets($hook) {
   if ((get_post_type(get_the_id()) == 'snowball') && (($hook == 'post.php') || ($hook == 'post-new.php'))) {

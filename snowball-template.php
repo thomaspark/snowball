@@ -44,5 +44,7 @@ $snowball = array(
     ?>
 
   </article>
+
+  <?php do_action("snowball_enqueue_scripts_deferred"); ?>
 </body>
 </html>
