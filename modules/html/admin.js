@@ -5,13 +5,13 @@
       var block = $(this);
       var textarea = block.find("textarea");
 
-      window.editor = CodeMirror.fromTextArea(textarea[0], {
-          mode: "htmlmixed",
-          lineNumbers: true,
-          lineWrapping: true,
-          indentUnit: 2,
-          tabSize: 2,
-          theme: "monokai"
+      var editor = CodeMirror.fromTextArea(textarea[0], {
+        mode: "htmlmixed",
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 2,
+        tabSize: 2,
+        theme: "monokai"
       });
 
       editor.setSize("100%", "100%");
