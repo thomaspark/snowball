@@ -52,6 +52,7 @@
       .on("input change", ".snowball-tinker input, .snowball-tinker textarea:not(.handsontableInput), .snowball-tinker select", debounce(function() {
         var block = $(this).closest(".snowball-block");
         block.trigger("render");
+        refreshEditors(block);
         changesMade = true;
       }, 250))
       .on("click", ".snowball-delete", function() {
@@ -232,8 +233,6 @@
     var html = snowball.templates[type];
     var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target]:checked, textarea[data-target], select[data-target]";
     var fields = block.find(selector);
-
-    refreshEditors(block);
 
     fields.each(function(index, element) {
       var target = $(this).data("target");
