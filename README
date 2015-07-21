@@ -1,3 +1,10 @@
+Setting Up Snowball
+========================================================
+
+You must download the plugin first. Once your plugin is
+located in your plugin folder, then you must setup gulp.
+
+========================================================
 Setting Up Gulp
 ========================================================
 You must have npm(Node Package Manager) installed first,
@@ -66,6 +73,19 @@ gulp minify-codemirror
 To minify the Codemirror library, run the command:
 gulp minify-libraries
 
+
+========================================================
+Zipping Snowball
+========================================================
+To install your Snowball plugin, you must zip the 
+Snowball directory and replace the existing plugin with
+the newly created zip folder. 
+To zip up Snowball, just run:
+
+gulp zip
+
+and this will create a snowball.zip in your snowball 
+directory. Just use this zip file.
 
 ========================================================
 Git Merge Conflicts for Minified Files

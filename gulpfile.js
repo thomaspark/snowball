@@ -7,6 +7,7 @@ var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var zip = require('gulp-zip');
 var browserSync = require('browser-sync');
 
 var onError = function (err) {
@@ -128,4 +129,22 @@ gulp.task('minify-fixed-sticky', function() {
       path.basename += '.min';
     }))
     .pipe(gulp.dest("./lib/fixed-sticky/"));
+});
+
+var snowballFiles = [
+    '**/*',
+    '!.git',
+    '!.gitignore',
+    '!gulpfile.js',
+    '!./node_modules/**',
+    '!./node_modules',
+    '!README',
+    '!package.json',
+    '!snowball.zip'
+];
+
+gulp.task('zip', function () {
+    gulp.src(snowballFiles)
+        .pipe(zip('snowball.zip'))
+        .pipe(gulp.dest('./'));
 });
