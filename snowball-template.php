@@ -40,7 +40,8 @@ $snowball = array(
 
     <?php 
       $post_id = $post->ID;
-      echo do_shortcode(snowball_get_article($post_id));
+      $preview = get_query_var( 'preview', "false" );
+      echo do_shortcode(snowball_get_article($post_id, $preview));
     ?>
 
   </article>

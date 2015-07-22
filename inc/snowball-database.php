@@ -41,8 +41,9 @@ function add_article_callback() {
   }
 
   $post_id = $_POST['post_id'];
+  $is_preview = $_POST['is_preview'];
   $article_data = stripslashes($_POST['article']);
-  $insert_id = snowball_save_article($article_data, $post_id);
+  $insert_id = snowball_save_article($article_data, $post_id, $is_preview);
   $success = "success";
   if ($insert_id == -1) {
     $success = "failed";
@@ -94,6 +95,7 @@ function snowball_install_dbtable() {
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     article_html longtext NOT NULL,
+    preview_html longtext,
     PRIMARY KEY (ID)
  ) $charset_collate;";
 
@@ -148,16 +150,20 @@ function snowball_save_block($json_block, $post_id) {
   return $was_successful;
 }
 
-function snowball_save_article($article, $post_id) {
+function snowball_save_article($article, $post_id, $is_preview) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
+  $article_column = 'article_html';
+  if ($is_preview == "true") {
+    $article_column = 'preview_html';
+  }
 
   $was_updated = $wpdb->update(
     $table_name, 
     array(
       'time' => current_time('mysql'), 
-      'article_html' => $article,
+      $article_column => $article,
      ),
     array('post_id' => $post_id), 
     array('%s', '%s',),
@@ -172,7 +178,7 @@ function snowball_save_article($article, $post_id) {
       array(
         'time' => current_time('mysql'), 
         'post_id' => $post_id, 
-        'article_html' => $article,
+        $article_column => $article,
      ),
       array(
         '%s',
@@ -198,7 +204,7 @@ function snowball_get_blocks($post_id) {
   return $row;
 }
 
-function snowball_get_article($post_id) {
+function snowball_get_article($post_id, $is_preview) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
@@ -206,6 +212,9 @@ function snowball_get_article($post_id) {
 
   if ($row) {
     $article = $row->article_html;
+    if ($is_preview == "true") {
+      $article = $row->preview_html;
+    }
 
     if ($article != NULL) {
       return $article;

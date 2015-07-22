@@ -14,6 +14,7 @@ jQuery(document).ready(function($) {
       "action": "add_article",
       "article": articleRetrieved,
       "post_id": ajax_object.post_id,
+      "is_preview" : "false",
       "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
     };
 
@@ -22,6 +23,21 @@ jQuery(document).ready(function($) {
 
     // adding blocks data to db
     $.post(ajax_object.ajax_url, blocks_data);
+  });
+
+  $("#post-preview").click(function() {
+    var articleRetrieved = retrieveRenderedPage();
+
+    var article_data = {
+      "action": "add_article",
+      "article": articleRetrieved,
+      "post_id": ajax_object.post_id,
+      "is_preview" : "true",
+      "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
+    };
+
+    // adding article to db
+    $.post(ajax_object.ajax_url, article_data);
   });
 
   /* 
