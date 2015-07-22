@@ -62,8 +62,7 @@
       })
       .on("click", ".snowball-zoom-toggle", function() {
         var block = $(this).closest(".snowball-block");
-        block.find(".snowball-code").toggle();
-        block.find(".snowball-delete").toggle();
+        block.find(".snowball-code, .snowball-copy, .snowball-delete").toggle();
 
         block.toggleClass("modal");
         $("body").toggleClass("modal");
@@ -72,6 +71,10 @@
         block.find(".CodeMirror").each(function(index, editor) {
           editor.CodeMirror.refresh();
         });
+      })
+      .on("click", ".snowball-copy", function() {
+        var block = $(this).closest(".snowball-block");
+        copyBlock(block);
       })
       .on("mouseover", ".snowball-zoom-toggle", function() {
         var block = $(this).closest(".snowball-block");
@@ -143,7 +146,7 @@
     }
   }
 
-  function addBlock(type, data) {
+  function addBlock(type, data, at) {
     var blockCode = snowball.blocks[type];
     var name = snowball.names[type];
     var block = $("<div class='snowball-block'>" +
@@ -152,6 +155,7 @@
                         "<div>" +
                           "<div class='snowball-title'></div>" +
                           "<div class='snowball-title-button snowball-delete'>&times;</div>" +
+                          "<div class='snowball-title-button snowball-copy'><i class='fa fa-files-o'></i></div>" +
                           "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
                         "</div>" +
                       "</div>" +
@@ -222,9 +226,15 @@
             .trigger("change")
             .attr("value", $(this).val());
         }, 250)
-      }).end()
-      .appendTo("#snowball-main")
-      .trigger("open");
+      });
+
+    if (at) {
+      block.insertAfter($(".snowball-block").eq(at));
+    } else {
+      block.appendTo("#snowball-main");
+    }
+    
+    block.trigger("open");
   }
 
   function renderPreview(block) {
@@ -484,6 +494,62 @@
         var fromLine = {line:lastReadOnlyLine-1, ch:0};
         var toLine = {line:editor.lastLine()+1, ch:0};
         code = editor.getRange(fromLine, toLine);
+      }
+    }
+
+    return code;
+  }
+
+  function copyBlock(block) {
+    var index = block.index();
+    var type = block.data("type");
+    var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target], select[data-target]";
+    var inputs = block.find(".snowball-tinker form").find(selector);
+
+    if (inputs) {
+      var data = {
+        blockType: type
+      };
+      // element is a tag with an attribute called data-target
+      inputs.each(function(index, element) {
+        var dataTarget = $(element).attr("data-target");
+        var inputValue = $(element).val();
+
+        if ($(element).attr("type") == "checkbox") {
+          inputValue = $(element).is(":checked") ? true : false;
+        }
+
+        data[dataTarget] = inputValue;
+      });
+
+      data.customCss = retrieveCustomCss(block);
+
+      addBlock(type, data, index);
+    }
+  }
+
+  function retrieveCustomCss(block) {
+    var cm = $(block).find(".snowball-code .CodeMirror");
+    var code;
+
+    if (cm.length === 0) {
+      code = $(block).find("textarea[data-mode='css']").html();
+    } else {
+      var editor = cm[1].CodeMirror;
+      var readOnlyMark = editor.getAllMarks();
+      code = editor.getValue();
+
+      if (readOnlyMark.length) {
+        var mark = readOnlyMark[0];
+        var lastReadOnlyLine = mark.lines.length;
+
+        if (lastReadOnlyLine < 2) {
+          code = editor.getValue();
+        } else {
+          var fromLine = {line:lastReadOnlyLine-1, ch:0};
+          var toLine = {line:editor.lastLine()+1, ch:0};
+          code = editor.getRange(fromLine, toLine);
+        }
       }
     }
 

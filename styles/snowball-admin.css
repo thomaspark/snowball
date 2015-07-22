@@ -194,12 +194,13 @@ body.modal {
   font-size: 1.5em;
 }
 
+.snowball-copy,
 .snowball-zoom-toggle {
   margin-top: -1px;
   margin-right: 1em;
 }
 
-.snowball-zoom-toggle .fa-code {
+.snowball-title-button .fa {
   font-weight: bold;
 }
 
