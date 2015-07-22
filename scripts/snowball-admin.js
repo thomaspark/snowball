@@ -227,10 +227,10 @@
         }, 250)
       });
 
-    if (at) {
-      block.insertAfter($(".snowball-block").eq(at));
-    } else {
+    if (typeof at == "undefined") {
       block.appendTo("#snowball-main");
+    } else {
+      block.insertAfter($(".snowball-block").eq(at));
     }
     
     block.trigger("open");
