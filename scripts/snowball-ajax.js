@@ -31,35 +31,10 @@ jQuery(document).ready(function($) {
   function retrieveBlocks() {
     var blocks = [];
 
-    $("#snowball-main form").each(parseBlock);
-
-    function parseBlock(orderNumber, blockForm) {
-      var type = $(blockForm).closest(".snowball-block").data("type");
-      var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target], select[data-target]";
-      var inputs = $(blockForm).find(selector);
-
-      if (inputs) {
-        var block = {
-          blockType: type,
-          orderNumber: orderNumber
-        };
-        // element is a tag with an attribute called data-target
-        inputs.each(function(index, element) {
-          var dataTarget = $(element).attr("data-target");
-          var inputValue = $(element).val();
-
-          if ($(element).attr("type") == "checkbox") {
-            inputValue = $(element).is(":checked") ? true : false;
-          }
-
-          block[dataTarget] = inputValue;
-        });
-
-        var snowballBlock = $(blockForm).closest('.snowball-block');
-        block.customCss = retrieveCustomCss(snowballBlock);
-        blocks.push(block);
-      }
-    }
+    $(".snowball-block").each(function() {
+      var data = parseBlock($(this));
+      blocks.push(data);
+    });
 
     return blocks;
   }
@@ -77,34 +52,60 @@ jQuery(document).ready(function($) {
 
     return html;
   }
+});
 
-  // this is the same function on
-  // retrieveNonReadOnlyText except it has block as an argument.
-  function retrieveCustomCss(block) {
-    var cm = $(block).find(".snowball-code .CodeMirror");
-    var code;
+function parseBlock(block) {
+  var type = block.data("type");
+  var selector = "input[type='text'][data-target], input[type='email'][data-target], input[type='range'][data-target], input[type='hidden'][data-target], input[type='radio'][data-target]:checked, input[type='checkbox'][data-target], textarea[data-target], select[data-target]";
+  var inputs = block.find(".snowball-tinker form").first().find(selector);
+  var data = {};
 
-    if (cm.length === 0) {
-      code = $(block).find("textarea[data-mode='css']").html();
-    } else {
-      var editor = cm[1].CodeMirror;
-      var readOnlyMark = editor.getAllMarks();
-      code = editor.getValue();
+  if (inputs) {
+    data.blockType = type;
 
-      if (readOnlyMark.length) {
-        var mark = readOnlyMark[0];
-        var lastReadOnlyLine = mark.lines.length;
+    inputs.each(function(index, element) {
+      var dataTarget = jQuery(element).attr("data-target");
+      var inputValue = jQuery(element).val();
 
-        if (lastReadOnlyLine < 2) {
-          code = editor.getValue();
-        } else {
-          var fromLine = {line:lastReadOnlyLine-1, ch:0};
-          var toLine = {line:editor.lastLine()+1, ch:0};
-          code = editor.getRange(fromLine, toLine);
-        }
+      if (jQuery(element).attr("type") == "checkbox") {
+        inputValue = jQuery(element).is(":checked") ? true : false;
+      }
+
+      data[dataTarget] = inputValue;
+    });
+
+    data.customCss = retrieveCustomCss(block);
+  }
+
+  return data;
+}
+
+// this is the same function on
+// retrieveNonReadOnlyText except it has block as an argument.
+function retrieveCustomCss(block) {
+  var cm = block.find(".snowball-code .CodeMirror");
+  var code;
+
+  if (cm.length === 0) {
+    code = block.find("textarea[data-mode='css']").html();
+  } else {
+    var editor = cm[1].CodeMirror;
+    var readOnlyMark = editor.getAllMarks();
+    code = editor.getValue();
+
+    if (readOnlyMark.length) {
+      var mark = readOnlyMark[0];
+      var lastReadOnlyLine = mark.lines.length;
+
+      if (lastReadOnlyLine < 2) {
+        code = editor.getValue();
+      } else {
+        var fromLine = {line:lastReadOnlyLine-1, ch:0};
+        var toLine = {line:editor.lastLine()+1, ch:0};
+        code = editor.getRange(fromLine, toLine);
       }
     }
-
-    return code;
   }
-});
+
+  return code;
+}
