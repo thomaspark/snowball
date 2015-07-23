@@ -70,7 +70,7 @@ function get_block_json($post_id) {
  * Database calls
  */
 
-$snowball_db_version = '1.0';
+$snowball_db_version = '0.2.0';
 
 function snowball_install_dbtable() {
   global $wpdb;
@@ -82,12 +82,18 @@ function snowball_install_dbtable() {
 
   $charset_collate = $wpdb->get_charset_collate();
 
+/*  
+ * Must have to 2 spaces between PRIMARY KEY and (id) or 
+ * there will be mulitple primary key defined errors.
+ * dbDelta doesn't seem to automatically remove
+ * columns you may not want anymore
+*/  
   $snowball_blocks_table = "CREATE TABLE $table_name (
     ID mediumint(9) NOT NULL AUTO_INCREMENT,
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     blocks_value longtext NOT NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY  (ID)
  ) $charset_collate;";
 
   $snowball_articles_table = "CREATE TABLE $table_name_articles (
@@ -96,7 +102,7 @@ function snowball_install_dbtable() {
     post_id bigint(20) NOT NULL,
     article_html longtext NOT NULL,
     preview_html longtext,
-    PRIMARY KEY (ID)
+    PRIMARY KEY  (ID)
  ) $charset_collate;";
 
   require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -107,6 +113,25 @@ function snowball_install_dbtable() {
 }
 register_activation_hook($path . 'snowball.php', 'snowball_install_dbtable');
 
+/*
+This may be needed later when more columns need to be changed
+function remove_columns() {
+  global $wpdb;
+
+  $table_name_articles = $wpdb->prefix . 'snowball_articles';
+  $wpdb->query( "ALTER TABLE $table_name_articles DROP COLUMN COLUMN_NAME" );
+}
+*/
+
+function snowball_update_db_check() {
+  global $snowball_db_version;
+
+  if ( get_site_option( 'snowball_db_version' ) != $snowball_db_version ) {
+      snowball_install_dbtable();
+      //remove_columns();
+  }
+}
+add_action( 'plugins_loaded', 'snowball_update_db_check' );
 
 // if successful return insert_id
 // if fails return -1
