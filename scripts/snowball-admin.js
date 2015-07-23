@@ -18,6 +18,13 @@
       changesMade = false;
     });
 
+    $("#title").on("input", debounce(function() {
+      snowball.title = $(this).val();
+      $(".snowball-block").each(function() {
+        $(this).trigger("render");
+      });
+    }, 250));
+
     $("#snowball-toolbar")
       .on("click", ".button", function() {
         var type = $(this).data("type");
