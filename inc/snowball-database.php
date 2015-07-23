@@ -41,8 +41,9 @@ function add_article_callback() {
   }
 
   $post_id = $_POST['post_id'];
+  $is_preview = $_POST['is_preview'];
   $article_data = stripslashes($_POST['article']);
-  $insert_id = snowball_save_article($article_data, $post_id);
+  $insert_id = snowball_save_article($article_data, $post_id, $is_preview);
   $success = "success";
   if ($insert_id == -1) {
     $success = "failed";
@@ -69,7 +70,7 @@ function get_block_json($post_id) {
  * Database calls
  */
 
-$snowball_db_version = '1.0';
+$snowball_db_version = '0.2.0';
 
 function snowball_install_dbtable() {
   global $wpdb;
@@ -81,12 +82,18 @@ function snowball_install_dbtable() {
 
   $charset_collate = $wpdb->get_charset_collate();
 
+/*  
+ * Must have to 2 spaces between PRIMARY KEY and (id) or 
+ * there will be mulitple primary key defined errors.
+ * dbDelta doesn't seem to automatically remove
+ * columns you may not want anymore
+*/  
   $snowball_blocks_table = "CREATE TABLE $table_name (
     ID mediumint(9) NOT NULL AUTO_INCREMENT,
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     blocks_value longtext NOT NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY  (ID)
  ) $charset_collate;";
 
   $snowball_articles_table = "CREATE TABLE $table_name_articles (
@@ -94,7 +101,8 @@ function snowball_install_dbtable() {
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
     article_html longtext NOT NULL,
-    PRIMARY KEY (ID)
+    preview_html longtext,
+    PRIMARY KEY  (ID)
  ) $charset_collate;";
 
   require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -105,6 +113,25 @@ function snowball_install_dbtable() {
 }
 register_activation_hook($path . 'snowball.php', 'snowball_install_dbtable');
 
+/*
+This may be needed later when more columns need to be changed
+function remove_columns() {
+  global $wpdb;
+
+  $table_name_articles = $wpdb->prefix . 'snowball_articles';
+  $wpdb->query( "ALTER TABLE $table_name_articles DROP COLUMN COLUMN_NAME" );
+}
+*/
+
+function snowball_update_db_check() {
+  global $snowball_db_version;
+
+  if ( get_site_option( 'snowball_db_version' ) != $snowball_db_version ) {
+      snowball_install_dbtable();
+      //remove_columns();
+  }
+}
+add_action( 'plugins_loaded', 'snowball_update_db_check' );
 
 // if successful return insert_id
 // if fails return -1
@@ -148,16 +175,20 @@ function snowball_save_block($json_block, $post_id) {
   return $was_successful;
 }
 
-function snowball_save_article($article, $post_id) {
+function snowball_save_article($article, $post_id, $is_preview) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
+  $article_column = 'article_html';
+  if ($is_preview == "true") {
+    $article_column = 'preview_html';
+  }
 
   $was_updated = $wpdb->update(
     $table_name, 
     array(
       'time' => current_time('mysql'), 
-      'article_html' => $article,
+      $article_column => $article,
      ),
     array('post_id' => $post_id), 
     array('%s', '%s',),
@@ -172,7 +203,7 @@ function snowball_save_article($article, $post_id) {
       array(
         'time' => current_time('mysql'), 
         'post_id' => $post_id, 
-        'article_html' => $article,
+        $article_column => $article,
      ),
       array(
         '%s',
@@ -198,7 +229,7 @@ function snowball_get_blocks($post_id) {
   return $row;
 }
 
-function snowball_get_article($post_id) {
+function snowball_get_article($post_id, $is_preview) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
@@ -206,6 +237,9 @@ function snowball_get_article($post_id) {
 
   if ($row) {
     $article = $row->article_html;
+    if ($is_preview == "true") {
+      $article = $row->preview_html;
+    }
 
     if ($article != NULL) {
       return $article;
