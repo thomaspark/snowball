@@ -190,7 +190,7 @@
             if (input.is(":radio")) {
               input.filter("[value='" +  value + "']").prop("checked", true);
             } else if (input.is(":checkbox")) {
-              input.prop("checked", value);
+              input.prop("checked", (value == "true"));
             } else {
               input.val(value);
             }
