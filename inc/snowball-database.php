@@ -70,7 +70,7 @@ function get_block_json($post_id) {
  * Database calls
  */
 
-$snowball_db_version = '0.2.0';
+$snowball_db_version = '0.2.1';
 
 function snowball_install_dbtable() {
   global $wpdb;
@@ -92,7 +92,7 @@ function snowball_install_dbtable() {
     ID mediumint(9) NOT NULL AUTO_INCREMENT,
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
-    blocks_value longtext NOT NULL,
+    blocks_value longtext,
     PRIMARY KEY  (ID)
  ) $charset_collate;";
 
@@ -100,7 +100,7 @@ function snowball_install_dbtable() {
     ID mediumint(9) NOT NULL AUTO_INCREMENT,
     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
     post_id bigint(20) NOT NULL,
-    article_html longtext NOT NULL,
+    article_html longtext,
     preview_html longtext,
     PRIMARY KEY  (ID)
  ) $charset_collate;";
@@ -248,6 +248,17 @@ function snowball_get_article($post_id, $is_preview) {
 
   return "<section></section>";
 }
+
+function trash_snowball_data( $post_id ) {
+  global $wpdb;
+
+  $table_articles = $wpdb->prefix . 'snowball_articles';
+  $table_blocks = $wpdb->prefix . 'snowball_blocks';
+
+  $wpdb->delete( $table_articles, array( 'post_id' => $post_id ), array( '%d' ));
+  $wpdb->delete( $table_blocks, array( 'post_id' => $post_id ), array( '%d' ));
+}
+add_action( 'wp_trash_post', 'trash_snowball_data' );
 
 /*
  * Handle AJAX for mail
