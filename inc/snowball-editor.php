@@ -46,6 +46,11 @@
       }
     }
   }
+?>
+
+  <div class="buttons">
+
+<?php
 
   foreach ($order as $rank => $type) {
     echo '<a id="add-' . $type . '" class="button button-secondary ' . $tags[$type] . '" data-type="' . $type .'">';
@@ -55,6 +60,7 @@
   }
 
 ?>
+  </div>
 
 </header>
 
