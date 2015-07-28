@@ -1,0 +1,26 @@
+[
+  {
+    "label": "North Pole",
+    "value": 0
+  },
+  {
+    "label": "Juneau, Alaska",
+    "value": 30
+  },
+  {
+    "label": "Glacier National Park",
+    "value": 60
+  },
+  {
+    "label": "Sierra Nevada",
+    "value": 20
+  },
+  {
+    "label": "Himalayas",
+    "value": 50
+  },
+  {
+    "label": "Ecuador",
+    "value": 25
+  }
+]
