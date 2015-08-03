@@ -170,5 +170,57 @@ add_action('pre_get_posts', 'snowball_enable_front_page');
 
 add_filter('template_include', 'snowball_template');
 
+function snowball_menu() {
+  add_options_page(
+    'Snowball',
+    'Snowball',
+    'manage_options',
+    'snowball-slug',
+    'snowball_options_page'
+  );
+}
+add_action('admin_menu', 'snowball_menu');
+
+function snowball_options_page() {
+
+  if(!current_user_can('manage_options')) {
+    wp_die('You do not have sufficient permissions to access this page.');
+  }
+
+  global $plugin_url;
+  global $options;
+  global $display_json;
+
+
+/* Sample Code  
+  if(isset($_POST['hello'])) {
+    $hidden_field = esc_html($_POST['hello']);
+    $hello_word = esc_html($_POST['hello_word']);
+    $not_hello_world = esc_html($_POST['word_hello']);
+
+    $options['someoption1']  = $hello_word;
+    $options['someoption2']  = $not_hello_world;
+
+    update_option('snowball_stuff', $options);
+  }
+  $options = get_option('snowball_stuff');
+
+  if($options != '') {
+    $someoption1 = $options['someoption1'];
+    $someoption2 =  $options['someoption2'];
+  }*/
+
+  require('snowball-options.php');
+}
+
+function snowball_add_admin_scripts_and_styles($hook) {
+  global $post;
+
+  wp_register_script('snowball-options', plugins_url('../scripts/min/snowball-options.min.js', __FILE__));
+  wp_enqueue_script('snowball-options');
+
+  //wp_enqueue_style( 'snowball-admin.css', plugins_url( 'snowball/styles/snowball-admin.css' ) );
+}
+add_action('admin_enqueue_scripts', 'snowball_add_admin_scripts_and_styles');
 
 ?>
