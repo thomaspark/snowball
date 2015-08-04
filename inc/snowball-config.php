@@ -175,7 +175,7 @@ function snowball_menu() {
     'Snowball',
     'Snowball',
     'manage_options',
-    'snowball-slug',
+    'snowball',
     'snowball_options_page'
   );
 }
@@ -212,15 +212,5 @@ function snowball_options_page() {
 
   require('snowball-options.php');
 }
-
-function snowball_add_admin_scripts_and_styles($hook) {
-  global $post;
-
-  wp_register_script('snowball-options', plugins_url('../scripts/min/snowball-options.min.js', __FILE__));
-  wp_enqueue_script('snowball-options');
-
-  //wp_enqueue_style( 'snowball-admin.css', plugins_url( 'snowball/styles/snowball-admin.css' ) );
-}
-add_action('admin_enqueue_scripts', 'snowball_add_admin_scripts_and_styles');
 
 ?>

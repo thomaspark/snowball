@@ -69,4 +69,14 @@ function snowball_admin_ajax_script($hook) {
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_ajax_script');
 
+function snowball_options_scripts_and_styles($hook) {
+
+  if ('settings_page_snowball' != $hook) {
+    return;
+  }
+
+  wp_enqueue_script('snowball-options', plugins_url('snowball/scripts/min/snowball-options.min.js'));
+}
+add_action('admin_enqueue_scripts', 'snowball_options_scripts_and_styles');
+
 ?>
