@@ -1,6 +1,5 @@
 {
-  "name": "Share",
-  "tags": "meta social",
-  "iconClasses": "fa fa-share-alt",
-  "order": 16
+  "iconClasses": "fa fa-share-alt", 
+  "name": "Share", 
+  "tags": "meta social"
 }
