@@ -1,6 +1,5 @@
 {
-  "name": "Bar Graph",
-  "tags": "data",
-  "iconClasses": "fa fa-bar-chart-o",
-  "order": 8
+  "iconClasses": "fa fa-bar-chart-o", 
+  "name": "Bar Graph", 
+  "tags": "data"
 }

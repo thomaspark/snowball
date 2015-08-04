@@ -1,6 +1,5 @@
 {
-  "name": "Sidenote",
-  "tags": "basic",
-  "iconClasses": "fa fa-thumb-tack",
-  "order": 4
+  "iconClasses": "fa fa-thumb-tack", 
+  "name": "Sidenote", 
+  "tags": "basic"
 }

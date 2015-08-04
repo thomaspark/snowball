@@ -1,6 +1,5 @@
 {
-  "name": "Scatterplot",
-  "tags": "data",
-  "iconClasses": "fa fa-line-chart",
-  "order": 8
+  "iconClasses": "fa fa-line-chart", 
+  "name": "Scatterplot", 
+  "tags": "data"
 }
