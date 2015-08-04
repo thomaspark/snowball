@@ -22,6 +22,14 @@
     <span class="tag" data-tag="social">Social</span>
     <span class="tag" data-tag="data">Data</span>
     <span class="tag" data-tag="meta">Meta</span>
+    <span class="feedback happy"><i class="fa fa-smile-o"></i></span>
+    <span class="feedback sad"><i class="fa fa-frown-o"></i></span>
+    <div id="feedback-form">
+      <span class="close">&times;</span>
+      <p class="header"></p>
+      <textarea type="text"></textarea>
+      <div><a class="button">Submit</a></div>
+    </div>
   </div>
 
 <?php
@@ -58,7 +66,7 @@
   $len = count($order);
   for($i = 0; $i < $len; $i++) {
     $type = strtolower($order[$i]);
-    echo '<a id="add-' . $type . '" class="button button-secondary ' . $tags[$type] . '" data-type="' . $type .'">';
+    echo '<a id="add-' . $type . '" class="button button-secondary block-button ' . $tags[$type] . '" data-type="' . $type .'">';
     echo '<div><i class="' . $iconClasses[$type] . '"></i></div>';
     echo '<div>' . $names[$type] . '</div>';
     echo '</a>';
@@ -81,6 +89,7 @@
     'adminUrl'    => admin_url(),
     'pluginsUrl'  => plugins_url("snowball"),
     'includesUrl' => includes_url(),
+    'id'          => $post->ID,
     'savedblocks' => get_block_json($post->ID),
     'author'      => get_the_author(),
     'blogname'    => get_bloginfo(),

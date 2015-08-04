@@ -97,6 +97,9 @@ body.modal {
   padding: 0.5em 0 0;
   background-color: #32373c;
   white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 #snowball-toolbar .buttons {
@@ -129,21 +132,86 @@ body.modal {
   color: #bbb;
 }
 
-#snowball-toolbar .tags span {
+#snowball-toolbar .tag {
   display: inline-block;
   padding: 0 8px;
   background-color: #222;
+  vertical-align: top;
   border-radius: 4px;
   cursor: pointer;
 }
 
-#snowball-toolbar .tags span:hover {
+#snowball-toolbar .tag:hover {
   background-color: #111;
   color: #fff;
 }
 
-#snowball-toolbar .tags span.active {
+#snowball-toolbar .tag.active {
   background-color: #0B5E9A;
+  color: #fff;
+}
+
+#snowball-toolbar .feedback {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: 4px;
+  vertical-align: top;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#snowball-toolbar .feedback.happy {
+  margin-left: 8px;
+}
+
+#snowball-toolbar .feedback.happy:hover {
+  background-color: #7CB342;
+  color: #fff;
+}
+
+#snowball-toolbar .feedback.sad:hover {
+  background-color: #F44336;
+  color: #fff;
+}
+
+#feedback-form {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 12px;
+  z-index: 200;
+  min-width: 450px;
+  background-color: #222;
+  border-radius: 6px;
+  padding: 1em 2em 1em;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+#feedback-form .header {
+  padding-left: 0 !important;
+  color: #fff;
+}
+
+#feedback-form textarea {
+  width: 100%;
+  height: 200px;
+}
+
+#feedback-form .button {
+  float: right;
+  padding: 0.6em 0.3em;
+  margin: 0.5em 0;
+  font-size: 13px;
+}
+
+#feedback-form .close {
+  float: right;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#feedback-form .close:hover {
   color: #fff;
 }
 

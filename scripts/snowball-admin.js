@@ -1,5 +1,6 @@
 (function($) {
   var changesMade = false;
+  var actions = [];
 
   jQuery(document).ready(function() {
 
@@ -15,6 +16,16 @@
 
   function setHandlers() {
     $("#publish, #save-post").on("click", function() {
+      var props = {};
+
+      if ($(this).attr("id") == "publish") {
+        props.status = "publish";
+      } else {
+        props.status = "draft";
+      }
+
+      logger(props);
+
       changesMade = false;
     });
 
@@ -26,10 +37,16 @@
     }, 250));
 
     $("#snowball-toolbar")
-      .on("click", ".button", function() {
+      .on("click", ".block-button", function() {
         var type = $(this).data("type");
         addBlock(type);
         changesMade = true;
+
+        actions.push({
+          action: "add",
+          type: type
+        });
+
       })
       .on("click", ".tag", function() {
         var tag = $(this).attr("data-tag");
@@ -41,6 +58,32 @@
         } else {
           $("#snowball-toolbar .button").hide().filter("." + tag).show();
         }
+      })
+      .on("click", ".feedback", function() {
+        var form = $("#feedback-form");
+
+        if ($(this).hasClass("happy")) {
+          form.data("mood", "positive");
+          form.find(".header").text("How did Snowball make you happy?");
+        } else {
+          form.data("mood", "negative");
+          form.find(".header").text("How did Snowball make you sad, frustrated, or annoyed?");
+        }
+
+        form.toggle();
+      })
+      .on("click", "#feedback-form .close", function() {
+        $("#feedback-form").hide();
+      })
+      .on("click", "#feedback-form .button", function() {
+        var form = $("#feedback-form");
+        var mood = form.data("mood");
+        var comment = form.find("textarea").val();
+
+        fb(mood, comment);
+
+        form.hide();
+        form.find("textarea").val("");
       })
       .css("width", $("#snowball-toolbar").parent().width())
       .fixedsticky();
@@ -64,20 +107,41 @@
       }, 250))
       .on("click", ".snowball-delete", function() {
         var block = $(this).closest(".snowball-block");
+        var type = block.data("type");
+
         confirmDelete(block);
         changesMade = true;
+
+        actions.push({
+          action: "delete",
+          type: type
+        });
       })
       .on("click", ".snowball-copy", function() {
         var block = $(this).closest(".snowball-block");
+        var type = block.data("type");
+
         copyBlock(block);
+
+        actions.push({
+          action: "copy",
+          type: type
+        });
       })
       .on("click", ".snowball-zoom-toggle", function() {
         var block = $(this).closest(".snowball-block");
+        var type = block.data("type");
+
         block.find(".snowball-code, .snowball-copy, .snowball-delete").toggle();
 
         block.toggleClass("modal");
         $("body").toggleClass("modal");
         zoomPreview(block);
+
+        actions.push({
+          action: "code",
+          type: type
+        });
 
         block.find(".CodeMirror").each(function(index, editor) {
           editor.CodeMirror.refresh();
@@ -542,6 +606,45 @@
         fn.apply(context, args);
       }, delay);
     };
+  }
+
+  function logger(props) {
+    var article = [];
+
+    $(".snowball-block").each(function() {
+      var type = $(this).data("type");
+      article.push(type);
+    });
+
+    Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu","Q069j2TUEegDfQJXxxYp7OIZrgu7ySYcqmSU05pQ");
+    var Blocks = Parse.Object.extend("Blocks");
+    var blocks = new Blocks();
+    blocks.set('blogname', snowball.blogname);
+    blocks.set('blogurl', snowball.blogurl);
+    blocks.set('url', snowball.url);
+    blocks.set('postid', snowball.id);
+    blocks.set('status', props.status);
+    blocks.set('author', snowball.author);
+    blocks.set('article', article);
+    blocks.set('size', article.length);
+    blocks.set('actions', actions);
+    blocks.save();
+
+    actions = [];
+  }
+
+  function fb(mood, comment) {
+    Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu","Q069j2TUEegDfQJXxxYp7OIZrgu7ySYcqmSU05pQ");
+    var Feedback = Parse.Object.extend("Feedback");
+    var feedback = new Feedback();
+    feedback.set('blogname', snowball.blogname);
+    feedback.set('blogurl', snowball.blogurl);
+    feedback.set('url', snowball.url);
+    feedback.set('postid', snowball.id);
+    feedback.set('author', snowball.author);
+    feedback.set('mood', mood);
+    feedback.set('comment', comment);
+    feedback.save();
   }
 
 })(jQuery);
