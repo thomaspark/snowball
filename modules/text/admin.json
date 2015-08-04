@@ -1,6 +1,5 @@
 {
-  "name": "Text",
-  "tags": "basic",
-  "iconClasses": "fa fa-font",
-  "order": 1
+  "iconClasses": "fa fa-font", 
+  "name": "Text", 
+  "tags": "basic"
 }

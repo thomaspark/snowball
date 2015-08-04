@@ -25,6 +25,7 @@
   </div>
 
 <?php
+  global $path;
 
   foreach ($modules as $module) {
     if (file_exists($module . '/admin.html') && file_exists($module . '/template.html') && file_exists($module . '/admin.json')) {
@@ -34,7 +35,9 @@
 
       $json = file_get_contents($module . '/admin.json');
       $meta = json_decode($json);
-      $order[$meta->order] = $type;
+      $order_json = file_get_contents($path . 'modules/module_order.json');
+
+      $order = json_decode($order_json);
       ksort($order, SORT_NUMERIC);
       $names[$type] = $meta->name;
       $iconClasses[$type] = $meta->iconClasses;
@@ -52,7 +55,9 @@
 
 <?php
 
-  foreach ($order as $rank => $type) {
+  $len = count($order);
+  for($i = 0; $i < $len; $i++) {
+    $type = strtolower($order[$i]);
     echo '<a id="add-' . $type . '" class="button button-secondary ' . $tags[$type] . '" data-type="' . $type .'">';
     echo '<div><i class="' . $iconClasses[$type] . '"></i></div>';
     echo '<div>' . $names[$type] . '</div>';
