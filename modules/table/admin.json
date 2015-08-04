@@ -1,6 +1,5 @@
 {
-  "name": "Table",
-  "tags": "basic data",
-  "iconClasses": "fa fa-table",
-  "order": 7
+  "iconClasses": "fa fa-table", 
+  "name": "Table", 
+  "tags": "basic data"
 }

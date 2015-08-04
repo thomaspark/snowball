@@ -1,6 +1,5 @@
 {
-  "name": "SoundCloud",
-  "tags": "media",
-  "iconClasses": "fa fa-soundcloud",
-  "order": 13
+  "iconClasses": "fa fa-soundcloud", 
+  "name": "SoundCloud", 
+  "tags": "media"
 }

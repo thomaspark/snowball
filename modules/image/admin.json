@@ -1,6 +1,5 @@
 {
-  "name": "Image",
-  "tags": "basic media",
-  "iconClasses": "fa fa-file-image-o",
-  "order": 2
+  "iconClasses": "fa fa-file-image-o", 
+  "name": "Image", 
+  "tags": "basic media"
 }
