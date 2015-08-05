@@ -110,12 +110,6 @@
         var type = block.data("type");
 
         confirmDelete(block);
-        changesMade = true;
-
-        actions.push({
-          action: "delete",
-          type: type
-        });
       })
       .on("click", ".snowball-copy", function() {
         var block = $(this).closest(".snowball-block");
@@ -594,6 +588,13 @@
       block
         .trigger("close")
         .remove();
+        
+      changesMade = true;
+
+      actions.push({
+        action: "delete",
+        type: type
+      });
     }
   }
 
