@@ -1,5 +1,7 @@
 (function($) {
 
-  $("a[href]", document).attr("target", "_blank");
+  $("a[href]", document).on("click", function(e) {
+    e.preventDefault();
+  });
 
 })(jQuery);
