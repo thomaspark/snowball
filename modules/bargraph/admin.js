@@ -2,17 +2,17 @@
 
   $("#snowball-main").on("open", ".snowball-block-bargraph", function() {
     var block = $(this);
-    var size = $(this).find(".size").val() + "px";
-    $(this).find(".size-output").text(size);
+    var spacing = Math.floor($(this).find(".spacing").val()*100) + "%";
+    $(this).find(".spacing-output").text(spacing);
 
     loadData(block);
   });
 
-  $("#snowball-main").on("input change", ".snowball-block-bargraph .size", function() {
+  $("#snowball-main").on("input change", ".snowball-block-bargraph .spacing", function() {
     var block = $(this).closest(".snowball-block-bargraph");
-    var size = $(this).val() + "px";
+    var spacing = Math.floor($(this).val()*100) + "%";
 
-    block.find(".size-output").text(size);
+    block.find(".spacing-output").text(spacing);
     block.trigger("render");
   });
 
