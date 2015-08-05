@@ -1,0 +1,23 @@
+<form>
+  <p>Title<br>
+    <input type="text" class="regular-text" data-target="title" value="Table of Contents">
+  </p>
+  <p>Style<br>
+    <label><input type="radio" name="margin" data-target="style" value="decimal" checked="checked">Decimal</label>
+    <label><input type="radio" name="margin" data-target="style" value="upper-roman">Upper Roman</label>
+    <label><input type="radio" name="margin" data-target="style" value="disc">Dot</label>
+    <label><input type="radio" name="margin" data-target="style" value="circle">Circle</label>
+    <label><input type="radio" name="margin" data-target="style" value="square" checked>Square</label>
+    <label><input type="radio" name="margin" data-target="style" value="none" checked>None</label>
+  </p>
+  <p style="float: left; width: 33%;">Text Color<br>
+    <input type="text" class="wp-color-picker" data-target="color" value="#333" data-default-color="#333" />
+  </p>
+  <p style="float: left; width: 33%;">Link Color<br>
+    <input type="text" class="wp-color-picker" data-target="link-color" value="#2887CA" data-default-color="#2887CA" />
+  </p>
+  <p style="float: left; width: 33%;">Background Color<br>
+    <input type="text" class="wp-color-picker" data-target="background-color" value="#eee" data-default-color="#eee" />
+  </p>
+  <input type="hidden" data-target="html" class="html">
+</form>

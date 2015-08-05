@@ -588,7 +588,7 @@
       block
         .trigger("close")
         .remove();
-        
+
       changesMade = true;
 
       actions.push({
