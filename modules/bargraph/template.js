@@ -12,7 +12,7 @@
 function drawBargraph(block) {
   var json = block.find(".json").val();
   var container = block.find(".chart").get(0);
-  var size = block.find(".size").val();
+  var spacing = block.find(".spacing").val();
   var data = JSON.parse(json);
   var valuesArray = [];
 
@@ -20,7 +20,7 @@ function drawBargraph(block) {
   var width = 800 - margin.left - margin.right;
   var height = 400 - margin.top - margin.bottom;
 
-  var x = d3.scale.ordinal().rangeRoundBands([0, width], 0.05);
+  var x = d3.scale.ordinal().rangeRoundBands([0, width], spacing);
   var y = d3.scale.linear().range([height, 0]);
 
   var xAxis = d3.svg.axis()
