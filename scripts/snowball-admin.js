@@ -255,7 +255,7 @@
             if (input.is(":radio")) {
               input.filter("[value='" +  value + "']").prop("checked", true);
             } else if (input.is(":checkbox")) {
-              input.prop("checked", (value == "true"));
+              input.prop("checked", ((value == "true") || value === true));
             } else {
               input.val(value);
             }
@@ -585,6 +585,8 @@
   function confirmDelete(block) {
     var result = confirm("Are you sure you want to delete this block?");
     if (result) {
+      var type = block.data("type");
+      
       block
         .trigger("close")
         .remove();
