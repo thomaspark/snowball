@@ -1,89 +1,76 @@
 <form>
-  <p>
-    <label><input type="checkbox" data-target="checkbox-col-1" value="show-column" checked>checkbox-col-1</label>
-    <label><input type="checkbox" data-target="checkbox-col-2" value="show-column">checkbox-col-2</label>
-    <label><input type="checkbox" data-target="checkbox-col-3" value="show-column">checkbox-col-3</label>
-    <label><input type="checkbox" data-target="checkbox-col-4" value="show-column">checkbox-col-4</label>
-  </p>
-
   <div class="toggle-buttons">
     <div class="toggle-button">Column 1<span class="fa fa-times delete-column"></span></div>
     <div class="toggle-button">Column 2<span class="fa fa-times delete-column"></span></div>
     <div class="toggle-button">Column 3<span class="fa fa-times delete-column"></span></div>
     <div class="toggle-button">Column 4<span class="fa fa-times delete-column"></span></div>
-    <span class="fa fa-plus add-button"></span>
+    <div class="add-button"><span class="fa fa-plus"></span></div>
   </div>
-
-  <div class="editors" style="height: 300px;">
+  <div class="editors">
     <textarea class="column-textarea" data-target="col-1" style="height: 100%;"></textarea>
     <textarea class="column-textarea" data-target="col-2" style="height: 100%;"></textarea>
     <textarea class="column-textarea" data-target="col-3" style="height: 100%;"></textarea>
     <textarea class="column-textarea" data-target="col-4" style="height: 100%;"></textarea>
   </div>
+  <div>
+    <input type="checkbox" data-target="checkbox-col-1" value="show" checked>
+    <input type="checkbox" data-target="checkbox-col-2" value="show">
+    <input type="checkbox" data-target="checkbox-col-3" value="show">
+    <input type="checkbox" data-target="checkbox-col-4" value="show">
+  </div>
 <style>
-.snowball-block-columns p {
+.snowball-block-columns input[type="checkbox"] {
   display: none;
 }
 
-.snowball-block-columns .column-textarea {
-  margin-bottom: 2em;
-}
-
-.snowball-block-columns .add-button {
-  font-size: 1.5em;
-  color: rgba(0,0,0,0.7);
-}
-
-.snowball-block-columns .add-button:hover {
-  transform: scale(1.3);
-  color: black;
-}
-
 .snowball-block-columns .toggle-buttons {
-  padding: 15px 0;
-  margin-left: 1em;
+  border-bottom: 4px solid #262722;
 }
 
 .snowball-block-columns .toggle-button {
   display: none;
+  padding: 0.5em 0.8em 0.5em 1.2em;
   margin-right: 0.1em;
-  width: 6em;
-  height: 1.5em;
-  padding: 0.5em 0.5em 1em;
+  background-color: #262722;
   text-align: center;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  opacity: 0.5;
-  background-color: #444;
-  color: white;
+  color: #fff;
   cursor: pointer;
+  opacity: 0.5;
 }
 
-.editors {
-  margin-top: -0.8em
-}
-
-.snowball-block-columns .active {
-  background-color: #236EA4;
-  opacity: 1;
-}
-
-.snowball-block-columns .fa-times {
-  position: relative;
-  bottom: 0.5em;
-  opacity: 0.2;
+.snowball-block-columns .add-button {
+  display: inline-block;
+  padding: 0.5em 0.8em;
+  background-color: #262722;
   font-size: 1em;
-  padding: 0 0.2em 0 0.5em;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
-.snowball-block-columns .fa-times:hover {
+.snowball-block-columns .active,
+.snowball-block-columns .toggle-button:hover,
+.snowball-block-columns .add-button:hover {
   opacity: 1;
-  color: #FF6600;
-  transform: scale(1.2);
 }
 
-.snowball-block-columns .activeButton {
-  display: inline !important;
+.snowball-block-columns .show {
+  display: inline-block !important;
+}
+
+.snowball-block-columns .delete-column {
+  margin-left: 1em;
+  font-size: 1.2em;
+  opacity: 0.5;
+}
+
+.snowball-block-columns .delete-column:hover {
+  opacity: 1;
+  color: #a00;
+}
+
+.snowball-block-columns .editors {
+  height: 300px;
 }
 
 .snowball-block-columns .column-textarea {

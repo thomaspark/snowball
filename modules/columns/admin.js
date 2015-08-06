@@ -1,20 +1,19 @@
 (function ($) {
   $("#snowball-main").on("open", ".snowball-block-columns", function() {
     var block = $(this);
-    var textarea;
-    block.find( '[type="checkbox"]' ).each(function(index) {
+
+    block.find('input[type="checkbox"]').each(function(index) {
       if ($(this).prop("checked")) {
-        textarea = block.find(".column-textarea").eq(index);
+        var textarea = block.find(".column-textarea").eq(index);
         initializeEditorAt(textarea);
-        block.find(".toggle-button").eq(index).addClass("activeButton");
+        block.find(".toggle-button").eq(index).addClass("show");
       }
     });
 
-    block.find(".CodeMirror").hide();
-    block.find(".CodeMirror").eq(0).show();
+    block.find(".CodeMirror").hide().eq(0).show();
     block.find(".toggle-button").eq(0).addClass("active");
 
-    var activeEditors = block.find(".activeButton").length;
+    var activeEditors = block.find(".show").length;
     if (activeEditors == 4) {
       block.find(".add-button").hide();
     }
@@ -37,7 +36,7 @@
       textarea.trigger("change");
     });
 
-    textarea.data("codeMirrrorInstance", editor);
+    textarea.data("codeMirrorInstance", editor);
   }
 
   $("#snowball-main").on("click", ".snowball-block-columns .toggle-button", function(event) {
@@ -51,7 +50,7 @@
   $("#snowball-main").on("click", ".snowball-block-columns .add-button", function(event) {
     var block= $(this).closest(".snowball-block-columns");
 
-    var activeEditors = block.find(".activeButton").length;
+    var activeEditors = block.find(".show").length;
     if (activeEditors == 3) {
       block.find(".add-button").fadeOut(500);
     }
@@ -62,11 +61,11 @@
         return false;
       }
     });
-    block.trigger("render")
+    block.trigger("render");
   });
 
   function addNewColumn(block, selection) {
-    block.find(".toggle-button").eq(selection).addClass("activeButton");
+    block.find(".toggle-button").eq(selection).addClass("show");
 
     var textarea = block.find(".column-textarea").eq(selection);
     initializeEditorAt(textarea);
@@ -87,7 +86,7 @@
       }
     });
 
-    var checkbox = block.find( '[type="checkbox"]' ).eq(selection);
+    var checkbox = block.find('[type="checkbox"]').eq(selection);
     checkbox.prop("checked", true);
   }
 
@@ -98,20 +97,22 @@
       var block = $(this).closest(".snowball-block-columns");
       var button = $(this).closest(".toggle-button");
       var selectedIndex = block.find(".toggle-buttons .toggle-button").index(button);
-
-      var activeEditors = block.find(".activeButton").length;
+      var activeEditors = block.find(".show").length;
+      var textarea;
+      var codeMirrorInstance;
+      var checkbox;
 
       if (selectedIndex == (activeEditors - 1)) {
-        var textarea = block.find(".column-textarea").eq(selectedIndex);
-        var codeMirrrorInstance = textarea.data("codeMirrrorInstance");
+        textarea = block.find(".column-textarea").eq(selectedIndex);
+        codeMirrorInstance = textarea.data("codeMirrorInstance");
 
-        var checkbox = block.find( '[type="checkbox"]' ).eq(selectedIndex);
+        checkbox = block.find( '[type="checkbox"]' ).eq(selectedIndex);
         checkbox.prop("checked", false);
 
-        codeMirrrorInstance.toTextArea();
+        codeMirrorInstance.toTextArea();
         textarea.val("");
 
-        block.find(".activeButton").eq(selectedIndex).removeClass("activeButton");
+        block.find(".show").eq(selectedIndex).removeClass("show");
 
         activateSelectedButton(block, (selectedIndex - 1));
         activateSelectedEditor(block, (selectedIndex - 1));
@@ -119,18 +120,18 @@
         block.find(".CodeMirror").eq((selectedIndex - 1)).show();
       } else {
         while (selectedIndex < (activeEditors - 1)){
-          var textarea = block.find(".column-textarea").eq(selectedIndex);
-          var codeMirrrorInstance = textarea.data("codeMirrrorInstance");
+          textarea = block.find(".column-textarea").eq(selectedIndex);
+          codeMirrorInstance = textarea.data("codeMirrorInstance");
 
-          codeMirrrorInstance.toTextArea();
+          codeMirrorInstance.toTextArea();
 
-          var checkbox = block.find( '[type="checkbox"]' ).eq((selectedIndex));
+          checkbox = block.find( '[type="checkbox"]' ).eq((selectedIndex));
           checkbox.prop("checked", true);
 
           var temp_textarea = block.find(".column-textarea").eq((selectedIndex + 1));
-          var temp_codeMirrrorInstance = temp_textarea.data("codeMirrrorInstance");
+          var temp_codeMirrorInstance = temp_textarea.data("codeMirrorInstance");
 
-          temp_codeMirrrorInstance.toTextArea();
+          temp_codeMirrorInstance.toTextArea();
 
           var temp_checkbox = block.find( '[type="checkbox"]' ).eq((selectedIndex + 1));
           temp_checkbox.prop("checked", false);
@@ -139,8 +140,8 @@
           initializeEditorAt(textarea);
 
           if (selectedIndex == (activeEditors - 2)) {
-            block.find(".activeButton").eq((selectedIndex + 1)).removeClass("activeButton");
-            activeEditors = block.find(".activeButton").length;
+            block.find(".show").eq((selectedIndex + 1)).removeClass("show");
+            activeEditors = block.find(".show").length;
 
             block.find(".column-textarea").eq((selectedIndex + 1)).val("");
           }
@@ -157,7 +158,7 @@
   });
 
   function activateSelectedButton(block, selection) {
-    block.find(".activeButton").each(function(index) {
+    block.find(".show").each(function(index) {
       if (index === selection) {
         $(this).addClass("active");
       } else {

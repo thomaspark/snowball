@@ -6,6 +6,7 @@
   "sidenote",
   "quote",
   "html",
+  "columns",
   "table",
   "bargraph",
   "choropleth",
@@ -17,6 +18,5 @@
   "googlemaps",
   "contents",
   "contact",
-  "share",
-  "columns"
+  "share"
 ]

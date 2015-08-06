@@ -1,35 +1,31 @@
 <section class="snowball-block snowball-block-columns full-width">
-<div class="row">
-  <div class="column column-1 {{checkbox-col-1}}">
-    {{col-1}}
+  <div class="row">
+    <div class="column column-1 {{checkbox-col-1}}">
+      {{col-1}}
+    </div>
+    <div class="column column-2 {{checkbox-col-2}}">
+      {{col-2}}
+    </div>
+    <div class="column column-3 {{checkbox-col-3}}">
+      {{col-3}}
+    </div>
+    <div class="column column-4 {{checkbox-col-4}}">
+      {{col-4}}
+    </div>
   </div>
-
-  <div class="column column-2 {{checkbox-col-2}}">
-    {{col-2}}
-  </div>
-
-  <div class="column column-3 {{checkbox-col-3}}">
-    {{col-3}}
-  </div>
-
-  <div class="column column-4 {{checkbox-col-4}}">
-    {{col-4}}
-  </div>
-</div>
-
 <style scoped>
-  .row {
-    display: flex;
-  }
+.snowball-block-columns .row {
+  display: flex;
+}
 
-  .column {
-    display: none;
-    flex: 1;
-    text-align: center;
-  }
+.snowball-block-columns .column {
+  display: none;
+  flex: 1;
+  text-align: center;
+}
 
-  .show-column {
-    display: block;
-  }
+.snowball-block-columns .show {
+  display: block;
+}
 </style>
 </section>
