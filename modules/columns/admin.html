@@ -1,0 +1,93 @@
+<form>
+  <p>
+    <label><input type="checkbox" data-target="checkbox-col-1" value="show-column" checked>checkbox-col-1</label>
+    <label><input type="checkbox" data-target="checkbox-col-2" value="show-column">checkbox-col-2</label>
+    <label><input type="checkbox" data-target="checkbox-col-3" value="show-column">checkbox-col-3</label>
+    <label><input type="checkbox" data-target="checkbox-col-4" value="show-column">checkbox-col-4</label>
+  </p>
+
+  <div class="toggle-buttons">
+    <div class="toggle-button">Column 1<span class="fa fa-times delete-column"></span></div>
+    <div class="toggle-button">Column 2<span class="fa fa-times delete-column"></span></div>
+    <div class="toggle-button">Column 3<span class="fa fa-times delete-column"></span></div>
+    <div class="toggle-button">Column 4<span class="fa fa-times delete-column"></span></div>
+    <span class="fa fa-plus add-button"></span>
+  </div>
+
+  <div class="editors" style="height: 300px;">
+    <textarea class="column-textarea" data-target="col-1" style="height: 100%;"></textarea>
+    <textarea class="column-textarea" data-target="col-2" style="height: 100%;"></textarea>
+    <textarea class="column-textarea" data-target="col-3" style="height: 100%;"></textarea>
+    <textarea class="column-textarea" data-target="col-4" style="height: 100%;"></textarea>
+  </div>
+<style>
+.snowball-block-columns p {
+  display: none;
+}
+
+.snowball-block-columns .column-textarea {
+  margin-bottom: 2em;
+}
+
+.snowball-block-columns .add-button {
+  font-size: 1.5em;
+  color: rgba(0,0,0,0.7);
+}
+
+.snowball-block-columns .add-button:hover {
+  transform: scale(1.3);
+  color: black;
+}
+
+.snowball-block-columns .toggle-buttons {
+  padding: 15px 0;
+  margin-left: 1em;
+}
+
+.snowball-block-columns .toggle-button {
+  display: none;
+  margin-right: 0.1em;
+  width: 6em;
+  height: 1.5em;
+  padding: 0.5em 0.5em 1em;
+  text-align: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  opacity: 0.5;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}
+
+.editors {
+  margin-top: -0.8em
+}
+
+.snowball-block-columns .active {
+  background-color: #236EA4;
+  opacity: 1;
+}
+
+.snowball-block-columns .fa-times {
+  position: relative;
+  bottom: 0.5em;
+  opacity: 0.2;
+  font-size: 1em;
+  padding: 0 0.2em 0 0.5em;
+}
+
+.snowball-block-columns .fa-times:hover {
+  opacity: 1;
+  color: #FF6600;
+  transform: scale(1.2);
+}
+
+.snowball-block-columns .activeButton {
+  display: inline !important;
+}
+
+.snowball-block-columns .column-textarea {
+  display: none;
+}
+</style>
+</form>
