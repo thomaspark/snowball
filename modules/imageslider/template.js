@@ -1,5 +1,9 @@
 (function($) {
 
+  $(document).ready(function() {
+    $(".snowball-block-imageslider .left").css("width", "50%");
+  });
+
   $(document).on("mousemove", ".snowball-block-imageslider .wrapper", function(e) {
     var block = $(this).closest(".snowball-block");
     var left = block.find(".left")[0];
