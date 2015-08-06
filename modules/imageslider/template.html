@@ -1,0 +1,63 @@
+<section class="snowball-block snowball-block-imageslider mid-width{{full-width}}">
+  <div class="wrapper">
+    <img src="{{image-right}}">
+    <span class="label label-right">{{label-right}}</span>
+    <span class="label label-left">{{label-left}}</span>
+    <div class="left">
+    </div>
+  </div>
+  <div class="caption">{{caption}}</div>
+<style scoped>
+.snowball-block-imageslider .wrapper {
+  position: relative;
+  font-size: 0;
+  cursor: col-resize;
+}
+
+.snowball-block-imageslider .label {
+  position: absolute;
+  bottom: 0.5em;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.snowball-block-imageslider .label-left {
+  left : 1em;
+  z-index: 10;
+}
+
+.snowball-block-imageslider .label-right {
+  right : 1em;
+}
+
+.snowball-block-imageslider img {
+  width: 100%;
+  height: auto;
+}
+
+.snowball-block-imageslider .left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url({{image-left}});
+  background-size: cover;
+  border-right: 2px solid rgba(255, 255, 255, 0.5);
+  -webkit-animation: slideIn 1s;
+  animation: slideIn 1s;
+}
+
+@-webkit-keyframes slideIn {
+  from {width: 0%;}
+  to {width: 50%;}
+}
+
+@keyframes slideIn {
+  from {width: 0%;}
+  to {width: 50%;}
+}
+</style>
+</section>
