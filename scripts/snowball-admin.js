@@ -151,7 +151,7 @@
       .sortable({
         "axis": "y",
         "containment": "#snowball-main",
-        "cancel": ".snowball-block.modal, textarea, input, select, .handsontable .wtHider, .CodeMirror",
+        "cancel": ".snowball-block.modal, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
         "cursor": "move",
         "tolerance": "pointer"
       });
