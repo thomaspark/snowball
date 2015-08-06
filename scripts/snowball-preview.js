@@ -1,6 +1,6 @@
 (function($) {
 
-  $("a[href]", document).on("click", function(e) {
+  $("body").on("click", "a[href]", function(e) {
     e.preventDefault();
   });
 
