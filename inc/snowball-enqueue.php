@@ -1,22 +1,43 @@
 <?php
 
 function snowball_add_stylesheets() {
-  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css') . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball.min.css') . '">';
+  global $post;
+  $theme_option = snowball_get_theme_option($post->ID);
+  if ($theme_option == 0) {
+    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css') . '">';
+    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
+    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
+    echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball.min.css') . '">';
+  } else {
+    wp_enqueue_style('geomap-css', plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css'));
+    wp_enqueue_style('fluidbox-css', plugins_url('snowball/lib/fluidbox/css/fluidbox.css'));
+    wp_enqueue_style('fontawesome-css', plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css'));
+    wp_enqueue_style('snowball-css', plugins_url('snowball/styles/min/snowball.min.css'));
+  }
 }
 add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
-  echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
-  echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>';
-  echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>';
-  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
-  echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
+  global $post;
+  $theme_option = snowball_get_theme_option($post->ID);
+  if ($theme_option == 0) {
+    echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
+    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>';
+    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>';
+    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
+    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
+    echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
+    echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
+    echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
+  } else {
+    wp_enqueue_script('d3-js', plugins_url('snowball/lib/d3/d3.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('topojson-js', plugins_url('snowball/lib/d3-geomap/js/topojson.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('d3-geomap-dependencies-js', plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('d3-geomap-js', plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('fluidbox-js', plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/min/snowball.min.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
+    wp_enqueue_script('templates-js', plugins_url('snowball/scripts/min/templates.min.js'), array('jquery'), '', true);
+  }
 }
 add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
 

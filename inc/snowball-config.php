@@ -9,7 +9,8 @@ function snowball_create_post_type() {
         'singular_name' => __('Article'),
         'add_new' => __('Add New'),
         'edit_item' => __('Edit Article'),
-        'view_item' => __('View Article')
+        'view_item' => __('View Article'),
+        'show_in_nav_menus' => TRUE
      ),
       'menu_icon' => 'dashicons-marker',
       'public' => true,

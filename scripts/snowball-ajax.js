@@ -13,6 +13,7 @@ jQuery(document).ready(function($) {
     var article_data = {
       "action": "add_article",
       "article": articleRetrieved,
+      "theme_option": getThemeOption(),
       "post_id": ajax_object.post_id,
       "is_preview" : "false",
       "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
@@ -31,6 +32,7 @@ jQuery(document).ready(function($) {
     var article_data = {
       "action": "add_article",
       "article": articleRetrieved,
+      "theme_option": getThemeOption(),
       "post_id": ajax_object.post_id,
       "is_preview" : "true",
       "snowball_ajax_nonce": ajax_object.snowball_ajax_nonce
@@ -40,6 +42,14 @@ jQuery(document).ready(function($) {
     $.post(ajax_object.ajax_url, article_data);
   });
 
+  function getThemeOption() {
+    var theme_option = 1;
+    if ($("#theme_option").is(":checked")) {
+      theme_option = 0;
+    }
+
+    return theme_option;
+  }
   /* 
     This function will traverse through all the html in all the blocks
     and retrieve all the data about the block the user added.

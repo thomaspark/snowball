@@ -42,7 +42,11 @@ function add_article_callback() {
 
   $post_id = $_POST['post_id'];
   $is_preview = $_POST['is_preview'];
-  $article_data = stripslashes($_POST['article']);
+  $article = stripslashes($_POST['article']);
+  $theme_option = stripslashes($_POST['theme_option']);
+  $article_data = array('article' => $article,
+                        'theme_option' => $theme_option
+                         );
   $insert_id = snowball_save_article($article_data, $post_id, $is_preview);
   $success = "success";
   if ($insert_id == -1) {
@@ -102,6 +106,7 @@ function snowball_install_dbtable() {
     post_id bigint(20) NOT NULL,
     article_html longtext,
     preview_html longtext,
+    theme_option tinyint(1) NOT NULL,
     PRIMARY KEY  (ID)
  ) $charset_collate;";
 
@@ -175,21 +180,36 @@ function snowball_save_block($json_block, $post_id) {
   return $was_successful;
 }
 
-function snowball_save_article($article, $post_id, $is_preview) {
+function snowball_save_article($article_data, $post_id, $is_preview) {
   global $wpdb;
-
   $table_name = $wpdb->prefix . 'snowball_articles';
   $article_column = 'article_html';
+  $theme_column = 'theme_option';
+
+  $article = $article_data["article"];
+  $theme_option = $article_data["theme_option"];
+
+  // ensure $theme_option is only 0 or 1
+  if (intval($theme_option) != 1) {
+    $theme_option = 0;
+  } else {
+    $theme_option = 1;
+  }
+
+  $data = array(
+      'time' => current_time('mysql'), 
+      $article_column => $article,
+     );
+
   if ($is_preview == "true") {
     $article_column = 'preview_html';
+  } else {
+    $data[$theme_column] = $theme_option;
   }
 
   $was_updated = $wpdb->update(
     $table_name, 
-    array(
-      'time' => current_time('mysql'), 
-      $article_column => $article,
-     ),
+    $data,
     array('post_id' => $post_id), 
     array('%s', '%s',),
     array('%d')
@@ -200,11 +220,7 @@ function snowball_save_article($article, $post_id, $is_preview) {
   if ($was_updated === 0 || $was_updated == false) {
     $was_successful = $wpdb->insert(
       $table_name, 
-      array(
-        'time' => current_time('mysql'), 
-        'post_id' => $post_id, 
-        $article_column => $article,
-     ),
+      $data,
       array(
         '%s',
         '%d',
@@ -231,22 +247,40 @@ function snowball_get_blocks($post_id) {
 
 function snowball_get_article($post_id, $is_preview) {
   global $wpdb;
-
+  $article_label = "article_html";
+  $theme_label = "theme_option";
   $table_name = $wpdb->prefix . 'snowball_articles';
   $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id));
-
+  $article_data = array(
+                $article_label => "<section></section>",
+                $theme_label => 1
+            );
   if ($row) {
     $article = $row->article_html;
+    $option = $row->theme_option;
+
     if ($is_preview == "true") {
       $article = $row->preview_html;
     }
 
-    if ($article != NULL) {
-      return $article;
-    }
+    $article_data[$article_label] = $article;
+    $article_data[$theme_label] = $option;
   }
 
-  return "<section></section>";
+  return $article_data;
+}
+
+function snowball_get_theme_option($post_id) {
+  global $wpdb;
+
+  $table_name = $wpdb->prefix . 'snowball_articles';
+  $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id));
+  $option = 1;
+  if ($row) {
+    $option = $row->theme_option;
+  }
+
+  return $option;
 }
 
 function delete_snowball_data($post_id) {

@@ -314,6 +314,8 @@ function snowball_comment_status_meta_box($post) {
   <br>
   <label for="comment_status" class="selectit"><input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($post->comment_status, 'open'); ?> /> <?php _e( 'Allow comments.' ) ?></label><br />
   <label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php printf( __( 'Allow <a href="%s" target="_blank">trackbacks and pingbacks</a> on this page.' ), __( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) ); ?></label>
+  <br>
+  <!-- <label for="theme_option" class="selectit"><input name="theme_option" type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 1); ?> />Use Snowball Theme.</label> -->
   <?php
   /**
    * Fires at the end of the Discussion meta box on the post editing screen.
