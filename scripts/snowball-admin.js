@@ -3,15 +3,14 @@
   var actions = [];
 
   jQuery(document).ready(function() {
-
-    setHandlers();
-
     if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
       snowball.savedblocks = JSON.parse(snowball.savedblocks);
       populateSavedBlocks();
     } else {
       snowball.savedblocks = [];
     }
+
+    setHandlers();
   });
 
   function setHandlers() {
@@ -147,6 +146,9 @@
         if (block.find(".snowball-code .CodeMirror").length === 0) {
           initEditors(block);
         }
+      })
+      .on("change", ".handsontable", function() {
+        changesMade = true;
       })
       .sortable({
         "axis": "y",
