@@ -296,6 +296,7 @@
       block.insertAfter($(".snowball-block").eq(at));
     }
     
+    zoomPreview(block);
     block.trigger("open");
   }
 
