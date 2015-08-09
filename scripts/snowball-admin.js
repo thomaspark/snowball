@@ -230,15 +230,15 @@
                         "<div>" +
                           "<div class='snowball-title'></div>" +
                           "<div class='snowball-title-button-group'>" +
-                            "<div class='snowball-title-button snowball-copy'><i class='fa fa-files-o'></i></div>" +
-                            "<div class='snowball-title-button snowball-delete'>&times;</div>" +
+                            "<div class='snowball-title-button snowball-copy' title='Copy block'><i class='fa fa-files-o'></i></div>" +
+                            "<div class='snowball-title-button snowball-delete' title='Delete block'>&times;</div>" +
                           "</div>" +
                           "<div class='snowball-title-button-group'>" +
-                            "<div class='snowball-title-button snowball-top'><i class='fa fa-angle-double-up'></i></div>" +
-                            "<div class='snowball-title-button snowball-bottom'><i class='fa fa-angle-double-down'></i></div>" +
+                            "<div class='snowball-title-button snowball-top' title='Move block to top'><i class='fa fa-angle-double-up'></i></div>" +
+                            "<div class='snowball-title-button snowball-bottom' title='Move block to bottom'><i class='fa fa-angle-double-down'></i></div>" +
                           "</div>" +
                           "<div class='snowball-title-button-group'>" +
-                            "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
+                            "<div class='snowball-title-button snowball-zoom-toggle' title='Edit code'><i class='fa fa-code'></i></div>" +
                           "</div>" +
                         "</div>" +
                       "</div>" +
