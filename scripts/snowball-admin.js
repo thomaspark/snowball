@@ -221,9 +221,13 @@
                       "<div class='snowball-tinker'>" +
                         "<div>" +
                           "<div class='snowball-title'></div>" +
-                          "<div class='snowball-title-button snowball-delete'>&times;</div>" +
-                          "<div class='snowball-title-button snowball-copy'><i class='fa fa-files-o'></i></div>" +
-                          "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
+                          "<div class='snowball-title-button-group'>" +
+                            "<div class='snowball-title-button snowball-copy'><i class='fa fa-files-o'></i></div>" +
+                            "<div class='snowball-title-button snowball-delete'>&times;</div>" +
+                          "</div>" +
+                          "<div class='snowball-title-button-group'>" +
+                            "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
+                          "</div>" +
                         "</div>" +
                       "</div>" +
                       "<iframe class='snowball-preview'></iframe>" +

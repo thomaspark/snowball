@@ -256,20 +256,45 @@ body.modal {
   display: inline-block;
 }
 
-.snowball-title-button {
+.snowball-title-button-group {
   float: right;
-  opacity: 0.6;
+  margin-left: 6px;
+}
+
+.snowball-title-button {
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-right: none;
+  line-height: 18px;
+  vertical-align: top;
+  color: #999;
   cursor: pointer;
+}
+
+.snowball-title-button:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.snowball-title-button:last-child {
+  border-right: 1px solid #ccc;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.snowball-title-button:hover {
+  background-color: #fff;
+  color: #555;
+}
+
+.snowball-title-button:active {
+  background-color: #fff;
+  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1);
+  color: #555;
 }
 
 .snowball-delete {
   font-size: 1.5em;
-}
-
-.snowball-copy,
-.snowball-zoom-toggle {
-  margin-top: -1px;
-  margin-right: 1em;
 }
 
 .snowball-title-button .fa {
