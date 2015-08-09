@@ -262,12 +262,15 @@ body.modal {
 }
 
 .snowball-title-button {
-  padding: 2px 6px;
-  border: 1px solid #ccc;
+  width: 26px;
+  padding: 2px 0;
+  border: 1px solid #ddd;
   border-right: none;
   line-height: 18px;
   vertical-align: top;
   color: #999;
+  font-weight: 300;
+  text-align: center;
   cursor: pointer;
 }
 
@@ -291,14 +294,6 @@ body.modal {
   background-color: #fff;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1);
   color: #555;
-}
-
-.snowball-delete {
-  font-size: 1.5em;
-}
-
-.snowball-title-button .fa {
-  font-weight: bold;
 }
 
 .snowball-title-button:hover {
