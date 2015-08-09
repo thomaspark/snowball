@@ -140,6 +140,14 @@
           editor.CodeMirror.refresh();
         });
       })
+      .on("click", ".snowball-top", function() {
+        var block = $(this).closest(".snowball-block");
+        block.parent().prepend(block);
+      })
+      .on("click", ".snowball-bottom", function() {
+        var block = $(this).closest(".snowball-block");
+        block.parent().append(block);
+      })
       .on("mouseover", ".snowball-zoom-toggle", function() {
         var block = $(this).closest(".snowball-block");
 
@@ -224,6 +232,10 @@
                           "<div class='snowball-title-button-group'>" +
                             "<div class='snowball-title-button snowball-copy'><i class='fa fa-files-o'></i></div>" +
                             "<div class='snowball-title-button snowball-delete'>&times;</div>" +
+                          "</div>" +
+                          "<div class='snowball-title-button-group'>" +
+                            "<div class='snowball-title-button snowball-top'><i class='fa fa-angle-double-up'></i></div>" +
+                            "<div class='snowball-title-button snowball-bottom'><i class='fa fa-angle-double-down'></i></div>" +
                           "</div>" +
                           "<div class='snowball-title-button-group'>" +
                             "<div class='snowball-title-button snowball-zoom-toggle'><i class='fa fa-code'></i></div>" +
