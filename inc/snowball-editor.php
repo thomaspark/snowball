@@ -92,6 +92,8 @@
     'id'          => $post->ID,
     'savedblocks' => get_block_json($post->ID),
     'author'      => get_the_author(),
+    'authorLogin' => get_the_author_meta('user_login'),
+    'userLogin'   => wp_get_current_user()->user_login,
     'blogname'    => get_bloginfo(),
     'blogurl'     => get_site_url(),
     'date'        => get_the_date(),

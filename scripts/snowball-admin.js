@@ -630,7 +630,8 @@
     blocks.set('url', snowball.url);
     blocks.set('postid', snowball.id);
     blocks.set('status', props.status);
-    blocks.set('author', snowball.author);
+    blocks.set('author', snowball.authorLogin);
+    blocks.set('user', snowball.userLogin);
     blocks.set('article', article);
     blocks.set('size', article.length);
     blocks.set('actions', actions);
