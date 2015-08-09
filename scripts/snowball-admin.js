@@ -153,7 +153,7 @@
       .sortable({
         "axis": "y",
         "containment": "#snowball-main",
-        "cancel": ".snowball-block.modal, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
+        "cancel": ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
         "cursor": "move",
         "tolerance": "pointer"
       });
