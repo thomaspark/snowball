@@ -407,8 +407,8 @@ div.wp-picker-holder {
 .snowball-block.modal {
   position: fixed;
   top: 3em;
-  left: 3em;
-  right: 3em;
+  left: 2.5em;
+  right: 2.5em;
   bottom: 3em;
   z-index: 1051;
   margin: 0;
