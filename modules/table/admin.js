@@ -21,20 +21,28 @@
         undo: true,
         readOnly: false,
         stretchH: "all",
+        afterInit: function(e) {
+          refreshOnChange(block, data);
+          block.trigger("render");
+        },
         afterChange: function (e) {
           refreshOnChange(block, data);
         },
         afterCreateRow: function (e) {
           refreshOnChange(block, data);
+          block.trigger("render");
         },
         afterCreateCol: function (e) {
           refreshOnChange(block, data);
+          block.trigger("render");
         },
         afterRemoveRow: function (e) {
           refreshOnChange(block, data);
+          block.trigger("render");
         },
         afterRemoveCol: function (e) {
           refreshOnChange(block, data);
+          block.trigger("render");
         }
       });
     });
@@ -44,8 +52,6 @@
 
       block.find("[data-target='JSON']").val(jsonString);
       block.find("[data-target='HTML']").val(createTable(data));
-
-      block.trigger("render");
     }
 
     function createTable(JSON) {

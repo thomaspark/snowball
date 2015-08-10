@@ -98,7 +98,7 @@
       .on("mouseup", ".snowball-block", function() {
         $("#snowball-main").height("auto");
       })
-      .on("input change paste", ".snowball-tinker input, .snowball-tinker textarea:not(.handsontableInput), .snowball-tinker select", debounce(function() {
+      .on("input change paste", ".snowball-tinker input, .snowball-tinker textarea, .snowball-tinker select", debounce(function() {
         var block = $(this).closest(".snowball-block");
         block.trigger("render");
         refreshEditors(block);
