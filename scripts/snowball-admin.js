@@ -125,7 +125,7 @@
         var block = $(this).closest(".snowball-block");
         var type = block.data("type");
 
-        block.find(".snowball-code, .snowball-copy, .snowball-delete").toggle();
+        block.find(".snowball-code, .snowball-copy, .snowball-delete, .snowball-top, .snowball-bottom").toggle();
 
         block.toggleClass("modal");
         $("body").toggleClass("modal");
