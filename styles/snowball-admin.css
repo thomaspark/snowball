@@ -437,6 +437,14 @@ body.modal #modal-bg {
   height: 50%;
 }
 
+#adminmenuwrap {
+  z-index: 1040;
+}
+
+#wpadminbar {
+  z-index: 1041;
+}
+
 @media (max-width: 1400px) {
   
   #wpcontent {
