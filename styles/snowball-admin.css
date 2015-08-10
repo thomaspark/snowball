@@ -410,7 +410,7 @@ div.wp-picker-holder {
   left: 3em;
   right: 3em;
   bottom: 3em;
-  z-index: 100001;
+  z-index: 1051;
   margin: 0;
 }
 
@@ -421,7 +421,7 @@ div.wp-picker-holder {
   right: 0;
   bottom: 0;
   opacity: 0;
-  z-index: 100000;
+  z-index: 1050;
   background-color: rgba(0, 0, 0, 0.8);
   transition: opacity 0.5s;
   pointer-events: none;
