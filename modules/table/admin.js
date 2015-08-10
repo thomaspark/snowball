@@ -30,18 +30,22 @@
       },
       afterCreateRow: function (e) {
         refreshOnChange(block, data);
+        block.find(".handsontableInput").trigger("change");
         block.trigger("render");
       },
       afterCreateCol: function (e) {
         refreshOnChange(block, data);
+        block.find(".handsontableInput").trigger("change");
         block.trigger("render");
       },
       afterRemoveRow: function (e) {
         refreshOnChange(block, data);
+        block.find(".handsontableInput").trigger("change");
         block.trigger("render");
       },
       afterRemoveCol: function (e) {
         refreshOnChange(block, data);
+        block.find(".handsontableInput").trigger("change");
         block.trigger("render");
       }
     });
