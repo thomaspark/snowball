@@ -357,6 +357,10 @@ div.wp-picker-holder {
   position: absolute;
 }
 
+.handsontable.ht_clone_top {
+  z-index: -10;
+}
+
 .snowball-code {
   position: relative;
   background-color: #f8f8f8;
