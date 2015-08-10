@@ -58,12 +58,13 @@ jQuery(document).ready(function($) {
   function retrieveRenderedPage() {
     var html = '';
     jQuery(".snowball-preview").each(function(index, element) {
-      var newHTML = jQuery(element).contents().find("body");
+      var newHTML = jQuery(element).contents().find("body").clone();
 
       // filter out svg code, which chokes the db
       newHTML.find("svg").remove();
 
       html = html + "\n" + newHTML.html();
+      newHTML.remove();
     });
 
     return html;
