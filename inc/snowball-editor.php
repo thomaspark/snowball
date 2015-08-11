@@ -44,14 +44,6 @@
         </div>
       </div>
     </span>
-    <div id="snowball-settings">
-      <div class="toggle"><i class="fa fa-cog"></i></div>
-      <ul>
-        <li>A</li>
-        <li>B</li>
-        <li>C</li>
-      </ul>
-    </div>
   </div>
 
 <?php

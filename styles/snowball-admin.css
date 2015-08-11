@@ -151,18 +151,6 @@ body.modal {
   color: #fff;
 }
 
-#snowball-settings {
-  float: right;
-}
-
-#snowball-settings i {
-  font-size: 18px;
-}
-
-#snowball-settings ul {
-  display: none;
-}
-
 #snowball-toolbar .menu-toggle {
   display: inline-block;
   padding: 0 4px;
