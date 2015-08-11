@@ -675,7 +675,8 @@
     feedback.set('blogurl', snowball.blogurl);
     feedback.set('url', snowball.url);
     feedback.set('postid', snowball.id);
-    feedback.set('author', snowball.author);
+    feedback.set('author', snowball.authorLogin);
+    feedback.set('user', snowball.userLogin);
     feedback.set('mood', mood);
     feedback.set('comment', comment);
     feedback.save();
