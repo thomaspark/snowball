@@ -151,31 +151,42 @@ body.modal {
   color: #fff;
 }
 
-#snowball-toolbar .feedback {
+#snowball-settings {
+  float: right;
+}
+
+#snowball-settings i {
+  font-size: 18px;
+}
+
+#snowball-settings ul {
+  display: none;
+}
+
+#snowball-toolbar .menu-toggle {
   display: inline-block;
   padding: 0 4px;
   border-radius: 4px;
-  vertical-align: top;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-#snowball-toolbar .feedback.happy {
+#snowball-toolbar .happy .menu-toggle {
   margin-left: 8px;
 }
 
-#snowball-toolbar .feedback.happy:hover {
+#snowball-toolbar .happy:hover .menu-toggle {
   background-color: #7CB342;
   color: #fff;
 }
 
-#snowball-toolbar .feedback.sad:hover {
+#snowball-toolbar .sad:hover .menu-toggle {
   background-color: #F44336;
   color: #fff;
 }
 
-#feedback-form {
+.menu-dropdown {
   display: none;
   position: absolute;
   top: 30px;
@@ -188,30 +199,30 @@ body.modal {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
-#feedback-form .header {
+.menu-dropdown .header {
   padding-left: 0 !important;
   color: #fff;
 }
 
-#feedback-form textarea {
+.menu-dropdown textarea {
   width: 100%;
   height: 200px;
 }
 
-#feedback-form .button {
+.menu-dropdown .button {
   float: right;
   padding: 0.6em 0.3em;
   margin: 0.5em 0;
   font-size: 13px;
 }
 
-#feedback-form .close {
+.menu-dropdown .close {
   float: right;
   font-size: 18px;
   cursor: pointer;
 }
 
-#feedback-form .close:hover {
+.menu-dropdown .close:hover {
   color: #fff;
 }
 

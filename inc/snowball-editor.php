@@ -22,13 +22,35 @@
     <span class="tag" data-tag="social">Social</span>
     <span class="tag" data-tag="data">Data</span>
     <span class="tag" data-tag="meta">Meta</span>
-    <span class="feedback happy"><i class="fa fa-smile-o"></i></span>
-    <span class="feedback sad"><i class="fa fa-frown-o"></i></span>
-    <div id="feedback-form">
-      <span class="close">&times;</span>
-      <p class="header"></p>
-      <textarea type="text"></textarea>
-      <div><a class="button">Submit</a></div>
+    <span class="menu happy">
+      <span class="menu-toggle"><i class="fa fa-smile-o"></i></span>
+      <div class="menu-dropdown">
+        <span class="close">&times;</span>
+        <div class="feedback" data-mood="positive">
+          <p class="header">How did Snowball make you happy?</p>
+          <textarea autofocus></textarea>
+          <div><a class="button">Submit</a></div>
+        </div>
+      </div>
+    </span>
+    <span class="menu sad">
+      <span class="menu-toggle"><i class="fa fa-frown-o"></i></span>
+      <div class="menu-dropdown">
+        <span class="close">&times;</span>
+        <div class="feedback" data-mood="negative">
+          <p class="header">How did Snowball make you sad, frustrated, or annoyed?</p>
+          <textarea autofocus></textarea>
+          <div><a class="button">Submit</a></div>
+        </div>
+      </div>
+    </span>
+    <div id="snowball-settings">
+      <div class="toggle"><i class="fa fa-cog"></i></div>
+      <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+      </ul>
     </div>
   </div>
 

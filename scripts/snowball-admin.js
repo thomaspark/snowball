@@ -36,56 +36,56 @@
     }, 250));
 
     $("#snowball-toolbar")
-      .on("click", ".block-button", function() {
-        var type = $(this).data("type");
-        addBlock(type);
-        changesMade = true;
-
-        actions.push({
-          action: "add",
-          type: type
-        });
-
-      })
-      .on("click", ".tag", function() {
-        var tag = $(this).attr("data-tag");
-        $(".tag.active").removeClass("active");
-        $(this).addClass("active");
-
-        if (tag === "all") {
-          $("#snowball-toolbar .button").show();
-        } else {
-          $("#snowball-toolbar .button").hide().filter("." + tag).show();
-        }
-      })
-      .on("click", ".feedback", function() {
-        var form = $("#feedback-form");
-
-        if ($(this).hasClass("happy")) {
-          form.data("mood", "positive");
-          form.find(".header").text("How did Snowball make you happy?");
-        } else {
-          form.data("mood", "negative");
-          form.find(".header").text("How did Snowball make you sad, frustrated, or annoyed?");
-        }
-
-        form.toggle();
-      })
-      .on("click", "#feedback-form .close", function() {
-        $("#feedback-form").hide();
-      })
-      .on("click", "#feedback-form .button", function() {
-        var form = $("#feedback-form");
-        var mood = form.data("mood");
-        var comment = form.find("textarea").val();
-
-        fb(mood, comment);
-
-        form.hide();
-        form.find("textarea").val("");
-      })
       .css("width", $("#snowball-toolbar").parent().width())
       .fixedsticky();
+
+    $("#snowball-toolbar .block-button").on("click", function() {
+      var type = $(this).data("type");
+      addBlock(type);
+      changesMade = true;
+
+      actions.push({
+        action: "add",
+        type: type
+      });
+    });
+
+    $("#snowball-toolbar .tag").on("click", function() {
+      var tag = $(this).attr("data-tag");
+      $(".tag.active").removeClass("active");
+      $(this).addClass("active");
+
+      if (tag === "all") {
+        $("#snowball-toolbar .button").show();
+      } else {
+        $("#snowball-toolbar .button").hide().filter("." + tag).show();
+      }
+    });
+
+    $("#snowball-toolbar .menu-toggle").on("click", function() {
+      var dropdown = $(this).next(".menu-dropdown");
+      $("#snowball-toolbar .menu-dropdown").not(dropdown).hide();
+      dropdown.toggle();
+    });
+
+    $("#snowball-toolbar .menu .close").on("click", function() {
+      $(this).closest(".menu-dropdown").hide();
+    });
+
+    $("#snowball-toolbar .feedback .button").on("click", function() {
+      var form = $(this).closest(".feedback");
+      var mood = form.attr("data-mood");
+      var comment = form.find("textarea").val();
+
+      fb(mood, comment);
+
+      form.closest(".menu-dropdown").hide();
+      form.find("textarea").val("");
+    });
+
+    $("#snowball-settings .toggle").on("click", function() {
+      $("#snowball-settings ul").toggle();
+    });
 
     $("#snowball-main")
       .on("render", ".snowball-block", function() {
