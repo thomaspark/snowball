@@ -15,6 +15,16 @@
 ?>
 
 <header id="snowball-toolbar" class="fixedsticky">
+  <div class="settings">
+    <a class="button preview" data-click="#post-preview">Preview</a>
+    <?php if (get_post_status() == 'draft'): ?>
+      <a class="button draft disabled" data-click="#save-post">Save Draft</a>
+    <?php elseif (get_post_status() == 'pending'): ?>
+      <a class="button draft disabled" data-click="#save-post">Save Pending</a>
+    <?php else: ?>
+      <a class="button save disabled" data-click="#publish">Update</a>
+    <?php endif; ?>
+  </div>
   <div class="tags">
     <span class="tag active" data-tag="all">All</span>
     <span class="tag" data-tag="basic">Basic</span>

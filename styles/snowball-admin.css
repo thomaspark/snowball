@@ -151,6 +151,26 @@ body.modal {
   color: #fff;
 }
 
+#snowball-toolbar .settings {
+  float: right;
+}
+
+#snowball-toolbar .settings .button {
+  width: 75px;
+  padding: 0.3em 0 0.2em;
+  margin: 0 0 0 4px;
+  float: none;
+  box-shadow: none;
+}
+
+#snowball-toolbar .settings .button:hover {
+  background-color: #e0e0e0;
+}
+
+#snowball-toolbar .settings .button:active {
+  background-color: #d0d0d0;
+}
+
 #snowball-toolbar .menu-toggle {
   display: inline-block;
   padding: 0 4px;

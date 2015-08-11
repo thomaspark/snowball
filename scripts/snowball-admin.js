@@ -42,7 +42,7 @@
     $("#snowball-toolbar .block-button").on("click", function() {
       var type = $(this).data("type");
       addBlock(type);
-      changesMade = true;
+      unsavedChanges();
 
       actions.push({
         action: "add",
@@ -60,6 +60,15 @@
       } else {
         $("#snowball-toolbar .button").hide().filter("." + tag).show();
       }
+    });
+
+    $("#snowball-toolbar .settings .button").on("click", function() {
+      if ($(this).hasClass("disabled")) {
+        return;
+      }
+
+      var click = $(this).attr("data-click");
+      $(click).click();
     });
 
     $("#snowball-toolbar .menu-toggle").on("click", function() {
@@ -102,7 +111,7 @@
         var block = $(this).closest(".snowball-block");
         block.trigger("render");
         refreshEditors(block);
-        changesMade = true;
+        unsavedChanges();
       }, 250))
       .on("click", ".snowball-delete", function() {
         var block = $(this).closest(".snowball-block");
@@ -115,6 +124,7 @@
         var type = block.data("type");
 
         copyBlock(block);
+        unsavedChanges();
 
         actions.push({
           action: "copy",
@@ -145,7 +155,7 @@
 
         if (block.index() > 0) {
           block.parent().prepend(block);
-          changesMade = true;
+          unsavedChanges();
         }
       })
       .on("click", ".snowball-bottom", function() {
@@ -153,7 +163,7 @@
 
         if (block.index() < ($(".snowball-block").length) - 1) {
           block.parent().append(block);
-          changesMade = true;
+          unsavedChanges();
         }
       })
       .on("mouseover", ".snowball-zoom-toggle", function() {
@@ -164,13 +174,13 @@
         }
       })
       .on("change", ".handsontable", function() {
-        changesMade = true;
+        unsavedChanges();
       })
       .sortable({
         axis: "y",
         cancel: ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
         change: function() {
-          changesMade = true;
+          unsavedChanges();
         },
         containment: "#snowball-main",
         cursor: "move",
@@ -520,7 +530,7 @@
       editor.on("change", debounce(function() {
         var block = $(elem).closest(".snowball-block");
         renderPreview(block);
-        changesMade = true;
+        unsavedChanges();
       }, 250));
 
     });
@@ -627,13 +637,18 @@
         .trigger("close")
         .remove();
 
-      changesMade = true;
+      unsavedChanges();
 
       actions.push({
         action: "delete",
         type: type
       });
     }
+  }
+
+  function unsavedChanges() {
+    changesMade = true;
+    $("#snowball-toolbar .settings .draft, #snowball-toolbar .settings .save").removeClass("disabled");
   }
 
   function debounce(fn, delay) {
