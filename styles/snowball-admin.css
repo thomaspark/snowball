@@ -448,6 +448,18 @@ body.modal #modal-bg {
   z-index: 1041;
 }
 
+@media (max-width: 600px) {
+  #snowball-toolbar {
+    top: 0;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 782px) {
+  #snowball-toolbar {
+    top: 46px;
+  }
+}
+
 @media (max-width: 1400px) {
   
   #wpcontent {

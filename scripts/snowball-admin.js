@@ -202,6 +202,7 @@
     $(window)
       .resize(debounce(function() {
         zoomPreview();
+        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
       }, 250))
       .resize(function() {
         var fixedsticky = $(".fixedsticky");
@@ -217,6 +218,11 @@
       var fixedsticky = $(".fixedsticky");
       fixedsticky.css("width", fixedsticky.parent().width());
       zoomPreview();
+    });
+
+    $(".hndle").on("click", function() {
+      console.log("fired");
+      $(".fixedsticky").fixedsticky("destroy").fixedsticky();
     });
   }
 
