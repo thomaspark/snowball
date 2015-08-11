@@ -249,16 +249,16 @@ function snowball_get_article($post_id, $is_preview) {
   return "<section></section>";
 }
 
-function trash_snowball_data( $post_id ) {
+function delete_snowball_data($post_id) {
   global $wpdb;
 
   $table_articles = $wpdb->prefix . 'snowball_articles';
   $table_blocks = $wpdb->prefix . 'snowball_blocks';
 
-  $wpdb->delete( $table_articles, array( 'post_id' => $post_id ), array( '%d' ));
-  $wpdb->delete( $table_blocks, array( 'post_id' => $post_id ), array( '%d' ));
+  $wpdb->delete( $table_articles, array('post_id' => $post_id), array('%d'));
+  $wpdb->delete( $table_blocks, array('post_id' => $post_id), array('%d'));
 }
-add_action( 'wp_trash_post', 'trash_snowball_data' );
+add_action('delete_post', 'delete_snowball_data');
 
 /*
  * Handle AJAX for mail
