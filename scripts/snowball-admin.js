@@ -142,11 +142,19 @@
       })
       .on("click", ".snowball-top", function() {
         var block = $(this).closest(".snowball-block");
-        block.parent().prepend(block);
+
+        if (block.index() > 0) {
+          block.parent().prepend(block);
+          changesMade = true;
+        }
       })
       .on("click", ".snowball-bottom", function() {
         var block = $(this).closest(".snowball-block");
-        block.parent().append(block);
+
+        if (block.index() < ($(".snowball-block").length) - 1) {
+          block.parent().append(block);
+          changesMade = true;
+        }
       })
       .on("mouseover", ".snowball-zoom-toggle", function() {
         var block = $(this).closest(".snowball-block");
@@ -159,11 +167,14 @@
         changesMade = true;
       })
       .sortable({
-        "axis": "y",
-        "containment": "#snowball-main",
-        "cancel": ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
-        "cursor": "move",
-        "tolerance": "pointer"
+        axis: "y",
+        cancel: ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
+        change: function() {
+          changesMade = true;
+        },
+        containment: "#snowball-main",
+        cursor: "move",
+        tolerance: "pointer"
       });
 
     $("body")
