@@ -78,7 +78,7 @@
       }
     });
 
-    block.find(".CodeMirror").each(function(index) {
+    block.find(".snowball-tinker .CodeMirror").each(function(index) {
       if (index === selection) {
         $(this).show();
       } else {
@@ -168,7 +168,7 @@
   }
 
   function activateSelectedEditor(block, selection) {
-    block.find(".CodeMirror").each(function(index) {
+    block.find(".snowball-tinker .CodeMirror").each(function(index) {
       if (index === selection) {
         $(this).show();
       } else {
