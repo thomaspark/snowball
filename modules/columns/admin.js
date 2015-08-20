@@ -17,6 +17,10 @@
     if (activeEditors == 4) {
       block.find(".add-button").hide();
     }
+
+    if(activeEditors == 1) {
+      block.find(".show .delete-column").hide();
+    }
   });
 
   function initializeEditorAt(textarea) {
@@ -51,6 +55,10 @@
     var block= $(this).closest(".snowball-block-columns");
 
     var activeEditors = block.find(".show").length;
+    if (activeEditors == 1) {
+        block.find(".toggle-button").eq(0).find("span").fadeIn('500');
+    }
+
     if (activeEditors == 3) {
       block.find(".add-button").fadeOut(500);
     }
@@ -102,6 +110,10 @@
       var codeMirrorInstance;
       var checkbox;
 
+      if (activeEditors == 2) {
+        block.find(".toggle-button").eq(0).find("span").fadeOut('fast');
+      }
+
       if (selectedIndex == (activeEditors - 1)) {
         textarea = block.find(".column-textarea").eq(selectedIndex);
         codeMirrorInstance = textarea.data("codeMirrorInstance");
@@ -114,12 +126,9 @@
 
         block.find(".show").eq(selectedIndex).removeClass("show");
 
-        activateSelectedButton(block, (selectedIndex - 1));
-        activateSelectedEditor(block, (selectedIndex - 1));
-
         block.find(".CodeMirror").eq((selectedIndex - 1)).show();
       } else {
-        while (selectedIndex < (activeEditors - 1)){
+        while (selectedIndex < (activeEditors - 1)) {
           textarea = block.find(".column-textarea").eq(selectedIndex);
           codeMirrorInstance = textarea.data("codeMirrorInstance");
 
@@ -152,6 +161,7 @@
 
       block.trigger("render");
       activateSelectedButton(block, (selectedIndex - 1));
+      activateSelectedEditor(block, (selectedIndex - 1));
     }
 
     $(this).closest(".snowball-block-columns").find(".add-button").fadeIn(500);
