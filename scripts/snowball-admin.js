@@ -4,6 +4,8 @@
 
   jQuery(document).ready(function() {
     if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
+      $("#snowball_meta").removeClass("closed");
+
       snowball.savedblocks = JSON.parse(snowball.savedblocks);
       populateSavedBlocks();
     } else {
