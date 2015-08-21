@@ -61,7 +61,7 @@ $option = $article["theme_option"];
   </article>
 
   <?php
-  if (comments_open() && get_comments_number()) {
+  if (comments_open()) {
     comments_template();
   }
 
