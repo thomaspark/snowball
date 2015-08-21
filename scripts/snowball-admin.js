@@ -58,17 +58,13 @@
       $(this).addClass("active");
 
       if (tag === "all") {
-        $("#snowball-toolbar .button").show();
+        $("#snowball-toolbar .buttons .button").removeClass("hidden");
       } else {
-        $("#snowball-toolbar .button").hide().filter("." + tag).show();
+        $("#snowball-toolbar .buttons .button").addClass("hidden").filter("." + tag).removeClass("hidden");
       }
     });
 
     $("#snowball-toolbar .settings .button").on("click", function() {
-      if ($(this).hasClass("disabled")) {
-        return;
-      }
-
       var click = $(this).attr("data-click");
       $(click).click();
     });

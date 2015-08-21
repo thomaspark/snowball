@@ -16,32 +16,6 @@
 
 <header id="snowball-toolbar" class="fixedsticky">
   <div class="settings">
-    <span class="menu cog">
-      <span class="menu-toggle"><i class="fa fa-cog"></i></span>
-      <div class="menu-dropdown settings-dropdown">
-        <span class="close">&times;</span>
-        <div class="feedback" data-mood="negative">
-          <p class="header">Article Settings</p>
-          <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> />Use Snowball Theme</label>
-        </div>
-      </div>
-    </span>
-    <a class="button preview" data-click="#post-preview">Preview</a>
-    <?php if (get_post_status() == 'draft'): ?>
-      <a class="button draft disabled" data-click="#save-post">Save Draft</a>
-    <?php elseif (get_post_status() == 'pending'): ?>
-      <a class="button draft disabled" data-click="#save-post">Save Pending</a>
-    <?php else: ?>
-      <a class="button save disabled" data-click="#publish">Update</a>
-    <?php endif; ?>
-  </div>
-  <div class="tags">
-    <span class="tag active" data-tag="all">All</span>
-    <span class="tag" data-tag="basic">Basic</span>
-    <span class="tag" data-tag="media">Media</span>
-    <span class="tag" data-tag="social">Social</span>
-    <span class="tag" data-tag="data">Data</span>
-    <span class="tag" data-tag="meta">Meta</span>
     <span class="menu happy">
       <span class="menu-toggle"><i class="fa fa-smile-o"></i></span>
       <div class="menu-dropdown">
@@ -64,6 +38,32 @@
         </div>
       </div>
     </span>
+    <span class="menu cog">
+      <span class="menu-toggle button"><i class="fa fa-cog"></i></span>
+      <div class="menu-dropdown settings-dropdown">
+        <span class="close">&times;</span>
+        <div class="feedback" data-mood="negative">
+          <p class="header">Article Settings</p>
+          <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> />Use Snowball Theme</label>
+        </div>
+      </div>
+    </span>
+    <a class="button preview" data-click="#post-preview">Preview</a>
+    <?php if (get_post_status() == 'draft'): ?>
+      <a class="button draft" data-click="#save-post">Save Draft</a>
+    <?php elseif (get_post_status() == 'pending'): ?>
+      <a class="button draft" data-click="#save-post">Save Pending</a>
+    <?php else: ?>
+      <a class="button save" data-click="#publish">Update</a>
+    <?php endif; ?>
+  </div>
+  <div class="tags">
+    <span class="tag active" data-tag="basic">Basic</span>
+    <span class="tag" data-tag="media">Media</span>
+    <span class="tag" data-tag="social">Social</span>
+    <span class="tag" data-tag="data">Data</span>
+    <span class="tag" data-tag="meta">Meta</span>
+    <span class="tag" data-tag="all">All</span>
   </div>
 
 <?php
@@ -98,9 +98,11 @@
 <?php
 
   $len = count($order);
-  for($i = 0; $i < $len; $i++) {
+  for ($i = 0; $i < $len; $i++) {
     $type = strtolower($order[$i]);
-    echo '<a id="add-' . $type . '" class="button button-secondary block-button ' . $tags[$type] . '" data-type="' . $type .'">';
+    $hidden = (strpos($tags[$type], "basic") !== false) ? "" : " hidden";
+
+    echo '<a id="add-' . $type . '" class="button button-secondary block-button ' . $tags[$type] . $hidden . '" data-type="' . $type .'">';
     echo '<div><i class="' . $iconClasses[$type] . '"></i></div>';
     echo '<div>' . $names[$type] . '</div>';
     echo '</a>';
