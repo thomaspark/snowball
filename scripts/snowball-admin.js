@@ -649,7 +649,7 @@
 
   function unsavedChanges() {
     changesMade = true;
-    $("#snowball-toolbar .settings .draft, #snowball-toolbar .settings .save").removeClass("disabled");
+    $("#snowball-toolbar .settings .draft, #snowball-toolbar .settings .save").addClass("unsaved");
   }
 
   function debounce(fn, delay) {

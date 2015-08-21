@@ -281,14 +281,18 @@ body.modal {
 }
 
 #snowball-update {
-  float:right;
+  float: right;
 }
 
-#snowball-update a {
+#snowball-update a,
+#snowball-toolbar .button.unsaved,
+#snowball-toolbar .button.unsaved:hover,
+#snowball-toolbar .button.unsaved:focus,
+#snowball-toolbar .button.unsaved:active {
   background-color: #00a0d2;
   border-color: #0073aa;
-  color:white;
-  box-shadow: inset 0 1px 0 rgba(120,200,230,.5),0 1px 0 rgba(0,0,0,.15);
+  color: white;
+  box-shadow: inset 0 1px 0 rgba(120,200,230,.5), 0 1px 0 rgba(0,0,0,.15);
 }
 
 #snowball-preview {
