@@ -97,7 +97,6 @@
     $("#snowball-settings .toggle").on("click", function() {
       $("#snowball-settings ul").toggle();
     });
-
     $("#snowball-main")
       .on("render", ".snowball-block", function() {
         var block = $(this);
