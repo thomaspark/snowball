@@ -149,10 +149,15 @@ input[type="submit"]:active {
 }
 
 @media (max-width: 800px) {
-  .snowball-block {
+  .snowball-block,
+  #comments {
     width: 100%;
     padding: 1em;
     margin: 0 auto;
+  }
+
+  #comments textarea {
+    max-width: 100%;
   }
 
   .full-width {
