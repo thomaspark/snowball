@@ -15,13 +15,27 @@ function snowball_create_post_type() {
       'menu_icon' => 'dashicons-marker',
       'public' => true,
       'has_archive' => true,
-      'supports' => array('title', 'author', 'comments')
+      'supports' => array('title', 'author', 'comments'),
+      'rewrite' => array( 'slug' => 'snowball' ),
    )
  );
 }
 add_action('init', 'snowball_create_post_type');
 
+/*
+  Flush rewrite for permalinks
+*/
+function snowball_rewrite_flush() {
+    snowball_create_post_type();
 
+    flush_rewrite_rules();
+}
+register_activation_hook($path . 'snowball.php', 'snowball_rewrite_flush');
+
+function snowball_rewrite_flush_deactivation() {
+    flush_rewrite_rules();
+}
+register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deactivation');
 
 /*
  * Add category and tag support
