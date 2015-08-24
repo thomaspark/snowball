@@ -56,7 +56,8 @@ label {
   font-size: 14px;
 }
 
-.snowball-block {
+.snowball-block,
+#comments {
   width: 600px;
   margin: 0 auto 4em;
 }
@@ -99,11 +100,43 @@ label {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.btn {
+.btn,
+input[type="button"],
+input[type="submit"] {
+  padding: 1em 2em;
+  border: none;
+  border-radius: 999em;
+  background-color: #2887CA;
+  color: #fff;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.btn:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  background-color: #1968B6;
+}
+
+.btn:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+  background-color: #14518D;
+}
+
+#comments {
+  font-size: 14px;
+  font-family: 'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;
+}
+
+.comment-form label {
+  display: block;
 }
 
 @media (max-width: 1200px) {
