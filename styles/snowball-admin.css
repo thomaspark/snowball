@@ -6,6 +6,14 @@ body.modal {
   overflow: hidden;
 }
 
+label[for="slugdiv-hide"] {
+  display: none;
+}
+
+#slugdiv {
+  display: none;
+}
+
 #wpfooter {
   display: none;
 }
