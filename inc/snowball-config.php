@@ -69,9 +69,9 @@ add_action('admin_init', 'snowball_remove_editor');
  */
 
 function snowball_remove_metaboxes() {
-  remove_meta_box('slugdiv', 'snowball', 'normal'); // Slug
-  remove_meta_box('submitdiv', 'snowball', 'side'); // Publish box
   remove_meta_box('authordiv', 'snowball', 'normal');
+  remove_meta_box('submitdiv', 'snowball', 'side'); // Publish box
+  //remove_meta_box('slugdiv', 'snowball', 'normal'); // Slug
   //remove_meta_box('commentsdiv', 'snowball', 'normal');
   remove_meta_box('commentstatusdiv', 'snowball', 'normal');
 }
