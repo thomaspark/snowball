@@ -198,7 +198,6 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
 
   $data = array(
       'time' => current_time('mysql'), 
-      $article_column => $article,
      );
 
   if ($is_preview == "true") {
@@ -206,6 +205,8 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
   } else {
     $data[$theme_column] = $theme_option;
   }
+
+  $data[$article_column] = $article;
 
   $was_updated = $wpdb->update(
     $table_name, 
