@@ -22,8 +22,8 @@ function snowball_add_scripts() {
   $theme_option = snowball_get_theme_option($post->ID);
   if ($theme_option == 0) {
     echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
-    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>';
-    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>';
+    echo '<script src="' . plugins_url('snowball/lib/d3/d3.min.js') . '"></script>';
+    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/topojson.min.js') .'"></script>';
     echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
     echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
     echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
