@@ -135,6 +135,10 @@ input[type="submit"]:active {
   font-family: 'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;
 }
 
+#comment {
+  width: 100%;
+}
+
 .comment-form label {
   display: block;
 }
@@ -154,10 +158,6 @@ input[type="submit"]:active {
     width: 100%;
     padding: 1em;
     margin: 0 auto;
-  }
-
-  #comments textarea {
-    max-width: 100%;
   }
 
   .full-width {
