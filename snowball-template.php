@@ -35,21 +35,18 @@ $option = $article["theme_option"];
     </title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+    <!--[if lt IE 9]>
+    <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
+    <![endif]-->
+    <?php do_action("snowball_enqueue_stylesheets"); ?>
+    <?php do_action("snowball_enqueue_scripts"); ?>
+  </head>
+  <body <?php body_class(); ?>>
 <?php endif; ?>
 
   <script>
   var snowball = <?php echo json_encode($snowball, JSON_PRETTY_PRINT); ?>;
   </script>
-  <?php do_action("snowball_enqueue_stylesheets"); ?>
-  <?php do_action("snowball_enqueue_scripts"); ?>
-  <!--[if lt IE 9]>
-  <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
-  <![endif]-->
-
-<?php if ($option == 0) : ?>
-    </head>
-    <body <?php body_class(); ?>>
-<?php endif; ?>
 
   <article>
 
@@ -61,14 +58,15 @@ $option = $article["theme_option"];
   </article>
 
   <?php
-  if (comments_open()) {
-    comments_template();
-  }
+    if (comments_open()) {
+      comments_template();
+    }
 
-  if ($option == 1) {
-    get_footer();
-  }
+    if ($option == 1) {
+      get_footer();
+    } else {
+      do_action("snowball_enqueue_scripts_deferred");
+    }
   ?>
-  <?php do_action("snowball_enqueue_scripts_deferred"); ?>
 </body>
 </html>

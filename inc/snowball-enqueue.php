@@ -1,35 +1,43 @@
 <?php
 
 function snowball_add_stylesheets() {
-  global $post;
-  $theme_option = snowball_get_theme_option($post->ID);
-  if ($theme_option == 0) {
-    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css') . '">';
-    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
-    echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
-    echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball.min.css') . '">';
-  } else {
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css') . '">';
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball.min.css') . '">';
+}
+add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
+
+function add_stylesheets() {
+  if (get_post_type(get_the_id()) == 'snowball') {
     wp_enqueue_style('geomap-css', plugins_url('snowball/lib/d3-geomap/css/d3.geomap.css'));
     wp_enqueue_style('fluidbox-css', plugins_url('snowball/lib/fluidbox/css/fluidbox.css'));
     wp_enqueue_style('fontawesome-css', plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css'));
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/min/snowball.min.css'));
   }
 }
-add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
+add_action('wp_enqueue_scripts', 'add_stylesheets');
 
 function snowball_add_scripts() {
-  global $post;
-  $theme_option = snowball_get_theme_option($post->ID);
-  if ($theme_option == 0) {
-    echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/lib/d3/d3.min.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/topojson.min.js') .'"></script>';
-    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
-    echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
-  } else {
+  echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
+}
+add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
+
+function snowball_add_scripts_deferred() {
+  echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3/d3.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/topojson.min.js') .'"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
+  echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
+}
+add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred');
+
+function add_scripts() {
+  if (get_post_type(get_the_id()) == 'snowball') {
+    wp_enqueue_script('scoper', plugins_url('snowball/lib/scoper/scoper.js'), '', '', false);
     wp_enqueue_script('d3-js', plugins_url('snowball/lib/d3/d3.min.js'), array('jquery'), '', true);
     wp_enqueue_script('topojson-js', plugins_url('snowball/lib/d3-geomap/js/topojson.min.js'), array('jquery'), '', true);
     wp_enqueue_script('d3-geomap-dependencies-js', plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js'), array('jquery'), '', true);
@@ -39,12 +47,7 @@ function snowball_add_scripts() {
     wp_enqueue_script('templates-js', plugins_url('snowball/scripts/min/templates.min.js'), array('jquery'), '', true);
   }
 }
-add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
-
-function snowball_add_scripts_deferred() {
-  echo '<script src="' . plugins_url('snowball/lib/scoper/scoper.js') . '"></script>';
-}
-add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred');
+add_action('wp_enqueue_scripts', 'add_scripts');
 
 function snowball_admin_add_scripts_and_stylesheets($hook) {
   if ((get_post_type(get_the_id()) == 'snowball') && (($hook == 'post.php') || ($hook == 'post-new.php'))) {
