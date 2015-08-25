@@ -32,6 +32,7 @@ function snowball_add_scripts_deferred() {
   echo '<script src="' . plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/min/snowball.min.js') . '"></script>';
   echo '<script src="' . plugins_url('snowball/scripts/min/templates.min.js') . '"></script>';
+  wp_print_scripts();
 }
 add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred');
 

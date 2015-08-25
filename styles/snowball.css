@@ -57,7 +57,8 @@ label {
 }
 
 .snowball-block,
-#comments {
+#comments,
+#disqus_thread {
   width: 600px;
   margin: 0 auto 4em;
 }
