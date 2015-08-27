@@ -53,7 +53,6 @@ add_action('wp_enqueue_scripts', 'add_scripts');
 function snowball_admin_add_scripts_and_stylesheets($hook) {
   if ((get_post_type(get_the_id()) == 'snowball') && (($hook == 'post.php') || ($hook == 'post-new.php'))) {
     wp_enqueue_style('wp-color-picker');
-    wp_enqueue_style('thickbox');
     wp_enqueue_style('fontawesome-css', plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css'));
     wp_enqueue_style('codemirror-css', plugins_url('snowball/lib/codemirror/lib/codemirror.min.css'));
     wp_enqueue_style('codemirror-theme-monokai', plugins_url('snowball/lib/codemirror/theme/monokai.min.css'));
@@ -61,8 +60,7 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('handsontable-css', plugins_url('snowball/lib/handsontable/handsontable.full.min.css'));
     wp_enqueue_style('snowball-css', plugins_url('snowball/styles/min/snowball-admin.min.css'));
 
-    wp_enqueue_script('media-upload');
-    wp_enqueue_script('thickbox');
+    wp_enqueue_media();
     wp_enqueue_script('codemirror-js', plugins_url('snowball/lib/codemirror/lib/codemirror.min.js'));
     wp_enqueue_script('codemirror-mode-css', plugins_url('snowball/lib/codemirror/mode/css.min.js'));
     wp_enqueue_script('codemirror-mode-xml', plugins_url('snowball/lib/codemirror/mode/xml.min.js'));
