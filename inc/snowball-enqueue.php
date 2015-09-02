@@ -39,13 +39,13 @@ add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred')
 function add_scripts() {
   if (get_post_type(get_the_id()) == 'snowball') {
     wp_enqueue_script('scoper', plugins_url('snowball/lib/scoper/scoper.js'), '', '', false);
-    wp_enqueue_script('d3-js', plugins_url('snowball/lib/d3/d3.min.js'), array('jquery'), '', true);
-    wp_enqueue_script('topojson-js', plugins_url('snowball/lib/d3-geomap/js/topojson.min.js'), array('jquery'), '', true);
-    wp_enqueue_script('d3-geomap-dependencies-js', plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js'), array('jquery'), '', true);
-    wp_enqueue_script('d3-geomap-js', plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('d3-js', plugins_url('snowball/lib/d3/d3.min.js'), '', '', true);
+    wp_enqueue_script('topojson-js', plugins_url('snowball/lib/d3-geomap/js/topojson.min.js'), array('d3-js'), '', true);
+    wp_enqueue_script('d3-geomap-dependencies-js', plugins_url('snowball/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js'), array('d3-js'), '', true);
+    wp_enqueue_script('d3-geomap-js', plugins_url('snowball/lib/d3-geomap/js/d3.geomap.min.js'), array('d3-geomap-dependencies-js'), '', true);
     wp_enqueue_script('fluidbox-js', plugins_url('snowball/lib/fluidbox/jquery.fluidbox.min.js'), array('jquery'), '', true);
-    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/min/snowball.min.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
-    wp_enqueue_script('templates-js', plugins_url('snowball/scripts/min/templates.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/min/snowball.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('snowball-templates-js', plugins_url('snowball/scripts/min/templates.min.js'), array('snowball-js'), '', true);
   }
 }
 add_action('wp_enqueue_scripts', 'add_scripts');
@@ -70,7 +70,7 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('handsontable-js', plugins_url('snowball/lib/handsontable/handsontable.full.min.js'), array(), '', true);
     wp_enqueue_script('parse', 'http://www.parsecdn.com/js/parse-1.1.14.min.js', array(), '', true);
     wp_enqueue_script('snowball-js', plugins_url('snowball/scripts/min/snowball-admin.min.js'), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
-    wp_enqueue_script('admins-js', plugins_url('snowball/scripts/min/admins.min.js'), array('jquery'), '', true);
+    wp_enqueue_script('snowball-admins-js', plugins_url('snowball/scripts/min/admins.min.js'), array('snowball-js'), '', true);
   }
 }
 add_action('admin_enqueue_scripts', 'snowball_admin_add_scripts_and_stylesheets');
