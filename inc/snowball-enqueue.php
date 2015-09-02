@@ -48,7 +48,7 @@ function add_scripts() {
     wp_enqueue_script('snowball-templates-js', plugins_url('snowball/scripts/min/templates.min.js'), array('snowball-js'), '', true);
   }
 }
-add_action('wp_enqueue_scripts', 'add_scripts');
+add_action('wp_enqueue_scripts', 'add_scripts', 8);
 
 function snowball_admin_add_scripts_and_stylesheets($hook) {
   if ((get_post_type(get_the_id()) == 'snowball') && (($hook == 'post.php') || ($hook == 'post-new.php'))) {
