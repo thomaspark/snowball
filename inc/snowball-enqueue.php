@@ -5,6 +5,7 @@ function snowball_add_stylesheets() {
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/fluidbox/css/fluidbox.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/lib/font-awesome/css/font-awesome.min.css') . '">';
   echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball.min.css') . '">';
+  echo '<link rel="stylesheet" href="' . plugins_url('snowball/styles/min/snowball-theme.min.css') . '">';
 }
 add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
 

@@ -408,6 +408,7 @@
                                 pluginsUrl + "/lib/d3-geomap/css/d3.geomap.css",
                                 pluginsUrl + "/lib/font-awesome/css/font-awesome.min.css",
                                 pluginsUrl + "/styles/min/snowball.min.css",
+                                pluginsUrl + "/styles/min/snowball-theme.min.css",
                                 pluginsUrl + "/styles/min/snowball-preview.min.css"
                               ];
 
