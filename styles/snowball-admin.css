@@ -492,7 +492,6 @@ div.wp-picker-holder {
   left: 2.5em;
   right: 2.5em;
   bottom: 3em;
-  z-index: 1051;
   margin: 0;
 }
 
@@ -503,7 +502,6 @@ div.wp-picker-holder {
   right: 0;
   bottom: 0;
   opacity: 0;
-  z-index: 1050;
   background-color: rgba(0, 0, 0, 0.8);
   transition: opacity 0.5s;
   pointer-events: none;
@@ -519,14 +517,6 @@ body.modal #modal-bg {
   height: 50%;
 }
 
-#adminmenuwrap {
-  z-index: 1040;
-}
-
-#wpadminbar {
-  z-index: 1041;
-}
-
 @media (max-width: 600px) {
   #snowball-toolbar {
     top: 0;
@@ -536,42 +526,5 @@ body.modal #modal-bg {
 @media (min-width: 601px) and (max-width: 782px) {
   #snowball-toolbar {
     top: 46px;
-  }
-}
-
-@media (max-width: 1400px) {
-  
-  #wpcontent {
-    margin-left: 0 !important;
-  }
-
-  #adminmenumain {
-    float: left;
-    width: 0;
-  }
-
-  #adminmenuwrap {
-    top: 32px;
-    bottom: 0;
-    left: -160px;
-    transition: 0.5s left;
-  }
-
-  body.folded #adminmenuwrap {
-    left: -36px;
-  }
-
-  body.show-menu #adminmenuwrap {
-    left: 0;
-  }
-
-  #adminmenuback {
-    width: 20px;
-    background: none;
-  }
-
-  ul#adminmenu a.wp-has-current-submenu:after,
-  ul#adminmenu>li.current>a.current:after {
-    border-right: none;
   }
 }

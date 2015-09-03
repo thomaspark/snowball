@@ -194,18 +194,6 @@
         }
       });
 
-    $("#adminmenuback").on("mouseenter", function() {
-      $("body").addClass("show-menu");
-    });
-
-    $("#adminmenuwrap").on("mouseleave", function() {
-      $("body").removeClass("show-menu");
-    });
-
-    $("#wpwrap").on("click", function() {
-      $("body").removeClass("show-menu");
-    });
-
     $(window)
       .resize(debounce(function() {
         zoomPreview();
