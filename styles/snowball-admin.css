@@ -10,10 +10,6 @@ label[for="slugdiv-hide"] {
   display: none;
 }
 
-input[type="checkbox"] {
-  -webkit-appearance: checkbox;
-}
-
 #slugdiv {
   display: none;
 }
