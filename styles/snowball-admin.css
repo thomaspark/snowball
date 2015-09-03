@@ -102,7 +102,7 @@ label[for="slugdiv-hide"] {
   z-index: 1000;
   top: 32px;
   margin: 0;
-  padding: 0.5em 0 0;
+  padding: 5px 0 0;
   background-color: #32373c;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -197,10 +197,10 @@ label[for="slugdiv-hide"] {
   display: none;
   position: absolute;
   top: 30px;
-  left: -225px;
+  left: -223px;
   z-index: 200;
   width: 450px;
-  padding: 1em 2em 2em;
+  padding: 2em;
   border-radius: 6px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   background-color: #222;
@@ -219,15 +219,17 @@ label[for="slugdiv-hide"] {
   border-color: transparent transparent #222 transparent;
 }
 
+#snowball-toolbar .menu-dropdown .header {
+  margin-bottom: 1em;
+}
+
 #snowball-toolbar .menu-dropdown textarea {
   width: 100%;
   height: 200px;
 }
 
 #snowball-toolbar .menu-dropdown .button {
-  float: right;
-  padding: 0.6em 0.3em;
-  margin: 0.5em 0;
+  margin: 0;
   font-size: 13px;
 }
 
@@ -241,11 +243,6 @@ label[for="slugdiv-hide"] {
   color: #fff;
 }
 
-#snowball-toolbar .happy .menu-toggle,
-#snowball-toolbar .sad .menu-toggle {
-  color: #bbb;
-}
-
 #snowball-toolbar .happy:hover .menu-toggle {
   background-color: #7CB342;
   color: #fff;
@@ -256,6 +253,8 @@ label[for="slugdiv-hide"] {
   color: #fff;
 }
 
+#snowball-toolbar .happy .menu-toggle.button,
+#snowball-toolbar .sad .menu-toggle.button,
 #snowball-toolbar .cog .button {
   width: 25px;
   height: 22px;
@@ -264,13 +263,13 @@ label[for="slugdiv-hide"] {
   font-size: 13px;
 }
 
-#snowball-toolbar .cog .fa {
+#snowball-toolbar .settings .fa {
   vertical-align: baseline;
   font-size: inherit;
 }
 
 #snowball-toolbar .cog .menu-dropdown {
-  left: -150px;
+  left: -147px;
   width: 300px;
 }
 
@@ -520,6 +519,11 @@ body.modal #modal-bg {
 @media (max-width: 600px) {
   #snowball-toolbar {
     top: 0;
+  }
+
+  #snowball-toolbar .settings {
+    float: none;
+    margin: 5px 0;
   }
 }
 

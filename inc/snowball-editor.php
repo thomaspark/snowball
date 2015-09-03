@@ -17,22 +17,22 @@
 <header id="snowball-toolbar" class="fixedsticky">
   <div class="settings">
     <span class="menu happy">
-      <span class="menu-toggle"><i class="fa fa-smile-o"></i></span>
+      <span class="menu-toggle button"><i class="fa fa-smile-o"></i></span>
       <div class="menu-dropdown">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="positive">
-          <p class="header">How did Snowball make you happy?</p>
+          <div class="header">How did Snowball make you happy?</div>
           <textarea autofocus></textarea>
           <div><a class="button">Submit</a></div>
         </div>
       </div>
     </span>
     <span class="menu sad">
-      <span class="menu-toggle"><i class="fa fa-frown-o"></i></span>
+      <span class="menu-toggle button"><i class="fa fa-frown-o"></i></span>
       <div class="menu-dropdown">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="negative">
-          <p class="header">How did Snowball make you sad, frustrated, or annoyed?</p>
+          <div class="header">How did Snowball make you sad, frustrated, or annoyed?</div>
           <textarea autofocus></textarea>
           <div><a class="button">Submit</a></div>
         </div>
@@ -43,8 +43,7 @@
       <div class="menu-dropdown settings-dropdown">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="negative">
-          <p class="header">Article Settings</p>
-          <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> />Use Snowball Theme</label>
+          <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> /> Use Snowball theme</label>
         </div>
       </div>
     </span>
