@@ -1,18 +1,18 @@
 {
-  "name": "snowball",
+  "name": "Snowball",
   "version": "0.2.1",
-  "description": "",
+  "description": "WordPress plugin for authoring modern, immersive articles",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brianlee389/snowball.git"
+    "url": "https://github.com/thomaspark/snowball.git"
   },
-  "author": "Brian Lee",
+  "author": "openHTML",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brianlee389/snowball/issues"
+    "url": "https://github.com/thomaspark/snowball/issues"
   },
-  "homepage": "https://github.com/brianlee389/snowball",
+  "homepage": "https://snowball.openhtml.org",
   "devDependencies": {
     "browser-sync": "^2.7.13",
     "gulp": "^3.9.0",
