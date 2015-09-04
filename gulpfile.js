@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat-util');
 var minifyCss = require('gulp-minify-css');
 var notify = require('gulp-notify');
@@ -28,6 +29,7 @@ gulp.task('minify-snowball-css', function () {
       errorHandler: onError
     }))
     .pipe(sourcemaps.init())
+    .pipe(autoprefixer({ browsers: ['> 1%', 'IE 9'], cascade: false }))
     .pipe(minifyCss())
     .pipe(rename(function(path) {
       path.basename += '.min';
