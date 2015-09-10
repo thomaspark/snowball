@@ -11,7 +11,7 @@ Snowball makes it easy for journalists and bloggers to create immersive articles
 
 == Description ==
 
-Snowball is a powerful plugin that makes it easy for journalists and bloggers to create modern, immersive articles as seen by world-class new organizations. Snowball modules support many different types of content including text, images, videos, data visualizations, and interactive widgets.
+Snowball is a powerful plugin that makes it easy for journalists and bloggers to create modern, immersive articles as seen by world-class news organizations. Snowball modules support many different types of content including text, images, videos, data visualizations, and interactive widgets.
 
 Snowball's block-based interface is user-friendly and allows you to start creating with ease. Build your article one block at a time by selecting a block for a particular module. Then set your own content and style choices for that block. Advanced users can customize even further using the built-in code editor to inspect and modify the underlying HTML and CSS code of a block.
 
