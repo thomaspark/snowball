@@ -140,7 +140,7 @@ var snowballFiles = [
     '!gulpfile.js',
     '!./node_modules/**',
     '!./node_modules',
-    '!README',
+    '!README.md',
     '!package.json',
     '!snowball.zip'
 ];
