@@ -12,7 +12,7 @@ $snowball = array(
   'blogurl'     => get_site_url(),
   'date'        => get_the_date(),
   'excerpt'     => get_the_excerpt(),
-  'pluginsUrl'  => plugins_url('snowball'),
+  'pluginsUrl'  => plugins_url(dirname(plugin_basename(__FILE__))),
   'title'       => get_the_title(),
   'url'         => get_permalink()
 );
