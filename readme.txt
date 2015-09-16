@@ -2,8 +2,8 @@
 Contributors: thomaspark, sukrit.chhabra, brianleedev
 Tags: snowball, journalism, news, blog, article, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor
 Requires at least: 3.0.1
-Tested up to: 4.3
-Stable tag: 0.2.2
+Tested up to: 4.3.1
+Stable tag: 0.2.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,5 +76,5 @@ Snowball is developed and maintained by the [openHTML research team](http://open
 
 == Changelog ==
 
-= 0.2.2 =
+= 0.2.3 =
 * Initial release of Snowball to the WordPress plugin directory
