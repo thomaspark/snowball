@@ -5,17 +5,6 @@ $plugin_path = dirname(__FILE__);
 function snowball_add_stylesheets() {
   global $plugin_path;
 
-  echo '<link rel="stylesheet" href="' . plugins_url('lib/d3-geomap/css/d3.geomap.css', $plugin_path) . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('lib/fluidbox/css/fluidbox.css', $plugin_path) . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('lib/font-awesome/css/font-awesome.min.css', $plugin_path) . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('styles/min/snowball.min.css', $plugin_path) . '">';
-  echo '<link rel="stylesheet" href="' . plugins_url('styles/min/snowball-theme.min.css', $plugin_path) . '">';
-}
-add_action('snowball_enqueue_stylesheets', 'snowball_add_stylesheets');
-
-function add_stylesheets() {
-  global $plugin_path;
-
   if (get_post_type(get_the_id()) == 'snowball') {
     wp_enqueue_style('geomap-css', plugins_url('lib/d3-geomap/css/d3.geomap.css', $plugin_path));
     wp_enqueue_style('fluidbox-css', plugins_url('lib/fluidbox/css/fluidbox.css', $plugin_path));
@@ -23,32 +12,9 @@ function add_stylesheets() {
     wp_enqueue_style('snowball-css', plugins_url('styles/min/snowball.min.css', $plugin_path));
   }
 }
-add_action('wp_enqueue_scripts', 'add_stylesheets');
+add_action('wp_enqueue_scripts', 'snowball_add_stylesheets');
 
 function snowball_add_scripts() {
-  global $plugin_path;
-
-  echo '<script src="' . plugins_url('lib/scoper/scoper.js', $plugin_path) . '"></script>';
-}
-add_action('snowball_enqueue_scripts', 'snowball_add_scripts');
-
-function snowball_add_scripts_deferred() {
-  global $plugin_path;
-
-  echo '<script src="' . includes_url('js/jquery/jquery.js') . '"></script>';
-  echo '<script src="' . plugins_url('lib/d3/d3.min.js', $plugin_path) . '"></script>';
-  echo '<script src="' . plugins_url('lib/d3-geomap/js/topojson.min.js', $plugin_path) .'"></script>';
-  echo '<script src="' . plugins_url('lib/d3-geomap/vendor/d3.geomap.dependencies.min.js', $plugin_path) . '"></script>';
-  echo '<script src="' . plugins_url('lib/d3-geomap/js/d3.geomap.min.js', $plugin_path) . '"></script>';
-  echo '<script src="' . plugins_url('lib/fluidbox/jquery.fluidbox.min.js', $plugin_path) . '"></script>';
-  echo '<script src="' . plugins_url('scripts/min/snowball.min.js', $plugin_path) . '"></script>';
-  echo '<script src="' . plugins_url('scripts/min/templates.min.js', $plugin_path) . '"></script>';
-  
-  wp_print_scripts();
-}
-add_action('snowball_enqueue_scripts_deferred', 'snowball_add_scripts_deferred');
-
-function add_scripts() {
   global $plugin_path;
 
   if (get_post_type(get_the_id()) == 'snowball') {
@@ -62,7 +28,7 @@ function add_scripts() {
     wp_enqueue_script('snowball-templates-js', plugins_url('scripts/min/templates.min.js', $plugin_path), array('snowball-js'), '', true);
   }
 }
-add_action('wp_enqueue_scripts', 'add_scripts', 8);
+add_action('wp_enqueue_scripts', 'snowball_add_scripts', 8);
 
 function snowball_admin_add_scripts_and_stylesheets($hook) {
   global $plugin_path;

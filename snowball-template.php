@@ -39,8 +39,12 @@ $option = $article["theme_option"];
     <!--[if lt IE 9]>
     <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
     <![endif]-->
-    <?php do_action("snowball_enqueue_stylesheets"); ?>
-    <?php do_action("snowball_enqueue_scripts"); ?>
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/d3-geomap/css/d3.geomap.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/fluidbox/css/fluidbox.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/styles/min/snowball.min.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/styles/min/snowball-theme.min.css">
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/scoper/scoper.js"></script>
   </head>
   <body <?php body_class(); ?>>
 <?php endif; ?>
@@ -62,12 +66,21 @@ $option = $article["theme_option"];
     if (comments_open()) {
       comments_template();
     }
-
-    if ($option == 1) {
-      get_footer();
-    } else {
-      do_action("snowball_enqueue_scripts_deferred");
-    }
   ?>
+
+  <?php if($option == 1) : ?>
+    <?php get_footer(); ?>
+  <?php else: ?>
+    <script src="<?php echo $snowball['includesUrl'] ?>/js/jquery/jquery.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/d3/d3.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/d3-geomap/js/topojson.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/d3-geomap/js/d3.geomap.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/fluidbox/jquery.fluidbox.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/scripts/min/snowball.min.js"></script>
+    <script src="<?php echo $snowball['pluginsUrl'] ?>/scripts/min/templates.min.js"></script>
+    <?php wp_print_scripts(); ?>
+  <?php endif; ?>
+
 </body>
 </html>
