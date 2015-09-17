@@ -137,9 +137,6 @@ function snowball_metabox_save($post_id) {
 
   if (!current_user_can('edit_page', $post_id))
   return;
-
-  // $product_price = $_POST['product_price'];
-  // update_post_meta($post_id, 'product_price', $product_price);
 }
 // add_action('save_post', 'snowball_metabox_save');
 
@@ -205,25 +202,6 @@ function snowball_options_page() {
   global $plugin_url;
   global $options;
   global $display_json;
-
-
-/* Sample Code  
-  if(isset($_POST['hello'])) {
-    $hidden_field = esc_html($_POST['hello']);
-    $hello_word = esc_html($_POST['hello_word']);
-    $not_hello_world = esc_html($_POST['word_hello']);
-
-    $options['someoption1']  = $hello_word;
-    $options['someoption2']  = $not_hello_world;
-
-    update_option('snowball_stuff', $options);
-  }
-  $options = get_option('snowball_stuff');
-
-  if($options != '') {
-    $someoption1 = $options['someoption1'];
-    $someoption2 =  $options['someoption2'];
-  }*/
 
   require('snowball-options.php');
 }
