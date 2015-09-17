@@ -125,7 +125,7 @@
     'includesUrl' => includes_url(),
     'pluginsUrl'  => plugins_url('', dirname(__FILE__)),
     'id'          => $post->ID,
-    'savedblocks' => get_block_json($post->ID),
+    'savedblocks' => snowball_get_block_json($post->ID),
     'author'      => get_the_author(),
     'authorLogin' => get_the_author_meta('user_login'),
     'userLogin'   => wp_get_current_user()->user_login,

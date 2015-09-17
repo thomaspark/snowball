@@ -4,7 +4,6 @@
  * Ajax calls
 */
 
-//function add_blocks_callback() {
 function snowball_add_blocks_callback() {
   $nonce = $_POST['snowball_ajax_nonce'];
 
@@ -28,13 +27,12 @@ function snowball_add_blocks_callback() {
   echo $success;
   wp_die();
 }
-add_action('wp_ajax_nopriv_add_blocks', 'add_blocks_callback');
-add_action('wp_ajax_add_blocks', 'add_blocks_callback');
+add_action('wp_ajax_nopriv_add_blocks', 'snowball_add_blocks_callback');
+add_action('wp_ajax_add_blocks', 'snowball_add_blocks_callback');
 
 /*
  * Handler function for add-article
 */
-//function add_article_callback() {
 function snowball_add_new_article_callback() {
   $nonce = $_POST['snowball_ajax_nonce'];
 
@@ -57,10 +55,10 @@ function snowball_add_new_article_callback() {
   echo $success;
   wp_die();
 }
-add_action('wp_ajax_nopriv_add_article', 'add_article_callback');
-add_action('wp_ajax_add_article', 'add_article_callback');
+add_action('wp_ajax_nopriv_add_article', 'snowball_add_new_article_callback');
+add_action('wp_ajax_add_article', 'snowball_add_new_article_callback');
 
-function get_block_json($post_id) {
+function snowball_get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
   $block_json = array();
 
@@ -78,8 +76,7 @@ function get_block_json($post_id) {
 
 $snowball_db_version = '0.2.1';
 
-function snowball_database_initialization() {
-//function snowball_install_dbtable() {
+function snowball_install_dbtable() {
   global $wpdb;
   global $snowball_db_version;
   global $path;
@@ -242,8 +239,8 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
 }
 
 
-function snowball_get_blocks_data($post_id) {
-//function snowball_get_blocks($post_id) {
+
+function snowball_get_blocks($post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_blocks';
@@ -252,8 +249,7 @@ function snowball_get_blocks_data($post_id) {
   return $row;
 }
 
-function snowball_get_article_data($post_id, $is_preview) {
-//function snowball_get_article($post_id, $is_preview) {
+function snowball_get_article($post_id, $is_preview) {
   global $wpdb;
   $article_label = "article_html";
   $theme_label = "theme_option";
@@ -280,7 +276,6 @@ function snowball_get_article_data($post_id, $is_preview) {
 }
 
 function snowball_get_theme_option($post_id) {
-//function snowball_get_theme_option($post_id) {
   global $wpdb;
 
   $table_name = $wpdb->prefix . 'snowball_articles';
@@ -293,8 +288,7 @@ function snowball_get_theme_option($post_id) {
   return $option;
 }
 
-//function delete_snowball_data($post_id) {
-function snowball_delete_all_post_data($post_id) {
+function snowball_delete_post_data($post_id) {
   global $wpdb;
 
   $table_articles = $wpdb->prefix . 'snowball_articles';
@@ -310,7 +304,7 @@ add_action('delete_post', 'snowball_delete_post_data');
  */
 
 
-function send_AJAX_mail_before_submit() {
+function snowball_send_AJAX_mail_before_submit() {
   // check_ajax_referer('my_email_ajax_nonce');
   if (isset($_POST['action']) && $_POST['action'] == "mail_before_submit") {
 
@@ -325,7 +319,7 @@ function send_AJAX_mail_before_submit() {
   echo 'error';
   die();
 }
-add_action('wp_ajax_mail_before_submit', 'send_AJAX_mail_before_submit');
-add_action('wp_ajax_nopriv_mail_before_submit', 'send_AJAX_mail_before_submit');
+add_action('wp_ajax_mail_before_submit', 'snowball_send_AJAX_mail_before_submit');
+add_action('wp_ajax_nopriv_mail_before_submit', 'snowball_send_AJAX_mail_before_submit');
 
 ?>
