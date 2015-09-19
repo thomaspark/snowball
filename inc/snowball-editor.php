@@ -5,6 +5,8 @@
   setup_postdata($post);
 
   $modules = array_filter(glob($path . 'modules/*'), 'is_dir');
+  $customModules = array_filter(glob(dirname($path) . '/snowball-custom-modules/*'), 'is_dir');
+
   $blocks = array();
   $templates = array();
   $names = array();
@@ -62,11 +64,20 @@
     <span class="tag" data-tag="social">Social</span>
     <span class="tag" data-tag="data">Data</span>
     <span class="tag" data-tag="meta">Meta</span>
+    <?php 
+      if (!empty($customModules)) {
+        echo '<span class="tag" data-tag="custom">Custom</span>';
+      }
+    ?>
     <span class="tag" data-tag="all">All</span>
   </div>
 
 <?php
   global $path;
+
+  $order_json = file_get_contents($path . 'modules/module_order.json');
+  $order = json_decode($order_json);
+  ksort($order, SORT_NUMERIC);
 
   foreach ($modules as $module) {
     if (file_exists($module . '/admin.html') && file_exists($module . '/template.html') && file_exists($module . '/admin.json')) {
@@ -76,17 +87,34 @@
 
       $json = file_get_contents($module . '/admin.json');
       $meta = json_decode($json);
-      $order_json = file_get_contents($path . 'modules/module_order.json');
 
-      $order = json_decode($order_json);
-      ksort($order, SORT_NUMERIC);
       $names[$type] = $meta->name;
       $iconClasses[$type] = $meta->iconClasses;
-
       if (isset($meta->tags)) {
         $tags[$type] = $meta->tags;
       } else {
-        $tags[$type] = "";
+        $tags[$type] = '';
+      }
+    }
+  }
+
+  foreach ($customModules as $module) {
+    if (file_exists($module . '/admin.html') && file_exists($module . '/template.html') && file_exists($module . '/admin.json')) {
+      $type = basename($module);
+      $blocks[$type] = file_get_contents($module . '/admin.html');
+      $templates[$type] = file_get_contents($module . '/template.html');
+
+      $json = file_get_contents($module . '/admin.json');
+      $meta = json_decode($json);
+
+      $names[$type] = $meta->name;
+      $iconClasses[$type] = $meta->iconClasses;
+      $order[] = $type;
+
+      if (isset($meta->tags)) {
+        $tags[$type] = $meta->tags . ' custom';
+      } else {
+        $tags[$type] = '';
       }
     }
   }
