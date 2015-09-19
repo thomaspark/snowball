@@ -4,7 +4,7 @@
  * Ajax calls
 */
 
-function add_blocks_callback() {
+function snowball_add_blocks_callback() {
   $nonce = $_POST['snowball_ajax_nonce'];
 
   if (!wp_verify_nonce($nonce, 'snowball_ajax_nonce')) {
@@ -27,13 +27,13 @@ function add_blocks_callback() {
   echo $success;
   wp_die();
 }
-add_action('wp_ajax_nopriv_add_blocks', 'add_blocks_callback');
-add_action('wp_ajax_add_blocks', 'add_blocks_callback');
+add_action('wp_ajax_nopriv_add_blocks', 'snowball_add_blocks_callback');
+add_action('wp_ajax_add_blocks', 'snowball_add_blocks_callback');
 
 /*
  * Handler function for add-article
 */
-function add_article_callback() {
+function snowball_add_new_article_callback() {
   $nonce = $_POST['snowball_ajax_nonce'];
 
   if (!wp_verify_nonce($nonce, 'snowball_ajax_nonce')) {
@@ -55,10 +55,10 @@ function add_article_callback() {
   echo $success;
   wp_die();
 }
-add_action('wp_ajax_nopriv_add_article', 'add_article_callback');
-add_action('wp_ajax_add_article', 'add_article_callback');
+add_action('wp_ajax_nopriv_add_article', 'snowball_add_new_article_callback');
+add_action('wp_ajax_add_article', 'snowball_add_new_article_callback');
 
-function get_block_json($post_id) {
+function snowball_get_block_json($post_id) {
   $row = snowball_get_blocks($post_id);
   $block_json = array();
 
@@ -238,6 +238,8 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
   return $was_successful;
 }
 
+
+
 function snowball_get_blocks($post_id) {
   global $wpdb;
 
@@ -286,7 +288,7 @@ function snowball_get_theme_option($post_id) {
   return $option;
 }
 
-function delete_snowball_data($post_id) {
+function snowball_delete_post_data($post_id) {
   global $wpdb;
 
   $table_articles = $wpdb->prefix . 'snowball_articles';
@@ -295,14 +297,14 @@ function delete_snowball_data($post_id) {
   $wpdb->delete($table_articles, array('post_id' => $post_id), array('%d'));
   $wpdb->delete($table_blocks, array('post_id' => $post_id), array('%d'));
 }
-add_action('delete_post', 'delete_snowball_data');
+add_action('delete_post', 'snowball_delete_post_data');
 
 /*
  * Handle AJAX for mail
  */
 
 
-function send_AJAX_mail_before_submit() {
+function snowball_send_AJAX_mail_before_submit() {
   // check_ajax_referer('my_email_ajax_nonce');
   if (isset($_POST['action']) && $_POST['action'] == "mail_before_submit") {
 
@@ -317,7 +319,7 @@ function send_AJAX_mail_before_submit() {
   echo 'error';
   die();
 }
-add_action('wp_ajax_mail_before_submit', 'send_AJAX_mail_before_submit');
-add_action('wp_ajax_nopriv_mail_before_submit', 'send_AJAX_mail_before_submit');
+add_action('wp_ajax_mail_before_submit', 'snowball_send_AJAX_mail_before_submit');
+add_action('wp_ajax_nopriv_mail_before_submit', 'snowball_send_AJAX_mail_before_submit');
 
 ?>
