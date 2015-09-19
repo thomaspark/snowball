@@ -3,7 +3,7 @@ Contributors: thomaspark, sukrit.chhabra, brianleedev
 Tags: snowball, journalism, news, blog, article, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 0.2.3
+Stable tag: 0.2.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
