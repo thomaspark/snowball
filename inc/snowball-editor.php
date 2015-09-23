@@ -4,8 +4,10 @@
   global $path;
   setup_postdata($post);
 
+  $upload_dir = wp_upload_dir();
+
   $modules = array_filter(glob($path . 'modules/*'), 'is_dir');
-  $customModules = array_filter(glob(dirname($path) . '/snowball-custom-modules/*'), 'is_dir');
+  $customModules = array_filter(glob($upload_dir['basedir'] . '/snowball/modules/*'), 'is_dir');
 
   $blocks = array();
   $templates = array();
