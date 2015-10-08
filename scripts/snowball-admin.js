@@ -2,7 +2,7 @@
   var changesMade = false;
   var actions = [];
 
-  jQuery(document).ready(function() {
+  $(document).ready(function() {
     if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
       $("#snowball_meta").removeClass("closed");
 
@@ -11,7 +11,9 @@
     } else {
       snowball.savedblocks = [];
     }
+  });
 
+  $(window).load(function() {
     setHandlers();
   });
 
