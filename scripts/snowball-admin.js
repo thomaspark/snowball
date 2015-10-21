@@ -203,6 +203,9 @@
         var fixedsticky = $(".fixedsticky");
         fixedsticky.css("width", fixedsticky.parent().width());
       })
+      .on("load", function() {
+        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
+      })
       .on("beforeunload", function(e) {
         if (changesMade) {
           return "You may have unsaved changes.";
@@ -216,7 +219,6 @@
     });
 
     $(".hndle").on("click", function() {
-      console.log("fired");
       $(".fixedsticky").fixedsticky("destroy").fixedsticky();
     });
   }
