@@ -218,8 +218,14 @@
       zoomPreview();
     });
 
-    $(".hndle").on("click", function() {
+    $(".hndle, #adv-settings input").on("click", function() {
       $(".fixedsticky").fixedsticky("destroy").fixedsticky();
+    });
+
+    $("#show-settings-link").on("click", function() {
+      setTimeout(function() {
+        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
+      }, 200);
     });
   }
 
