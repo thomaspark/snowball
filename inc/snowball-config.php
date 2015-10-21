@@ -15,7 +15,7 @@ function snowball_create_post_type() {
       'menu_icon' => 'dashicons-marker',
       'public' => true,
       'has_archive' => true,
-      'supports' => array('title', 'author', 'comments'),
+      'supports' => array('title', 'author', 'comments', 'excerpt', 'thumbnail'),
       'rewrite' => array( 'slug' => 'snowball' ),
    )
  );
