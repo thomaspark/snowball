@@ -175,7 +175,7 @@
       })
       .sortable({
         axis: "y",
-        cancel: ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .toggle-buttons",
+        cancel: ".snowball-block.modal, .snowball-title-button, button, textarea, input, select, .handsontable .wtHider, .CodeMirror, .button, .toggle-buttons",
         change: function() {
           unsavedChanges();
         },
