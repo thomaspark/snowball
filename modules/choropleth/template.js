@@ -45,9 +45,11 @@ function drawMap(block) {
       .colors(palette)
       .legend(true);
 
-   d3.select(container)
-     .datum(JSON.parse(json))
-     .call(map.draw, map)
-     .selectAll("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 500 400");
+     var svg = d3.select(container)
+       .datum(JSON.parse(json))
+       .call(map.draw, map)
+       .select("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 500 400");
+
+    svg.select("rect").style("fill", "none");
   }
 }

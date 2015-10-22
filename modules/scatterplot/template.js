@@ -15,6 +15,7 @@ function drawScatterplot(block) {
   if (json) {
     var container = block.find(".chart").get(0);
     var size = block.find(".size").val();
+    var color = block.find(".chart").attr("data-fill");
     var data = JSON.parse(json);
     var dataset = [];
     var xdata = [];
@@ -68,14 +69,19 @@ function drawScatterplot(block) {
       .attr('class', 'main axis date')
       .call(yAxis);
 
+    main.selectAll("path, line")
+      .style("fill", "none")
+      .style("stroke", "black");
+
     var g = main.append("svg:g"); 
 
     g.selectAll("scatter-dots")
       .data(ydata)
       .enter().append("svg:circle")
-          .attr("cy", function (d) { return y(d); } )
-          .attr("cx", function (d,i) { return x(xdata[i]); } )
-          .attr("r", size);
+        .style("fill", color)
+        .attr("cy", function (d) { return y(d); } )
+        .attr("cx", function (d,i) { return x(xdata[i]); } )
+        .attr("r", size);
 
   }
 }

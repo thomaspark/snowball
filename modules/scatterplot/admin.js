@@ -5,6 +5,10 @@
     var size = $(this).find(".size").val() + "px";
     $(this).find(".size-output").text(size);
 
+    $(this).find(".export a").on("mouseover", function() {
+      exportSVG(block);
+    });
+
     loadData(block);
   });
 
@@ -115,6 +119,14 @@
     var jsonString = JSON.stringify(generatedJSON);
 
     block.find("[data-target='json']").val(jsonString);
+  }
+
+  function exportSVG(block) {
+    var iframe = block.find(".snowball-preview");
+    var svg = iframe.contents().find(".chart").html();
+    var b64 = btoa(svg);
+
+    block.find(".export a").attr({"href-lang": "image/svg+xml", "href": "data:image/svg+xml;base64,\n"+b64});
   }
 
 })(jQuery);

@@ -1,5 +1,5 @@
 <section class="snowball-block snowball-block-scatterplot mid-width">
-  <div class="chart"></div>
+  <div class="chart" data-fill="{{color}}"></div>
   <div class="caption">{{title}}</div>
   <input type="hidden" class="json" value='{{json}}'>
   <input type="hidden" class="size" value='{{size}}'>
@@ -7,16 +7,6 @@
 .snowball-block-scatterplot {
   padding: 0;
   text-align: center;
-}
-
-.axis line, .axis path {
-  shape-rendering: crispEdges;
-  stroke: black;
-  fill: none;
-}
-
-circle {
-  fill: {{color}};
 }
 </style>
 </section>

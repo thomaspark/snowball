@@ -12,6 +12,7 @@
 function drawBargraph(block) {
   var json = block.find(".json").val();
   var container = block.find(".chart").get(0);
+  var color = block.find(".chart").attr("data-fill");
   var spacing = block.find(".spacing").val();
   var data = JSON.parse(json);
   var valuesArray = [];
@@ -30,6 +31,7 @@ function drawBargraph(block) {
       .scale(y)
       .orient("left")
       .ticks(10);
+
   var svg = d3.select(container).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -39,6 +41,7 @@ function drawBargraph(block) {
 
     x.domain(data.map(function(d) { return d.label; }));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -47,9 +50,15 @@ function drawBargraph(block) {
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+    svg.selectAll("path, line")
+      .style("fill", "none")
+      .style("stroke", "black");
+
     svg.selectAll("bar")
         .data(data)
       .enter().append("rect")
+        .style("fill", color)
         .attr("x", function(d) { return x(d.label); })
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.value); })
