@@ -124,7 +124,7 @@
   function exportSVG(block) {
     var iframe = block.find(".snowball-preview");
     var svg = iframe.contents().find(".chart").html();
-    var b64 = btoa(svg);
+    var b64 = btoa(unescape(encodeURIComponent(svg)));
 
     block.find(".export a").attr({"href-lang": "image/svg+xml", "href": "data:image/svg+xml;base64,\n"+b64});
   }
