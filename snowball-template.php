@@ -39,12 +39,12 @@ $option = $article["theme_option"];
     <!--[if lt IE 9]>
     <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/d3-geomap/css/d3.geomap.css">
-    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/fluidbox/css/fluidbox.css">
-    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/styles/min/snowball.min.css">
-    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl'] ?>/styles/min/snowball-theme.min.css">
-    <script src="<?php echo $snowball['pluginsUrl'] ?>/lib/scoper/scoper.js"></script>
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/lib/d3-geomap/css/d3.geomap.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/lib/fluidbox/css/fluidbox.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/styles/min/snowball.min.css">
+    <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/styles/min/snowball-theme.min.css">
+    <script src="<?php echo $snowball['pluginsUrl']; ?>/lib/scoper/scoper.js"></script>
   </head>
   <body <?php body_class(); ?>>
 <?php endif; ?>
