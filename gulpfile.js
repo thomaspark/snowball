@@ -138,15 +138,22 @@ var snowballFiles = [
     '!.git',
     '!.gitignore',
     '!gulpfile.js',
-    '!./node_modules/**',
     '!./node_modules',
+    '!./node_modules/**',
     '!README.md',
     '!package.json',
-    '!snowball.zip'
+    '!snowball.zip',
+    '!./svn',
+    '!./svn/**'
 ];
 
 gulp.task('zip', function () {
     gulp.src(snowballFiles)
         .pipe(zip('snowball.zip'))
         .pipe(gulp.dest('./'));
+});
+
+gulp.task('svn', function () {
+    gulp.src(snowballFiles)
+        .pipe(gulp.dest('./svn/trunk'));
 });

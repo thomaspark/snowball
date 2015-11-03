@@ -1,4 +1,5 @@
 /node_modules/*
+/svn/*
 .DS_Store
 snowball.zip
 *.map
