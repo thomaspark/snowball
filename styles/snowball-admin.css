@@ -193,54 +193,44 @@ label[for="slugdiv-hide"] {
   transition: all 0.2s;
 }
 
-#snowball-toolbar .menu-dropdown {
+#snowball-toolbar .dialog {
   display: none;
-  position: absolute;
-  top: 30px;
-  left: -223px;
-  z-index: 200;
-  width: 450px;
   padding: 2em;
   border-radius: 6px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
-  background-color: #222;
-  color: #bbb;
+  background-color: #f8f8f8;
 }
 
-#snowball-toolbar .menu-dropdown:before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 50%;
-  pointer-events: none;
-  top: -20px;
-  border: 10px solid;
-  border-color: transparent transparent #222 transparent;
-}
-
-#snowball-toolbar .menu-dropdown .header {
+#snowball-toolbar .dialog .header {
   margin-bottom: 1em;
 }
 
-#snowball-toolbar .menu-dropdown textarea {
+#snowball-toolbar .dialog h2 {
+  margin-top: 0 !important;
+}
+
+#snowball-toolbar .dialog p {
+  margin-bottom: 0;
+}
+
+#snowball-toolbar .dialog textarea {
   width: 100%;
   height: 200px;
 }
 
-#snowball-toolbar .menu-dropdown .button {
+#snowball-toolbar .dialog .button {
   margin: 0;
-  font-size: 13px;
+  background-color: #00a0d2;
+  color: #fff;
 }
 
-#snowball-toolbar .menu-dropdown .close {
+#snowball-toolbar .dialog .button:hover {
+  background-color: #0091cd;
+}
+
+#snowball-toolbar .dialog .close {
   float: right;
   font-size: 18px;
   cursor: pointer;
-}
-
-#snowball-toolbar .menu-dropdown .close:hover {
-  color: #fff;
 }
 
 #snowball-toolbar .happy:hover .menu-toggle {
@@ -266,11 +256,6 @@ label[for="slugdiv-hide"] {
 #snowball-toolbar .settings .fa {
   vertical-align: baseline;
   font-size: inherit;
-}
-
-#snowball-toolbar .cog .menu-dropdown {
-  left: -147px;
-  width: 300px;
 }
 
 #snowball-update {
@@ -485,7 +470,9 @@ div.wp-picker-holder {
   background-color: #272822 !important;
 }
 
-.snowball-block.modal {
+.snowball-block.modal,
+#snowball-toolbar .dialog.modal {
+  display: block;
   position: fixed;
   top: 3em;
   left: 2.5em;
@@ -493,6 +480,12 @@ div.wp-picker-holder {
   bottom: 3em;
   z-index: 100001;
   margin: 0;
+}
+
+#snowball-toolbar .dialog.modal {
+  margin: auto;
+  max-width: 600px;
+  max-height: 400px;
 }
 
 #modal-bg {

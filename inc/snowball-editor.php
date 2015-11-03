@@ -22,7 +22,7 @@
   <div class="settings">
     <span class="menu happy">
       <span class="menu-toggle button"><i class="fa fa-smile-o"></i></span>
-      <div class="menu-dropdown">
+      <div class="dialog">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="positive">
           <div class="header">How did Snowball make you happy?</div>
@@ -33,7 +33,7 @@
     </span>
     <span class="menu sad">
       <span class="menu-toggle button"><i class="fa fa-frown-o"></i></span>
-      <div class="menu-dropdown">
+      <div class="dialog">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="negative">
           <div class="header">How did Snowball make you sad, frustrated, or annoyed?</div>
@@ -44,7 +44,7 @@
     </span>
     <span class="menu cog">
       <span class="menu-toggle button"><i class="fa fa-cog"></i></span>
-      <div class="menu-dropdown settings-dropdown">
+      <div class="dialog settings-dropdown">
         <span class="close">&times;</span>
         <div class="feedback" data-mood="negative">
           <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> /> Use Snowball theme</label>
