@@ -198,6 +198,7 @@ label[for="slugdiv-hide"] {
   padding: 2em;
   border-radius: 6px;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 
 #snowball-toolbar .dialog .header {
@@ -485,7 +486,7 @@ div.wp-picker-holder {
 #snowball-toolbar .dialog.modal {
   margin: auto;
   max-width: 600px;
-  max-height: 400px;
+  max-height: 500px;
 }
 
 #modal-bg {

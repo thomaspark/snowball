@@ -45,6 +45,7 @@ $option = $article["theme_option"];
     <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/styles/min/snowball.min.css">
     <link rel="stylesheet" href="<?php echo $snowball['pluginsUrl']; ?>/styles/min/snowball-theme.min.css">
     <script src="<?php echo $snowball['pluginsUrl']; ?>/lib/scoper/scoper.js"></script>
+    <?php echo $article["head_html"]; ?>
   </head>
   <body <?php body_class(); ?>>
 <?php endif; ?>

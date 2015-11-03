@@ -43,8 +43,10 @@ function snowball_add_new_article_callback() {
   $post_id = $_POST['post_id'];
   $is_preview = $_POST['is_preview'];
   $article = stripslashes($_POST['article']);
+  $head_html = stripslashes($_POST['head_html']);
   $theme_option = stripslashes($_POST['theme_option']);
   $article_data = array('article' => $article,
+                        'head_html' => $head_html,
                         'theme_option' => $theme_option
                          );
   $insert_id = snowball_save_article($article_data, $post_id, $is_preview);
@@ -106,6 +108,7 @@ function snowball_install_dbtable() {
     post_id bigint(20) NOT NULL,
     article_html longtext,
     preview_html longtext,
+    head_html longtext,
     theme_option tinyint(1) NOT NULL,
     PRIMARY KEY  (ID)
  ) $charset_collate;";
@@ -185,6 +188,7 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
   $table_name = $wpdb->prefix . 'snowball_articles';
   $article_column = 'article_html';
   $article = $article_data["article"];
+  $head_html = $article_data['head_html'];
   $theme_column = 'theme_option';
   $theme_option = $article_data[$theme_column];
 
@@ -209,7 +213,9 @@ function snowball_save_article($article_data, $post_id, $is_preview) {
     $data['preview_html'] = $article;
   } else {
     $data['article_html'] = $article;
+    $data['head_html'] = $head_html;
     $data[$theme_column] = $theme_option;
+    $format[] = '%s';
     $format[] = '%d';
   }
 
@@ -253,15 +259,18 @@ function snowball_get_article($post_id, $is_preview) {
   global $wpdb;
   $article_label = "article_html";
   $theme_label = "theme_option";
+
   $table_name = $wpdb->prefix . 'snowball_articles';
   $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . $table_name . ' WHERE post_id = %d', $post_id));
   $article_data = array(
                     $article_label => "<section></section>",
+                    "head_html" => "",
                     $theme_label => 1,
                     'post_id' => $post_id
                   );
   if ($row) {
     $article = $row->article_html;
+    $head_html = $row->head_html;
     $option = $row->theme_option;
 
     if ($is_preview == "true") {
@@ -269,6 +278,7 @@ function snowball_get_article($post_id, $is_preview) {
     }
 
     $article_data[$article_label] = $article;
+    $article_data["head_html"] = $head_html;
     $article_data[$theme_label] = $option;
   }
 
@@ -283,6 +293,19 @@ function snowball_get_theme_option($post_id) {
   $option = 1;
   if ($row) {
     $option = $row->theme_option;
+  }
+
+  return $option;
+}
+
+function snowball_get_custom_code($post_id) {
+  global $wpdb;
+
+  $table_name = $wpdb->prefix . 'snowball_articles';
+  $row = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$table_name.' WHERE post_id = %d', $post_id));
+  $option = '';
+  if ($row) {
+    $option = $row->head_html;
   }
 
   return $option;

@@ -13,6 +13,7 @@ jQuery(document).ready(function($) {
     var article_data = {
       "action": "add_article",
       "article": articleRetrieved,
+      "head_html": getCustomCode(),
       "theme_option": getThemeOption(),
       "post_id": ajax_object.post_id,
       "is_preview" : "false",
@@ -49,6 +50,17 @@ jQuery(document).ready(function($) {
     }
 
     return theme_option;
+  }
+
+  function getCustomCode() {
+    var customCode = $("#snowball-custom-code").val();
+    var editor = $('#snowball-custom-code + .CodeMirror').get(0);
+
+    if (editor) {
+      customCode = editor.CodeMirror.getValue();
+    }
+
+    return customCode;
   }
   /* 
     This function will traverse through all the html in all the blocks

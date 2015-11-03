@@ -42,12 +42,19 @@
         </div>
       </div>
     </span>
-    <span class="menu cog">
+    <span class="menu options cog">
       <span class="menu-toggle button"><i class="fa fa-cog"></i></span>
       <div class="dialog settings-dropdown">
         <span class="close">&times;</span>
-        <div class="feedback" data-mood="negative">
-          <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> /> Use Snowball theme</label>
+        <div>
+          <h2>Options</h2>
+          <div>
+            <label for="theme_option"><input type="checkbox" id="theme_option" <?php checked(snowball_get_theme_option($post->ID), 0); ?> /> Use Snowball theme</label>
+          </div>
+          <div>
+            <p>Custom HTML head code</p>
+            <textarea id="snowball-custom-code" autofocus><?php echo(snowball_get_custom_code($post->ID)); ?></textarea>
+          </div>
         </div>
       </div>
     </span>
@@ -139,11 +146,10 @@
 
 ?>
   </div>
-
+  <div id="modal-bg"></div>
 </header>
 
 <section id="snowball-main"></section>
-<div id="modal-bg"></div>
 
 <?php
 

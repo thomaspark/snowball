@@ -70,9 +70,24 @@
     });
 
     $("#snowball-toolbar .menu-toggle").on("click", function() {
-      var dropdown = $(this).next(".dialog");
-      dropdown.addClass("modal");
+      var dialog = $(this).next(".dialog");
+      var editor = dialog.find(".CodeMirror");
+
+      dialog.addClass("modal");
       $("body").toggleClass("modal");
+
+      if ((editor.length === 0) && dialog.hasClass("settings-dropdown")) {
+        var elem = dialog.find("textarea").get(0);
+        editor = CodeMirror.fromTextArea(elem, {
+            mode: {name: "htmlmixed", htmlMode: true},
+            lineNumbers: true,
+            lineWrapping: true,
+            indentUnit: 2,
+            tabSize: 2,
+            theme: "monokai"
+        });
+      }
+
     });
 
     $("#snowball-toolbar .menu .close").on("click", function() {
@@ -87,13 +102,15 @@
 
       fb(mood, comment);
 
-      form.closest(".dialog").hide();
+      form.closest(".dialog").removeClass("modal");
+      $("body").removeClass("modal");
       form.find("textarea").val("");
     });
 
     $("#snowball-settings .toggle").on("click", function() {
       $("#snowball-settings ul").toggle();
     });
+
     $("#snowball-main")
       .on("render", ".snowball-block", function() {
         var block = $(this);
@@ -441,6 +458,7 @@
     if(head.is(":empty")) {
       head.html("<meta charset='utf-8'>");
       head.append(defaultCss);
+      head.append($("#snowball-custom-code").val());
       callback(0);
     } else {
       callback2(0);

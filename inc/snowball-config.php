@@ -158,6 +158,22 @@ add_filter('single_template', 'snowball_template');
 
 
 /*
+ * Add article's custom head code to header
+ */
+
+function snowball_add_custom_code() {
+  if (get_post_type(get_the_id()) == 'snowball') {
+    $article = snowball_get_article(get_the_id(), 0);
+    $output = $article['head_html'];
+
+    echo $output;
+  }
+}
+add_action('wp_head', 'snowball_add_custom_code');
+
+
+
+/*
  * Add snowball posts to front page displays dropdown
  */
 
