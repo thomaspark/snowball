@@ -369,7 +369,9 @@
 
       if ((type === "text") && $(this).is("textarea")) {
         // For text blocks, replace \n\n with <p>
-        value = value.replace(/(.+?)\n{2,}/g,'<p>$1</p>');
+        value = value.replace(/\n([ \t]*\n)+/g, '</p><p>')
+                 .replace(/\n/g, '<br />')
+                 .replace(/<\/p><p>/g, '</p>\n\t<p>');
       }
       var regex = new RegExp("{{" + target + "}}", "g");
       html = html.replace(regex, value);
