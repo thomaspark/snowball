@@ -3,7 +3,7 @@ Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor
 Requires at least: 3.0.1
 Tested up to: 4.3.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,13 +86,18 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 
 == Changelog ==
 
+= 0.3.1 =
+* Include Snowball articles on front page, search, and archives
+* Add compatibility with Co-Authors Plus plugin through [author] shortcode
+* For text module, properly wrap last paragraph in p tags, interpret new lines as br tags, and format HTML code
+
 = 0.3.0 =
-* Option to add custom HTML head code that applies styles and scripts to whole article 
+* Option to add custom HTML head code that applies styles and scripts to whole article
 * Option to export graph blocks as SVG
 * Set correct position for fixed toolbar after other admin widgets load
 * Add support for excerpts and features images
-* For Splash module, crop background image from center instead of top left
-* For Splash module, set default background and text colors to white and black respectively 
+* For splash module, crop background image from center instead of top left
+* For splash module, set default background and text colors to white and black respectively
 
 = 0.2.5 =
 * Change custom module directory from wp-content/plugins/snowball-custom-modules/ to wp-content/uploads/snowball/modules
