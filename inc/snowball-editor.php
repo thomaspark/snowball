@@ -153,6 +153,18 @@
 
 <?php
 
+  // buffer author output and save to $author
+  ob_start();
+
+  if (function_exists('coauthors_posts_links')) {
+    coauthors_posts_links();
+  } else {
+    the_author_posts_link();
+  }
+
+  $author = ob_get_contents();
+  ob_end_clean();
+
   $snowball = array(
     'blocks'      => $blocks,
     'templates'   => $templates,
@@ -162,7 +174,7 @@
     'pluginsUrl'  => plugins_url('', dirname(__FILE__)),
     'id'          => $post->ID,
     'savedblocks' => snowball_get_block_json($post->ID),
-    'author'      => get_the_author(),
+    'author'      => $author,
     'authorLogin' => get_the_author_meta('user_login'),
     'userLogin'   => wp_get_current_user()->user_login,
     'blogname'    => get_bloginfo(),

@@ -7,7 +7,6 @@ setup_postdata($post);
 
 $snowball = array(
   'adminUrl'    => admin_url(),
-  'author'      => get_the_author(),
   'blogname'    => get_bloginfo(),
   'blogurl'     => get_site_url(),
   'date'        => get_the_date(),
