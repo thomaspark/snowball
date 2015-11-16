@@ -147,13 +147,15 @@ function snowball_metabox_save($post_id) {
  */
 
 function snowball_template($single_template) {
-  if (get_post_type(get_the_id()) == 'snowball') {
+  $postid = get_the_id();
+
+  if ((get_post_type($postid) == 'snowball') && (is_single($postid) || get_option('page_on_front') == $postid)) {
     global $path;
     $single_template = $path . '/snowball-template.php';
   }
   return $single_template;
 }
-add_filter('single_template', 'snowball_template');
+add_filter('template_include', 'snowball_template');
 
 
 
@@ -170,6 +172,19 @@ function snowball_add_custom_code() {
   }
 }
 add_action('wp_head', 'snowball_add_custom_code');
+
+
+
+/*
+ * Add snowball posts to front page, search, archives, etc
+ */
+
+function snowball_add_to_query( $query ) {
+  if ( $query->is_home() && $query->is_main_query() ) {
+    $query->set('post_type', array('post', 'article', 'snowball'));
+  }
+}
+add_action('pre_get_posts', 'snowball_add_to_query');
 
 
 
@@ -195,8 +210,6 @@ function snowball_enable_front_page($query) {
   }
 }
 add_action('pre_get_posts', 'snowball_enable_front_page');
-
-add_filter('template_include', 'snowball_template');
 
 function snowball_menu() {
   add_options_page(
