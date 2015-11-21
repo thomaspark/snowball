@@ -62,6 +62,30 @@ Manual installation:
 
 == Frequently Asked Questions ==
 
+= What shortcodes are available? =
+
+Within a Snowball article, you can use the following shortcodes to add dynamic text: [title], [author], [date], [url], [blogname], [blogurl].
+
+= How can I add custom styles to a block? =
+
+To apply your own customizations to a block, click the "</>" code button. This will open the block with the code view. In the CSS panel in the bottom right, scroll down and add your own CSS. This CSS will only be applied to this block, not any other blocks in the article.
+
+= How can I customize all of the blocks in an article at once? =
+
+Click the "gear" settings button in the top right of the article. A "Custom HTML head code" field is available where you can add CSS that's applied to the whole article. Be sure to wrap your CSS in style tags. You can also use this field to add web fonts and scripts to the article.
+
+= How can I use Snowball's minimal theme? =
+
+By default, Snowball articles use the active theme of your WordPress site. However, Snowball works best with the minimal, one-column theme that's included in the plugin. To activate it, click the "gear" settings button in the top right of the article, check the "Use Snowball theme" option, and save the article.
+
+= Can I use my own template for Snowball articles? =
+
+Yes, administrators can create a custom template where they can add their own headers, footers, stylesheets, and scripts. For information on how the template should be formatted and where it should be placed, read the doc [Using a Custom Template](https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template).
+
+= Can I define my own modules? =
+
+Yes, administrators can create custom modules, which are a bundle of HTML and JavaScript files. For information on how custom modules should be formatted and where they should be placed, read the doc [Creating a Custom Module](https://github.com/thomaspark/snowball/wiki/Creating-a-Custom-Module).
+
 = Who is behind Snowball? =
 
 Snowball is developed and maintained by the [openHTML research team](http://openhtml.org) at Drexel University.
@@ -85,6 +109,9 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.3.2 =
+* Support custom templates: https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template
 
 = 0.3.1 =
 * Include Snowball articles on front page, search, and archives
