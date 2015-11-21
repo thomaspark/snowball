@@ -35,67 +35,6 @@ label[for="slugdiv-hide"] {
   margin: 0;
 }
 
-#submitdiv .misc-pub-section {
-  padding: 5px 10px;
-}
-
-.settings-section {
-  float: right;
-  margin: 3px 20px 6px;
-}
-
-#submitdiv .edit-post-status,
-#submitdiv .edit-visibility, 
-#submitdiv .edit-timestamp {
-  margin-left: 5px;
-}
-
-.button.button-delete {
-  transition: none;
-}
-
-.button.button-delete:hover,
-.button.button-delete:focus {
-  border: 1px solid #9e1115 !important;
-  background-color: #c94e2a !important;
-  box-shadow: inset 0 1px 0 #e34e2a,0 1px 0 rgba(0,0,0,.08);
-  color: #fff !important;
-}
-
-.button.button-delete:focus,
-.button.button-delete:active {
-  border: 1px solid #000 !important;
-  background-color: #a94e2a !important;
-}
-
-#major-publishing-actions {
-  padding: 5px;
-  text-align: right;
-}
-
-#minor-publishing-actions {
-  padding-top: 0;
-}
-
-.trash-button-holder,
-.save-button-holder,
-.preview-button-holder,
-.publish-button-holder {
-  display: inline-block;
-}
-
-.trash-button-holder {
-  float: left;
-}
-
-#publish {
-  float: right;
-}
-
-.save-button-holder .spinner {
-  display: none;
-}
-
 #snowball-toolbar {
   position: -webkit-sticky;
   position: sticky;
