@@ -16,7 +16,8 @@ function snowball_create_post_type() {
       'public' => true,
       'has_archive' => true,
       'supports' => array('title', 'author', 'comments', 'excerpt', 'thumbnail'),
-      'rewrite' => array( 'slug' => 'snowball' ),
+      'rewrite' => array('slug' => 'snowball'),
+      'taxonomies' => array('post_tag','category')
    )
  );
 }
@@ -37,15 +38,6 @@ function snowball_rewrite_flush_deactivation() {
 }
 register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deactivation');
 
-/*
- * Add category and tag support
- */
-
-// function add_tags_categories() {
-//   register_taxonomy_for_object_type('category', 'snowball');
-//   register_taxonomy_for_object_type('post_tag', 'snowball');
-// }
-// add_action('init', 'add_tags_categories');
 
 
 /*
