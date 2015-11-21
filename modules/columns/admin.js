@@ -56,11 +56,11 @@
 
     var activeEditors = block.find(".show").length;
     if (activeEditors == 1) {
-        block.find(".toggle-button").eq(0).find("span").fadeIn('500');
+        block.find(".toggle-button").eq(0).find("span").show();
     }
 
     if (activeEditors == 3) {
-      block.find(".add-button").fadeOut(500);
+      block.find(".add-button").hide();
     }
 
     block.find( '[type="checkbox"]' ).each(function(index) {
@@ -111,7 +111,7 @@
       var checkbox;
 
       if (activeEditors == 2) {
-        block.find(".toggle-button").eq(0).find("span").fadeOut('fast');
+        block.find(".toggle-button").eq(0).find("span").hide();
       }
 
       if (selectedIndex == (activeEditors - 1)) {
@@ -164,7 +164,7 @@
       activateSelectedEditor(block, (selectedIndex - 1));
     }
 
-    $(this).closest(".snowball-block-columns").find(".add-button").fadeIn(500);
+    $(this).closest(".snowball-block-columns").find(".add-button").show();
   });
 
   function activateSelectedButton(block, selection) {
