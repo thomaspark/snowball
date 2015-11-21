@@ -96,28 +96,3 @@ input[type="submit"]:active {
   font-style: italic;
   color: rgba(0, 0, 0, 0.5);
 }
-
-#comments,
-#disqus_thread {
-  width: 600px;
-  margin: 0 auto 4em;
-}
-
-#comments {
-  font-size: 14px;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
-}
-
-#comment {
-  width: 100%;
-}
-
-
-@media (max-width: 800px) {
-
-  #comments {
-    width: 100%;
-    padding: 1em;
-    margin: 0 auto;
-  }
-}

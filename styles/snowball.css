@@ -33,6 +33,21 @@
   text-align: center;
 }
 
+#comments,
+#disqus_thread {
+  width: 600px;
+  margin: 0 auto 4em;
+}
+
+#comments {
+  font-size: 14px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+}
+
+#comment {
+  width: 100%;
+}
+
 .comment-form label {
   display: block;
 }
@@ -55,5 +70,11 @@
 
   .full-width {
     padding: 0;
+  }
+
+  #comments {
+    width: 100%;
+    padding: 1em;
+    margin: 0 auto;
   }
 }
