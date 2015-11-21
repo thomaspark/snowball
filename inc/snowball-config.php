@@ -41,28 +41,10 @@ register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deact
 
 
 /*
- * Force custom post type to have one column layout
- */
-
-// function snowball_screen_layout_columns($columns) {
-//   $columns['snowball'] = 1;
-//   return $columns;
-// }
-// add_filter('screen_layout_columns', 'snowball_screen_layout_columns');
-
-function snowball_screen_layout_post() {
-  return 1;
-}
-add_filter('get_user_option_screen_layout_snowball', 'snowball_screen_layout_post');
-
-
-
-/*
  * Remove editor
  */
 
 function snowball_remove_editor() {
-  // remove_post_type_support('post', 'title');
   remove_post_type_support('snowball', 'editor');
 
 }

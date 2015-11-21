@@ -238,8 +238,10 @@
       zoomPreview();
     });
 
-    $(".hndle, #adv-settings input").on("click", function() {
-      $(".fixedsticky").fixedsticky("destroy").fixedsticky();
+    $(".hndle, #adv-settings input, .columns-prefs input").on("click", function() {
+      var fixedsticky = $(".fixedsticky");
+      fixedsticky.css("width", fixedsticky.parent().width());
+      fixedsticky.fixedsticky("destroy").fixedsticky();
     });
 
     $("#show-settings-link").on("click", function() {
