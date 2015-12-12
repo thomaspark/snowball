@@ -21,36 +21,11 @@ Snowball is developed and maintained by the [openHTML research team](http://open
 
 Currently supported modules:
 
-Basic
-* Text
-* Splash
-* Sidenote
-* Pullquote
-* HTML code
-* Columns
-* Table
-
-Media
-* Image
-* Image Slider
-* YouTube
-* Vimeo
-* SoundCloud
-* Google Maps
-
-Social
-* Twitter
-* Vine
-
-Data
-* Bar Graph
-* Scatterplot
-* Choropleth
-
-Meta
-* Table of Contents
-* Contact Form
-* Share Buttons
+Basic: Text, Splash, Sidenote, Pullquote, HTML, Columns, Table
+Media: Image, Image Comparison Slider, YouTube, Vimeo, SoundCloud, Google Maps
+Social: Twitter, Vine
+Data: Bar Graph, Scatterplot, Choropleth
+Meta: Table of Contents, Contact Form, Share Buttons
 
 For more information, visit our homepage at [snowball.openhtml.org](http://snowball.openhtml.org/).
 
