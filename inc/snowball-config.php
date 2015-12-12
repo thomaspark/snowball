@@ -163,7 +163,7 @@ function snowball_menu() {
     'snowball_options_page'
   );
 }
-add_action('admin_menu', 'snowball_menu');
+// add_action('admin_menu', 'snowball_menu');
 
 function snowball_options_page() {
 
