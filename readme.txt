@@ -2,8 +2,8 @@
 Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor
 Requires at least: 3.0.1
-Tested up to: 4.3.1
-Stable tag: 0.3.1
+Tested up to: 4.4.0
+Stable tag: 0.4.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,8 +119,12 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 
 == Changelog ==
 
-= 0.3.2 =
-* Support custom templates: https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template
+= 0.4.0 =
+* Add support custom templates: https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template
+* Add support for categories and tags
+* Restore default metaboxes such as author, discussion
+* Restore ability to have 2-column admin view
+* For columns module, tweak tab layout
 
 = 0.3.1 =
 * Include Snowball articles on front page, search, and archives
