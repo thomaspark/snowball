@@ -100,6 +100,7 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 * Restore default metaboxes such as author, discussion
 * Restore ability to have 2-column admin view
 * For columns module, tweak tab layout
+* Remove blank settings page
 
 = 0.3.1 =
 * Include Snowball articles on front page, search, and archives
