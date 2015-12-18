@@ -1,5 +1,8 @@
 jQuery(document).ready(function($) {
-  $("#publish, #save-post").click(function() {
+  $("#publish, #save-post").one("click", function(e) {
+    e.preventDefault();
+
+    var button = $(this);
     var blocksRetrieved = retrieveBlocks();
     var articleRetrieved = retrieveRenderedPage();
 
@@ -24,7 +27,9 @@ jQuery(document).ready(function($) {
     $.post(ajax_object.ajax_url, article_data);
 
     // adding blocks data to db
-    $.post(ajax_object.ajax_url, blocks_data);
+    $.post(ajax_object.ajax_url, blocks_data, function() {
+      button.trigger("click");
+    });
   });
 
   $("#post-preview").click(function() {
