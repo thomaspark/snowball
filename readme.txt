@@ -3,7 +3,7 @@ Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor
 Requires at least: 3.0.1
 Tested up to: 4.4.0
-Stable tag: 0.4.0
+Stable tag: 0.4.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.4.1 =
+* Fix race condition that prevented saving articles in Firefox for Windows
 
 = 0.4.0 =
 * Add support custom templates: https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template
