@@ -66,6 +66,10 @@ Click the "gear" settings button in the top right of the article. A "Custom HTML
 
 By default, Snowball articles use the active theme of your WordPress site. However, Snowball works best with the minimal, one-column theme that's included in the plugin. To activate it, click the "gear" settings button in the top right of the article, check the "Use Snowball theme" option, and save the article.
 
+= How do I add items to a Table of Contents block? =
+
+The Table of Contents block is based on all of the HTML IDs used in an article. You can add an ID to an HTML element within a Text or HTML block, as well as text fields like an Image block's caption, in order to have them listed in a table of contents.
+
 = Can I use my own template for Snowball articles? =
 
 Yes, administrators can create a custom template where they can add their own headers, footers, stylesheets, and scripts. For information on how the template should be formatted and where it should be placed, read the doc [Using a Custom Template](https://github.com/thomaspark/snowball/wiki/Using-a-Custom-Template).
