@@ -107,7 +107,7 @@ add_filter('template_include', 'snowball_template');
  */
 
 function snowball_add_custom_code() {
-  if (get_post_type(get_the_id()) == 'snowball') {
+  if (get_post_type(get_the_id()) == 'snowball' && is_home() === false || is_front_page() === false) {
     $article = snowball_get_article(get_the_id(), 0);
     $output = $article['head_html'];
 
