@@ -67,23 +67,6 @@ function snowball_metabox_callback() {
 }
 
 
-/*
- * Saving post
- */
-
-function snowball_metabox_save($post_id) {
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) 
-  return;
-
-  if (isset($_POST['snowball_metabox_content_nonce']) && !wp_verify_nonce($_POST['snowball_metabox_content_nonce'], plugin_basename(__FILE__)))
-  return;
-
-  if (!current_user_can('edit_page', $post_id))
-  return;
-}
-// add_action('save_post', 'snowball_metabox_save');
-
-
 
 /*
  * Use snowball-template.php for output
@@ -156,28 +139,5 @@ function snowball_enable_front_page($query) {
 }
 add_action('pre_get_posts', 'snowball_enable_front_page');
 
-function snowball_menu() {
-  add_options_page(
-    'Snowball',
-    'Snowball',
-    'manage_options',
-    'snowball',
-    'snowball_options_page'
-  );
-}
-// add_action('admin_menu', 'snowball_menu');
-
-function snowball_options_page() {
-
-  if(!current_user_can('manage_options')) {
-    wp_die('You do not have sufficient permissions to access this page.');
-  }
-
-  global $plugin_url;
-  global $options;
-  global $display_json;
-
-  require('snowball-options.php');
-}
 
 ?>
