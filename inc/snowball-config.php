@@ -107,7 +107,9 @@ add_filter('template_include', 'snowball_template');
  */
 
 function snowball_add_custom_code() {
-  if (get_post_type(get_the_id()) == 'snowball') {
+  $postid = get_the_id();
+
+  if ((get_post_type($postid) == 'snowball') && (is_single($postid) || get_option('page_on_front') == $postid)) {
     $article = snowball_get_article(get_the_id(), 0);
     $output = $article['head_html'];
 
