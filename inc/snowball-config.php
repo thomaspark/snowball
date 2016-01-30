@@ -17,6 +17,18 @@ function snowball_create_post_type() {
       'has_archive' => true,
       'supports' => array('title', 'author', 'comments', 'excerpt', 'thumbnail'),
       'rewrite' => array('slug' => 'snowball'),
+      'capabilities' => array(
+        'edit_post'          => 'snowball_edit_post',
+        'read_post'          => 'snowball_read_post',
+        'delete_post'        => 'snowball_delete_post',
+        'edit_posts'         => 'snowball_edit_posts',
+        'delete_posts'       => 'snowball_delete_posts',
+        'edit_others_posts'  => 'snowball_edit_others_posts',
+        'publish_posts'      => 'snowball_publish_posts',
+        'read_private_posts' => 'snowball_read_private_posts',
+        'create_posts'       => 'snowball_edit_posts',
+      ),
+      'map_meta_cap' => true,
       'taxonomies' => array('post_tag','category')
    )
  );
@@ -37,6 +49,38 @@ function snowball_rewrite_flush_deactivation() {
     flush_rewrite_rules();
 }
 register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deactivation');
+
+
+
+/*
+ * Add Snowball capabilities to default roles
+ */
+
+function snowball_add_caps() {
+  $role = get_role('administrator');
+  $role->add_cap('snowball_edit_posts');
+  $role->add_cap('snowball_delete_posts');
+  $role->add_cap('snowball_edit_others_posts');
+  $role->add_cap('snowball_publish_posts');
+  $role->add_cap('snowball_read_private_posts');
+
+  $role = get_role('editor');
+  $role->add_cap('snowball_edit_posts');
+  $role->add_cap('snowball_delete_posts');
+  $role->add_cap('snowball_edit_others_posts');
+  $role->add_cap('snowball_publish_posts');
+  $role->add_cap('snowball_read_private_posts');
+
+  $role = get_role('author');
+  $role->add_cap('snowball_edit_posts');
+  $role->add_cap('snowball_delete_posts');
+  $role->add_cap('snowball_publish_posts');
+
+  $role = get_role('contributor');
+  $role->add_cap('snowball_edit_posts');
+  $role->add_cap('snowball_delete_posts');
+}
+add_action('admin_init', 'snowball_add_caps');
 
 
 
