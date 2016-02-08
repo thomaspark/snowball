@@ -118,11 +118,6 @@ label[for="slugdiv-hide"] {
   background-color: #d0d0d0;
 }
 
-#snowball-toolbar .menu {
-  position: relative;
-  padding-top: 0;
-}
-
 #snowball-toolbar .menu-toggle {
   display: inline-block;
   padding: 2px 4px;
@@ -173,18 +168,6 @@ label[for="slugdiv-hide"] {
   cursor: pointer;
 }
 
-#snowball-toolbar .happy:hover .menu-toggle {
-  background-color: #7CB342;
-  color: #fff;
-}
-
-#snowball-toolbar .sad:hover .menu-toggle {
-  background-color: #F44336;
-  color: #fff;
-}
-
-#snowball-toolbar .happy .menu-toggle.button,
-#snowball-toolbar .sad .menu-toggle.button,
 #snowball-toolbar .cog .button {
   width: 25px;
   height: 22px;

@@ -20,28 +20,6 @@
 
 <header id="snowball-toolbar" class="fixedsticky">
   <div class="settings">
-    <span class="menu happy">
-      <span class="menu-toggle button"><i class="fa fa-smile-o"></i></span>
-      <div class="dialog">
-        <span class="close">&times;</span>
-        <div class="feedback" data-mood="positive">
-          <div class="header">How did Snowball make you happy?</div>
-          <textarea autofocus></textarea>
-          <div><a class="button">Submit</a></div>
-        </div>
-      </div>
-    </span>
-    <span class="menu sad">
-      <span class="menu-toggle button"><i class="fa fa-frown-o"></i></span>
-      <div class="dialog">
-        <span class="close">&times;</span>
-        <div class="feedback" data-mood="negative">
-          <div class="header">How did Snowball make you sad, frustrated, or annoyed?</div>
-          <textarea autofocus></textarea>
-          <div><a class="button">Submit</a></div>
-        </div>
-      </div>
-    </span>
     <span class="menu options cog">
       <span class="menu-toggle button"><i class="fa fa-cog"></i></span>
       <div class="dialog settings-dropdown">

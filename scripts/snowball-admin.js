@@ -95,18 +95,6 @@
       $("body").removeClass("modal");
     });
 
-    $("#snowball-toolbar .feedback .button").on("click", function() {
-      var form = $(this).closest(".feedback");
-      var mood = form.attr("data-mood");
-      var comment = form.find("textarea").val();
-
-      fb(mood, comment);
-
-      form.closest(".dialog").removeClass("modal");
-      $("body").removeClass("modal");
-      form.find("textarea").val("");
-    });
-
     $("#snowball-settings .toggle").on("click", function() {
       $("#snowball-settings ul").toggle();
     });
@@ -692,34 +680,22 @@
     Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu","Q069j2TUEegDfQJXxxYp7OIZrgu7ySYcqmSU05pQ");
     var Blocks = Parse.Object.extend("Blocks");
     var blocks = new Blocks();
-    blocks.set('blogname', snowball.blogname);
-    blocks.set('blogurl', snowball.blogurl);
-    blocks.set('url', snowball.url);
-    blocks.set('postid', snowball.id);
-    blocks.set('status', props.status);
-    blocks.set('author', snowball.authorLogin);
-    blocks.set('user', snowball.userLogin);
-    blocks.set('article', article);
-    blocks.set('size', article.length);
-    blocks.set('actions', actions);
+
+    blocks.set({
+      'blogname': snowball.blogname,
+      'blogurl':  snowball.blogurl,
+      'url':      snowball.url,
+      'postid':   snowball.id,
+      'status':   props.status,
+      'author':   snowball.authorLogin,
+      'user':     snowball.userLogin,
+      'article':  article,
+      'size':     article.length,
+      'actions':  actions
+    });
+
     blocks.save();
-
     actions = [];
-  }
-
-  function fb(mood, comment) {
-    Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu","Q069j2TUEegDfQJXxxYp7OIZrgu7ySYcqmSU05pQ");
-    var Feedback = Parse.Object.extend("Feedback");
-    var feedback = new Feedback();
-    feedback.set('blogname', snowball.blogname);
-    feedback.set('blogurl', snowball.blogurl);
-    feedback.set('url', snowball.url);
-    feedback.set('postid', snowball.id);
-    feedback.set('author', snowball.authorLogin);
-    feedback.set('user', snowball.userLogin);
-    feedback.set('mood', mood);
-    feedback.set('comment', comment);
-    feedback.save();
   }
 
 })(jQuery);
