@@ -58,27 +58,35 @@ register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deact
 
 function snowball_add_caps() {
   $role = get_role('administrator');
-  $role->add_cap('snowball_edit_posts');
-  $role->add_cap('snowball_delete_posts');
-  $role->add_cap('snowball_edit_others_posts');
-  $role->add_cap('snowball_publish_posts');
-  $role->add_cap('snowball_read_private_posts');
+  if ( $role ) {
+    $role->add_cap('snowball_edit_posts');
+    $role->add_cap('snowball_delete_posts');
+    $role->add_cap('snowball_edit_others_posts');
+    $role->add_cap('snowball_publish_posts');
+    $role->add_cap('snowball_read_private_posts');
+  }
 
   $role = get_role('editor');
-  $role->add_cap('snowball_edit_posts');
-  $role->add_cap('snowball_delete_posts');
-  $role->add_cap('snowball_edit_others_posts');
-  $role->add_cap('snowball_publish_posts');
-  $role->add_cap('snowball_read_private_posts');
+  if ( $role ) {
+    $role->add_cap('snowball_edit_posts');
+    $role->add_cap('snowball_delete_posts');
+    $role->add_cap('snowball_edit_others_posts');
+    $role->add_cap('snowball_publish_posts');
+    $role->add_cap('snowball_read_private_posts');
+  }
 
   $role = get_role('author');
-  $role->add_cap('snowball_edit_posts');
-  $role->add_cap('snowball_delete_posts');
-  $role->add_cap('snowball_publish_posts');
+  if ( $role ) {
+    $role->add_cap('snowball_edit_posts');
+    $role->add_cap('snowball_delete_posts');
+    $role->add_cap('snowball_publish_posts');
+  }
 
   $role = get_role('contributor');
-  $role->add_cap('snowball_edit_posts');
-  $role->add_cap('snowball_delete_posts');
+  if ( $role ) {
+    $role->add_cap('snowball_edit_posts');
+    $role->add_cap('snowball_delete_posts');
+  }
 }
 add_action('admin_init', 'snowball_add_caps');
 
