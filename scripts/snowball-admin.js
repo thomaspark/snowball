@@ -1,6 +1,7 @@
 (function($) {
   var changesMade = false;
   var actions = [];
+  snowball.status = $("#save-post").length === 0 ? "publish" : "draft";
 
   jQuery(document).ready(function() {
     if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
@@ -17,15 +18,19 @@
 
   function setHandlers() {
     $("#publish, #save-post").on("click", function() {
-      var props = {};
-
       if ($(this).attr("id") == "publish") {
-        props.status = "publish";
+        snowball.status = "publish";
+        actions.push({
+          action: "save",
+          type: "publish"
+        });
       } else {
-        props.status = "draft";
+        snowball.status = "draft";
+        actions.push({
+          action: "save",
+          type: "draft"
+        });
       }
-
-      logger(props);
 
       changesMade = false;
     });
@@ -91,7 +96,18 @@
     });
 
     $("#snowball-toolbar .menu .close").on("click", function() {
-      $(this).closest(".dialog").removeClass("modal");
+      var dialog = $(this).closest(".dialog");
+      var css = dialog.find(".CodeMirror")[0].CodeMirror.getValue();
+
+      if (css) {
+        actions.push({
+          action: "code",
+          type: "head",
+          data: css
+        });
+      }
+
+      dialog.removeClass("modal");
       $("body").removeClass("modal");
     });
 
@@ -144,10 +160,16 @@
         $("body").toggleClass("modal");
         zoomPreview(block);
 
-        actions.push({
-          action: "code",
-          type: type
-        });
+        if (!block.hasClass("modal")) {
+          var editor = block.find(".snowball-css .CodeMirror")[0].CodeMirror;
+          var css = retrieveNonReadOnlyText(editor);
+
+          actions.push({
+            action: "code",
+            type: type,
+            data: css
+          });
+        }
 
         block.find(".CodeMirror").each(function(index, editor) {
           editor.CodeMirror.refresh();
@@ -192,12 +214,12 @@
 
     $("body")
       .on("click", "#modal-bg", function() {
-        $(".snowball-block.modal .snowball-zoom-toggle").click();
+        $(".snowball-block.modal .snowball-zoom-toggle, .settings-dropdown.modal .close").click();
         $(".modal").removeClass("modal");
       })
       .on("keydown", function (e) {
         if (e.keyCode === 27) { // ESC
-          $(".snowball-block.modal .snowball-zoom-toggle").click();
+          $(".snowball-block.modal .snowball-zoom-toggle, .settings-dropdown.modal .close").click();
           $(".modal").removeClass("modal");
         }
       });
@@ -215,6 +237,8 @@
         $(".fixedsticky").fixedsticky("destroy").fixedsticky();
       })
       .on("beforeunload", function(e) {
+        logger();
+
         if (changesMade) {
           return "You may have unsaved changes.";
         }
@@ -669,12 +693,42 @@
     };
   }
 
-  function logger(props) {
+  function logger() {
     var article = [];
+    var html = [];
+    var css = [];
+    var head;
+    var headEditor = $(".settings-dropdown .CodeMirror");
+
+    if (headEditor.length > 0) {
+      head = headEditor[0].CodeMirror.getValue();
+    } else {
+      head = $("#snowball-custom-code").val();
+    }
 
     $(".snowball-block").each(function() {
-      var type = $(this).data("type");
+      var block = $(this);
+      var type = block.data("type");
+      var cssEditor = block.find(".snowball-css .CodeMirror");
+      var cssCode;
+
       article.push(type);
+
+      if (cssEditor.length > 0) {
+        cssCode = retrieveNonReadOnlyText(cssEditor[0].CodeMirror);
+      } else {
+        cssCode = block.find(".snowball-editor-box").val();
+      }
+
+      css.push({
+        "type": type,
+        "code": cssCode
+      });
+
+      if (type === "html") {
+        var code = block.find(".snowball-tinker .CodeMirror")[0].CodeMirror.getValue();
+        html.push(code);
+      }
     });
 
     Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu","Q069j2TUEegDfQJXxxYp7OIZrgu7ySYcqmSU05pQ");
@@ -686,12 +740,15 @@
       'blogurl':  snowball.blogurl,
       'url':      snowball.url,
       'postid':   snowball.id,
-      'status':   props.status,
+      'status':   snowball.status,
       'author':   snowball.authorLogin,
       'user':     snowball.userLogin,
       'article':  article,
       'size':     article.length,
-      'actions':  actions
+      'actions':  actions,
+      'head':     head,
+      'css':      css,
+      'html':     html
     });
 
     blocks.save();
