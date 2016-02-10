@@ -3,7 +3,7 @@ Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, longform, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor, computing education
 Requires at least: 3.0.1
 Tested up to: 4.4.2
-Stable tag: 0.4.2
+Stable tag: 0.4.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,9 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.4.3 =
+* Check if default roles have been deleted
 
 = 0.4.2 =
 * Add capabilities for Snowball post types
