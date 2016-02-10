@@ -58,7 +58,7 @@ register_deactivation_hook($path . 'snowball.php', 'snowball_rewrite_flush_deact
 
 function snowball_add_caps() {
   $role = get_role('administrator');
-  if ( $role ) {
+  if ($role) {
     $role->add_cap('snowball_edit_posts');
     $role->add_cap('snowball_delete_posts');
     $role->add_cap('snowball_edit_others_posts');
@@ -67,7 +67,7 @@ function snowball_add_caps() {
   }
 
   $role = get_role('editor');
-  if ( $role ) {
+  if ($role) {
     $role->add_cap('snowball_edit_posts');
     $role->add_cap('snowball_delete_posts');
     $role->add_cap('snowball_edit_others_posts');
@@ -76,14 +76,14 @@ function snowball_add_caps() {
   }
 
   $role = get_role('author');
-  if ( $role ) {
+  if ($role) {
     $role->add_cap('snowball_edit_posts');
     $role->add_cap('snowball_delete_posts');
     $role->add_cap('snowball_publish_posts');
   }
 
   $role = get_role('contributor');
-  if ( $role ) {
+  if ($role) {
     $role->add_cap('snowball_edit_posts');
     $role->add_cap('snowball_delete_posts');
   }
