@@ -52,6 +52,10 @@
   display: block;
 }
 
+[id^="scoper-"] {
+  display: inline;
+}
+
 @media (max-width: 1200px) {
   .offset-left > *,
   .offset-right > * {
