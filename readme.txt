@@ -3,7 +3,7 @@ Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, longform, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor, computing education
 Requires at least: 3.0.1
 Tested up to: 4.4.2
-Stable tag: 0.4.3
+Stable tag: 0.4.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,15 +21,11 @@ Snowball is developed and maintained by the [openHTML research team](http://open
 
 Currently supported modules:
 
-Basic: Text, Splash, Sidenote, Pullquote, HTML, Columns, Table
-
-Media: Image, Image Comparison Slider, YouTube, Vimeo, SoundCloud, Google Maps
-
-Social: Twitter, Vine
-
-Data: Bar Graph, Scatterplot, Choropleth
-
-Meta: Table of Contents, Contact Form, Share Buttons
+* Basic: Text, Splash, Sidenote, Pullquote, HTML, Columns, Table
+* Media: Image, Image Comparison Slider, YouTube, Vimeo, SoundCloud, Google Maps
+* Social: Twitter, Vine
+* Data: Bar Graph, Scatterplot, Choropleth
+* Meta: Table of Contents, Contact Form, Share Buttons
 
 For more information, visit our homepage at [snowball.openhtml.org](http://snowball.openhtml.org/).
 
@@ -101,6 +97,9 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.4.4 =
+* Set scoper spans to inline display to reset misbehaving theme styles
 
 = 0.4.3 =
 * Check if default roles have been deleted
