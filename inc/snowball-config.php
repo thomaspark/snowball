@@ -159,9 +159,15 @@ add_action('wp_head', 'snowball_add_custom_code');
  * Add snowball posts to front page, search, archives, etc
  */
 
-function snowball_add_to_query( $query ) {
-  if ( $query->is_home() && $query->is_main_query() ) {
+function snowball_add_to_query($query) {
+  if ($query->is_home() && $query->is_main_query()) {
     $query->set('post_type', array('post', 'article', 'snowball'));
+    return $query;
+  }
+
+  if(is_category() || is_tag() && empty($query->query_vars['suppress_filters'])) {
+    $query->set('post_type', array('post', 'nav_menu_item', 'snowball'));
+    return $query;
   }
 }
 add_action('pre_get_posts', 'snowball_add_to_query');
