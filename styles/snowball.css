@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+.fluid-width {
+  width: 80%;
+}
+
 .offset-left > *,
 .offset-right > * {
   width: 500px;
