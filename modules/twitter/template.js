@@ -1,11 +1,14 @@
 (function($) {
-  var url = "https://platform.twitter.com/widgets.js";
 
-  $.getScript(url, function() {
-    $(".snowball-block-twitter").each(function() {
-      createTweet($(this));
-    }); 
-  });
+  if($(".snowball-block-twitter").length > 0) {
+    var url = "https://platform.twitter.com/widgets.js";
+
+    $.getScript(url, function() {
+      $(".snowball-block-twitter").each(function() {
+        createTweet($(this));
+      }); 
+    });
+  }
 
 })(jQuery);
 
