@@ -34,12 +34,12 @@
 
       file_frame.on("insert select", function() {
         var block = $(".snowball-block").eq(index);
-        var insertingFrom = file_frame.state().attributes.title;
+        var insertingFrom = file_frame.state().attributes.id;
         var attachment;
 
-        if (insertingFrom === "Insert from URL") {
+        if (insertingFrom === "embed") {
           attachment = file_frame.state().props.attributes.url;
-        } else if (insertingFrom === "Insert Media") {
+        } else if (insertingFrom === "insert") {
           attachment = file_frame.state().get("selection").first().toJSON().url;
         }
 
