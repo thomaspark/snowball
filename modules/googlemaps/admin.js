@@ -27,7 +27,7 @@
   });
 
   function mapParse(url) {
-    var re = /google.com\/maps\/.*@(-?\d+.\d+),(-?\d+.\d+),(\d+)([mz])/;
+    var re = /google.[a-z.]+\/maps\/.*@(-?\d+.\d+),(-?\d+.\d+),(\d+)([mz])/;
     var matches = re.exec(url);
 
     if (matches !== null) {
