@@ -13,6 +13,10 @@
     });
 
     QTags._buttonsInit();
+
+    var darkenInput = $(this).find('.darken-bg');
+    var bgDarkenVal = Math.floor((darkenInput.val() * 100) / darkenInput.attr('max')) + "%";
+    $(this).find('.darken-bg-output').text(bgDarkenVal);
   });
 
   $("#snowball-main").on("click", ".snowball-block-splash .quicktags-toolbar .button", function() {
@@ -63,6 +67,14 @@
       });
 
       file_frame.open();
+    });
+
+    $("#snowball-main").on("input change", ".snowball-block-splash .darken-bg", function() {
+      var block = $(this).closest(".snowball-block-splash");
+      var bgDarkenVal = Math.floor(($(this).val() * 100) / $(this).attr('max')) + "%";
+
+      block.find(".darken-bg-output").text(bgDarkenVal);
+      block.trigger("render");
     });
   });
 
