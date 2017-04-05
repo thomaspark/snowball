@@ -43,6 +43,7 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('snowball-css', plugins_url('styles/min/snowball-admin.min.css', $plugin_path));
 
     wp_enqueue_media();
+    wp_enqueue_script('quicktags');
     wp_enqueue_script('codemirror-js', plugins_url('lib/codemirror/lib/codemirror.min.js', $plugin_path));
     wp_enqueue_script('codemirror-mode-css', plugins_url('lib/codemirror/mode/css.min.js', $plugin_path));
     wp_enqueue_script('codemirror-mode-xml', plugins_url('lib/codemirror/mode/xml.min.js', $plugin_path));
