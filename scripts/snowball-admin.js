@@ -682,17 +682,6 @@
     $("#snowball-toolbar .settings .draft, #snowball-toolbar .settings .save").addClass("unsaved");
   }
 
-  function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-      var context = this, args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(context, args);
-      }, delay);
-    };
-  }
-
   function logger() {
     var article = [];
     var html = [];
@@ -756,3 +745,16 @@
   }
 
 })(jQuery);
+
+
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}

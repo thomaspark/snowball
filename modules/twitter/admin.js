@@ -8,13 +8,13 @@
     $(this).trigger("render");
   });
 
-  $("#snowball-main").on("change keyup", ".snowball-block-twitter [data-target='tweet-url']", function() {
+  $("#snowball-main").on("change keyup", ".snowball-block-twitter [data-target='tweet-url']", debounce(function() {
     var block = $(this).closest(".snowball-block-twitter");
     var tweetUrl = $(this).val().trim();
     var tweetID = parseTweetUrl(tweetUrl);
 
     block.find("[data-target='id']").val(tweetID);
-  });
+  }, 250));
 
   $("#snowball-main").on("rendered", ".snowball-block-twitter", function() {
     var block = $(this);

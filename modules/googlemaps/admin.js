@@ -5,7 +5,7 @@
     $(this).find(".zoom-output").text(zoom);
   });
 
-  $("#snowball-main").on("change keyup", ".snowball-block-googlemaps .map-user", function() {
+  $("#snowball-main").on("change keyup", ".snowball-block-googlemaps .map-user", debounce(function() {
     var block = $(this).closest(".snowball-block-googlemaps");
     var url = $(this).val();
     var props = mapParse(url);
@@ -22,14 +22,14 @@
     block.find("[data-target='maptype'][value='" + maptype +  "']").prop("checked", true);
 
     block.trigger("render");
-  });
+  }, 250));
 
-  $("#snowball-main").on("input change", ".snowball-block-googlemaps .zoom", function() {
+  $("#snowball-main").on("input change", ".snowball-block-googlemaps .zoom", debounce(function() {
     var block = $(this).closest(".snowball-block-googlemaps");
     var zoom = $(this).val();
 
     block.find(".zoom-output").text(zoom);
-  });
+  }, 50));
 
   function mapParse(url) {
     var re = /google.[a-z.]+\/maps\/.*@(-?\d+.\d+),(-?\d+.\d+),(\d+)([mz])/;

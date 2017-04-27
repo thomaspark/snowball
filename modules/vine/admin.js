@@ -8,14 +8,14 @@
     $(this).trigger("render");
   });
 
-  $("#snowball-main").on("change keyup", ".snowball-block-vine .video-url", function() {
+  $("#snowball-main").on("change keyup", ".snowball-block-vine .video-url", debounce(function() {
     var block = $(this).closest(".snowball-block-vine");
     var videoUrl = $(this).val();
     var videoID = parseVideoURL(videoUrl);
 
     block.find(".video-id").val(videoID);
     block.trigger("render");
-  });
+  }, 250));
 
   function parseVideoURL(videoUrl) {
     var re;

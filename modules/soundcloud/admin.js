@@ -15,7 +15,8 @@
 
   function getSoundCloudUrl(id, options) {
     var soundCloudUrl = "https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/";
-    soundCloudUrl = soundCloudUrl + id + "&show_reposts=false&auto_play=false"
+    soundCloudUrl = soundCloudUrl + id + "&show_reposts=false&auto_play=false";
+
     for (var key in options) {
       if (options.hasOwnProperty(key)) {
         soundCloudUrl = soundCloudUrl + "&" + key + "=" + options[key];
@@ -45,7 +46,7 @@
     block.trigger("render");
   });
 
-  $("#snowball-main").on("change keyup", ".snowball-block-soundcloud", function() {
+  $("#snowball-main").on("change keyup", ".snowball-block-soundcloud", debounce(function() {
     var block = $(this).closest(".snowball-block-soundcloud");
     var soundCloudLink = $(block).find("input[data-target=embed-link]").val();
     var embedIframe = $(block)
@@ -64,5 +65,5 @@
 
     $(block).find(".track-url").val(trackUrl);
     block.trigger("render");
-  });
+  }, 250));
 })(jQuery);
