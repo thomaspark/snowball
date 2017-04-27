@@ -3,7 +3,7 @@
   var actions = [];
   snowball.status = $("#save-post").length === 0 ? "publish" : "draft";
 
-  jQuery(document).ready(function() {
+  $(document).ready(function() {
     if ((snowball.savedblocks.length !== 0) && (snowball.savedblocks !== "null")) {
       $("#snowball_meta").removeClass("closed");
 
@@ -12,7 +12,9 @@
     } else {
       snowball.savedblocks = [];
     }
+  });
 
+  $(window).load(function() {
     setHandlers();
   });
 
