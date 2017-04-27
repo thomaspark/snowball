@@ -27,6 +27,8 @@
     }
 
     var matches = re.exec(videoUrl);
-    return matches[1];
+    var match = matches && matches[1] ? matches[1] : "bjHh0zHdgZT";
+
+    return match;
   }
 })(jQuery);

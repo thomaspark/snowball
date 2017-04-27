@@ -33,7 +33,8 @@
     }
 
     var matches = re.exec(videoUrl);
+    var match = matches && matches[1] ? matches[1] : "65982111";
 
-    return matches[1];
+    return match;
   }
 })(jQuery);

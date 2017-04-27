@@ -10,11 +10,16 @@
     var url = $(this).val();
     var props = mapParse(url);
 
-    block.find("[data-target='lat']").val(props.lat);
-    block.find("[data-target='lon']").val(props.lon);
-    block.find("[data-target='zoom']").val(props.zoom);
-    block.find(".zoom-output").text(props.zoom);
-    block.find("[data-target='maptype'][value='" + props.maptype +  "']").prop("checked", true);
+    var lat = props && props.lat ? props.lat : '39.9581888';
+    var lon = props && props.lon ? props.lon : '-75.1887621';
+    var zoom = props && props.zoom ? props.zoom : '14';
+    var maptype = props && props.maptype ? props.maptype : 'roadmap';
+
+    block.find("[data-target='lat']").val(lat);
+    block.find("[data-target='lon']").val(lon);
+    block.find("[data-target='zoom']").val(zoom);
+    block.find(".zoom-output").text(zoom);
+    block.find("[data-target='maptype'][value='" + maptype +  "']").prop("checked", true);
 
     block.trigger("render");
   });
