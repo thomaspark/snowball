@@ -15,7 +15,7 @@ function snowball_create_post_type() {
       'menu_icon' => 'dashicons-marker',
       'public' => true,
       'has_archive' => true,
-      'supports' => array('title', 'author', 'comments', 'excerpt', 'thumbnail'),
+      'supports' => array('title', 'author', 'comments', 'excerpt', 'publicize', 'thumbnail'),
       'rewrite' => array('slug' => 'snowball'),
       'capabilities' => array(
         'edit_post'          => 'snowball_edit_post',
@@ -161,14 +161,44 @@ add_action('wp_head', 'snowball_add_custom_code');
 
 function snowball_add_to_query($query) {
   if ($query->is_home() && $query->is_main_query()) {
-    $query->set('post_type', array('post', 'article', 'snowball'));
-    return $query;
+    $post_types = $query->get('post_type'); 
+
+    if(!is_array($post_types) && !empty($post_types)) {
+      $post_types = explode(',', $post_types);
+    }
+
+    if(empty($post_types)) {
+      $post_types[] = 'post';
+    }
+
+    $post_types[] = 'snowball';
+
+    $post_types = array_map('trim', $post_types);
+    $post_types = array_filter($post_types);  
+
+    $query->set('post_type', $post_types);
   }
 
   if(is_category() || is_tag() && empty($query->query_vars['suppress_filters'])) {
-    $query->set('post_type', array('post', 'nav_menu_item', 'snowball'));
-    return $query;
+    $post_types = $query->get('post_type'); 
+
+    if(!is_array($post_types) && !empty($post_types)) {
+      $post_types = explode(',', $post_types);
+    }
+
+    if(empty($post_types)) {
+      $post_types[] = 'post';
+    }
+
+    $post_types[] = 'snowball';
+
+    $post_types = array_map('trim', $post_types);
+    $post_types = array_filter($post_types);  
+
+    $query->set('post_type', $post_types);
   }
+
+  return $query;
 }
 add_action('pre_get_posts', 'snowball_add_to_query');
 
