@@ -160,7 +160,7 @@ add_action('wp_head', 'snowball_add_custom_code');
  */
 
 function snowball_add_to_query($query) {
-  if ($query->is_home() && $query->is_main_query()) {
+  if ($query->is_home()) {
     $post_types = $query->get('post_type'); 
 
     if(!is_array($post_types) && !empty($post_types)) {
