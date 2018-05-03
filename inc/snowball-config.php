@@ -168,6 +168,7 @@ function snowball_add_to_query($query) {
     }
 
     if(empty($post_types)) {
+      $post_types = array();
       $post_types[] = 'post';
     }
 
@@ -187,6 +188,7 @@ function snowball_add_to_query($query) {
     }
 
     if(empty($post_types)) {
+      $post_types = array();
       $post_types[] = 'post';
     }
 

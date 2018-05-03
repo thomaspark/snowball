@@ -2,8 +2,8 @@
 Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
 Tags: snowball, journalism, news, blog, article, longform, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor, computing education
 Requires at least: 3.0.1
-Tested up to: 4.9
-Stable tag: 0.4.14
+Tested up to: 4.9.5
+Stable tag: 0.4.15
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,9 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.4.15 =
+* Fix fatal error with PHP 7.1
 
 = 0.4.14 =
 * Support Jetpack publicize feature

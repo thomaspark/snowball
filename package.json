@@ -1,6 +1,6 @@
 {
   "name": "Snowball",
-  "version": "0.4.14",
+  "version": "0.4.15",
   "description": "WordPress plugin for authoring modern, immersive articles",
   "main": "gulpfile.js",
   "repository": {
