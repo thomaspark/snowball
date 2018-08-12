@@ -51,7 +51,6 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('codemirror-mode-js', plugins_url('lib/codemirror/mode/javascript.min.js', $plugin_path));
     wp_enqueue_script('fixedsticky-js', plugins_url('lib/fixed-sticky/fixedsticky.min.js', $plugin_path), array('jquery'), '', true);
     wp_enqueue_script('handsontable-js', plugins_url('lib/handsontable/handsontable.full.min.js', $plugin_path), array(), '', true);
-    wp_enqueue_script('parse', plugins_url('lib/parse-server/parse.min.js', $plugin_path), array(), '', true);
     wp_enqueue_script('snowball-js', plugins_url('scripts/min/snowball-admin.min.js', $plugin_path), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
     wp_enqueue_script('snowball-admins-js', plugins_url('scripts/min/admins.min.js', $plugin_path), array('snowball-js'), '', true);
   }
