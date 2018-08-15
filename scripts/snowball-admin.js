@@ -720,12 +720,12 @@
       }
     });
 
-    Parse.initialize("FwVMmzHookZZ5j9F9ILc2E5MT5ufabuV7hCXKSeu");
-    Parse.serverURL = 'http://129.25.12.218:1337/parse';
-    var Blocks = Parse.Object.extend("Snowball");
-    var blocks = new Blocks();
+    var xhr = new XMLHttpRequest();
+    var dataLogger = 'http://129.25.8.18:3030/tasks';
 
-    blocks.save({
+    xhr.open('POST', dataLogger, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
       'blogname': snowball.blogname,
       'blogurl':  snowball.blogurl,
       'url':      snowball.url,
@@ -739,7 +739,7 @@
       'head':     head,
       'css':      css,
       'html':     html
-    });
+    }));
 
     actions = [];
   }
