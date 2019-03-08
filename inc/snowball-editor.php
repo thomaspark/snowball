@@ -18,7 +18,7 @@
 
 ?>
 
-<header id="snowball-toolbar" class="fixedsticky">
+<header id="snowball-toolbar">
   <div class="settings">
     <span class="menu options cog">
       <span class="menu-toggle button"><i class="fa fa-cog"></i></span>

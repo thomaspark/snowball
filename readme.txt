@@ -104,6 +104,7 @@ This research has been approved by the Institutional Review Board of Drexel Univ
 
 = 0.4.17 =
 * Add field for Google Maps API key
+* Remove fixed-sticky polyfill
 * Prevent Snowball articles from being included in secondary queries
 
 = 0.4.16 =

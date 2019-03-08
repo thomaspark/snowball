@@ -83,7 +83,7 @@ gulp.task('minify-admins', function () {
 
 
 // minifies the code for the css/js libraries
-gulp.task('minify-libraries', ['minify-codemirror', 'minify-fixed-sticky']);
+gulp.task('minify-libraries', ['minify-codemirror']);
 
 gulp.task('minify-codemirror', function() {
   var dir = "./lib/codemirror/**/";
@@ -108,29 +108,6 @@ gulp.task('minify-codemirror', function() {
       path.basename += '.min';
     }))
     .pipe(gulp.dest("./lib/codemirror/"));
-});
-
-gulp.task('minify-fixed-sticky', function() {
-  var dir = "./lib/fixed-sticky/*";
-  gulp.src([dir + '*.js', '!' + dir + '*.min.js'])
-    .pipe(plumber({
-      errorHandler: onError
-    }))
-    .pipe(uglify())
-    .pipe(rename(function (path) {
-      path.basename += '.min';
-    }))
-    .pipe(gulp.dest("./lib/fixed-sticky/"));
-
-  gulp.src([dir + '*.css', '!' + dir + '*.min.css'])
-    .pipe(plumber({
-      errorHandler: onError
-    }))
-    .pipe(minifyCss())
-    .pipe(rename(function (path) {
-      path.basename += '.min';
-    }))
-    .pipe(gulp.dest("./lib/fixed-sticky/"));
 });
 
 var snowballFiles = [

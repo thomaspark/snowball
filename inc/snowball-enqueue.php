@@ -38,7 +38,6 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_style('fontawesome-css', plugins_url('lib/font-awesome/css/font-awesome.min.css', $plugin_path));
     wp_enqueue_style('codemirror-css', plugins_url('lib/codemirror/lib/codemirror.min.css', $plugin_path));
     wp_enqueue_style('codemirror-theme-monokai', plugins_url('lib/codemirror/theme/monokai.min.css', $plugin_path));
-    wp_enqueue_style('fixedsticky-css', plugins_url('lib/fixed-sticky/fixedsticky.min.css', $plugin_path));
     wp_enqueue_style('handsontable-css', plugins_url('lib/handsontable/handsontable.full.min.css', $plugin_path));
     wp_enqueue_style('snowball-css', plugins_url('styles/min/snowball-admin.min.css', $plugin_path));
 
@@ -49,7 +48,6 @@ function snowball_admin_add_scripts_and_stylesheets($hook) {
     wp_enqueue_script('codemirror-mode-xml', plugins_url('lib/codemirror/mode/xml.min.js', $plugin_path));
     wp_enqueue_script('codemirror-mode-htmlmixed', plugins_url('lib/codemirror/mode/htmlmixed.min.js', $plugin_path));
     wp_enqueue_script('codemirror-mode-js', plugins_url('lib/codemirror/mode/javascript.min.js', $plugin_path));
-    wp_enqueue_script('fixedsticky-js', plugins_url('lib/fixed-sticky/fixedsticky.min.js', $plugin_path), array('jquery'), '', true);
     wp_enqueue_script('handsontable-js', plugins_url('lib/handsontable/handsontable.full.min.js', $plugin_path), array(), '', true);
     wp_enqueue_script('snowball-js', plugins_url('scripts/min/snowball-admin.min.js', $plugin_path), array('jquery', 'jquery-ui-sortable', 'wp-color-picker'), '', true);
     wp_enqueue_script('snowball-admins-js', plugins_url('scripts/min/admins.min.js', $plugin_path), array('snowball-js'), '', true);
