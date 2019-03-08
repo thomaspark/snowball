@@ -42,10 +42,6 @@
       });
     }, 250));
 
-    $("#snowball-toolbar")
-      .css("width", $("#snowball-toolbar").parent().width())
-      .fixedsticky();
-
     $("#snowball-toolbar .block-button").on("click", function() {
       var type = $(this).data("type");
       addBlock(type);
@@ -227,15 +223,7 @@
     $(window)
       .resize(debounce(function() {
         zoomPreview();
-        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
       }, 250))
-      .resize(function() {
-        var fixedsticky = $(".fixedsticky");
-        fixedsticky.css("width", fixedsticky.parent().width());
-      })
-      .on("load", function() {
-        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
-      })
       .on("beforeunload", function(e) {
         logger();
 
@@ -245,21 +233,7 @@
       });
 
     $("#collapse-menu").click(function() {
-      var fixedsticky = $(".fixedsticky");
-      fixedsticky.css("width", fixedsticky.parent().width());
       zoomPreview();
-    });
-
-    $(".hndle, #adv-settings input, .columns-prefs input").on("click", function() {
-      var fixedsticky = $(".fixedsticky");
-      fixedsticky.css("width", fixedsticky.parent().width());
-      fixedsticky.fixedsticky("destroy").fixedsticky();
-    });
-
-    $("#show-settings-link").on("click", function() {
-      setTimeout(function() {
-        $(".fixedsticky").fixedsticky("destroy").fixedsticky();
-      }, 200);
     });
   }
 
