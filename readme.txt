@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat
+Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat, scienceinpython
 Tags: snowball, journalism, news, blog, article, longform, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor, computing education
 Requires at least: 3.0.1
 Tested up to: 5.1
