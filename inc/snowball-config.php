@@ -180,7 +180,7 @@ function snowball_add_to_query($query) {
     $query->set('post_type', $post_types);
   }
 
-  if(is_category() || is_tag() && empty($query->query_vars['suppress_filters'])) {
+  if(is_category() || is_tag() || is_author() && empty($query->query_vars['suppress_filters'])) {
     $post_types = $query->get('post_type'); 
 
     if(!is_array($post_types) && !empty($post_types)) {
