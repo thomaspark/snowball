@@ -225,8 +225,6 @@
         zoomPreview();
       }, 250))
       .on("beforeunload", function(e) {
-        logger();
-
         if (changesMade) {
           return "You may have unsaved changes.";
         }
@@ -654,68 +652,6 @@
   function unsavedChanges() {
     changesMade = true;
     $("#snowball-toolbar .settings .draft, #snowball-toolbar .settings .save").addClass("unsaved");
-  }
-
-  function logger() {
-    var article = [];
-    var html = [];
-    var css = [];
-    var head;
-    var headEditor = $(".settings-dropdown .CodeMirror");
-
-    if (headEditor.length > 0) {
-      head = headEditor[0].CodeMirror.getValue();
-    } else {
-      head = $("#snowball-custom-code").val();
-    }
-
-    $(".snowball-block").each(function() {
-      var block = $(this);
-      var type = block.data("type");
-      var cssEditor = block.find(".snowball-css .CodeMirror");
-      var cssCode;
-
-      article.push(type);
-
-      if (cssEditor.length > 0) {
-        cssCode = retrieveNonReadOnlyText(cssEditor[0].CodeMirror);
-      } else {
-        cssCode = block.find(".snowball-editor-box").val();
-      }
-
-      css.push({
-        "type": type,
-        "code": cssCode
-      });
-
-      if (type === "html") {
-        var code = block.find(".snowball-tinker .CodeMirror")[0].CodeMirror.getValue();
-        html.push(code);
-      }
-    });
-
-    var xhr = new XMLHttpRequest();
-    var dataLogger = 'http://129.25.8.18:3030/tasks';
-
-    xhr.open('POST', dataLogger, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-      'blogname': snowball.blogname,
-      'blogurl':  snowball.blogurl,
-      'url':      snowball.url,
-      'postid':   snowball.id,
-      'status':   snowball.status,
-      'author':   snowball.authorLogin,
-      'user':     snowball.userLogin,
-      'article':  article,
-      'size':     article.length,
-      'actions':  actions,
-      'head':     head,
-      'css':      css,
-      'html':     html
-    }));
-
-    actions = [];
   }
 
 })(jQuery);
