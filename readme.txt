@@ -2,8 +2,8 @@
 Contributors: thomaspark, sukrit.chhabra, brianleedev, andiiicat, scienceinpython
 Tags: snowball, journalism, news, blog, article, longform, modern, immersive, parallax, data, visualization, graphs, charts, modules, custom, code editor, computing education
 Requires at least: 3.0.1
-Tested up to: 5.2.1
-Stable tag: 0.4.19
+Tested up to: 5.2.2
+Stable tag: 0.4.20
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,9 @@ Snowball is developed and maintained by the [openHTML research team](http://open
 5. Open Snowball's code editor to inspect a block and customize it with your own CSS.
 
 == Changelog ==
+
+= 0.4.20 =
+* Remove data logger
 
 = 0.4.19 =
 * Include Snowball articles in author archives

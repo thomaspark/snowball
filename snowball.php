@@ -4,7 +4,7 @@
  * Plugin Name: Snowball
  * Plugin URI: https://snowball.openhtml.org
  * Description: A block-based editor for authoring modern, immersive longform web articles
- * Version: 0.4.19
+ * Version: 0.4.20
  * Author: openHTML
  * Author URI: http://openhtml.org
  * License: GPLv2
