@@ -82,12 +82,6 @@ Yes, administrators can create custom modules, which are a bundle of HTML and Ja
 
 Snowball is developed and maintained by the [openHTML research team](http://openhtml.org) at Drexel University.
 
-= How is Snowball used for research? =
-
-The openHTML team collects usage metadata to understand how people are using Snowball, including the types of modules that are used, the number of modules used, which modules the code editor is activated for, and site and author metadata. No content or personally identifiable information is collected.
-
-This research has been approved by the Institutional Review Board of Drexel University's Office of Research.
-
 == Screenshots ==
 
 1. Create modern, immersive articles using Snowball plugin.
