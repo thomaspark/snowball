@@ -15,7 +15,7 @@
   "homepage": "https://snowball.openhtml.org",
   "devDependencies": {
     "browser-sync": "^2.7.13",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^3.0.1",
     "gulp-concat-util": "^0.5.2",
     "gulp-minify-css": "^1.2.0",
